@@ -12368,7 +12368,7 @@ exports[`Storyshots Views / Categories / Category list default 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add category 
+              Add category
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -12433,7 +12433,7 @@ exports[`Storyshots Views / Categories / Category list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. Products
             </th>
           </tr>
         </thead>
@@ -12795,7 +12795,7 @@ exports[`Storyshots Views / Categories / Category list empty 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add category 
+              Add category
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -12844,7 +12844,7 @@ exports[`Storyshots Views / Categories / Category list empty 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. Products
             </th>
           </tr>
         </thead>
@@ -13012,7 +13012,7 @@ exports[`Storyshots Views / Categories / Category list loading 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add category 
+              Add category
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -13077,7 +13077,7 @@ exports[`Storyshots Views / Categories / Category list loading 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. Products
             </th>
           </tr>
         </thead>
@@ -13266,7 +13266,7 @@ exports[`Storyshots Views / Categories / Create category When loading 1`] = `
         <h5
           class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
         >
-          Add Category
+          Create New Category
         </h5>
         <div
           class="ExtendedPageHeader-action-id"
@@ -13286,7 +13286,7 @@ exports[`Storyshots Views / Categories / Create category When loading 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              General information
+              General Informations
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -13698,7 +13698,7 @@ Ctrl + K"
             <p
               class="MuiTypography-root-id MuiTypography-body2-id"
             >
-              Add search engine title and description to make this product easier to find
+              Add search engine title and description to make this category easier to find
             </p>
           </div>
         </div>
@@ -13722,7 +13722,7 @@ exports[`Storyshots Views / Categories / Create category default 1`] = `
         <h5
           class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
         >
-          Add Category
+          Create New Category
         </h5>
         <div
           class="ExtendedPageHeader-action-id"
@@ -13742,7 +13742,7 @@ exports[`Storyshots Views / Categories / Create category default 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              General information
+              General Informations
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -14153,7 +14153,7 @@ Ctrl + K"
             <p
               class="MuiTypography-root-id MuiTypography-body2-id"
             >
-              Add search engine title and description to make this product easier to find
+              Add search engine title and description to make this category easier to find
             </p>
           </div>
         </div>
@@ -14196,7 +14196,7 @@ exports[`Storyshots Views / Categories / Update category default 1`] = `
           <span
             class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
           >
-            General information
+            General Informations
           </span>
           <div
             class="CardTitle-toolbar-id"
@@ -14798,7 +14798,7 @@ Ctrl + K"
               </span>
             </button>
             <input
-              class="CategoryBackgroundComponent-fileField-id"
+              class="Hook-fileField-id"
               id="fileUpload"
               type="file"
             />
@@ -15050,7 +15050,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. Products
               </th>
             </tr>
           </thead>
@@ -15187,7 +15187,7 @@ exports[`Storyshots Views / Categories / Update category loading 1`] = `
           <span
             class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
           >
-            General information
+            General Informations
           </span>
           <div
             class="CardTitle-toolbar-id"
@@ -15586,7 +15586,7 @@ Ctrl + K"
               </span>
             </button>
             <input
-              class="CategoryBackgroundComponent-fileField-id"
+              class="Hook-fileField-id"
               id="fileUpload"
               type="file"
             />
@@ -15603,7 +15603,7 @@ Ctrl + K"
         >
           <div>
             <div
-              class="CategoryBackgroundComponent-imageContainer-id"
+              class="Hook-imageContainer-id"
             >
               <span
                 class="Skeleton-skeleton-id"
@@ -15756,7 +15756,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. Products
               </th>
             </tr>
           </thead>
@@ -15928,7 +15928,7 @@ exports[`Storyshots Views / Categories / Update category no background 1`] = `
           <span
             class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
           >
-            General information
+            General Informations
           </span>
           <div
             class="CardTitle-toolbar-id"
@@ -16530,7 +16530,7 @@ Ctrl + K"
               </span>
             </button>
             <input
-              class="CategoryBackgroundComponent-fileField-id"
+              class="Hook-fileField-id"
               id="fileUpload"
               type="file"
             />
@@ -16782,7 +16782,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. Products
               </th>
             </tr>
           </thead>
@@ -16914,7 +16914,7 @@ exports[`Storyshots Views / Categories / Update category no products 1`] = `
           <span
             class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
           >
-            General information
+            General Informations
           </span>
           <div
             class="CardTitle-toolbar-id"
@@ -17516,7 +17516,7 @@ Ctrl + K"
               </span>
             </button>
             <input
-              class="CategoryBackgroundComponent-fileField-id"
+              class="Hook-fileField-id"
               id="fileUpload"
               type="file"
             />
@@ -17929,7 +17929,7 @@ exports[`Storyshots Views / Categories / Update category no subcategories 1`] = 
           <span
             class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
           >
-            General information
+            General Informations
           </span>
           <div
             class="CardTitle-toolbar-id"
@@ -18531,7 +18531,7 @@ Ctrl + K"
               </span>
             </button>
             <input
-              class="CategoryBackgroundComponent-fileField-id"
+              class="Hook-fileField-id"
               id="fileUpload"
               type="file"
             />
@@ -18783,7 +18783,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. Products
               </th>
             </tr>
           </thead>
@@ -18915,7 +18915,7 @@ exports[`Storyshots Views / Categories / Update category products 1`] = `
           <span
             class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
           >
-            General information
+            General Informations
           </span>
           <div
             class="CardTitle-toolbar-id"
@@ -19517,7 +19517,7 @@ Ctrl + K"
               </span>
             </button>
             <input
-              class="CategoryBackgroundComponent-fileField-id"
+              class="Hook-fileField-id"
               id="fileUpload"
               type="file"
             />
