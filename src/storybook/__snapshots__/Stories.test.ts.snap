@@ -76,7 +76,7 @@ exports[`Storyshots Generics / AddressEdit default 1`] = `
               class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
               data-shrink="true"
             >
-              First name
+              First Name
             </label>
             <div
               class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -113,7 +113,7 @@ exports[`Storyshots Generics / AddressEdit default 1`] = `
               class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
               data-shrink="true"
             >
-              Last name
+              Last Name
             </label>
             <div
               class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -5270,9 +5270,7 @@ exports[`Storyshots Generics / Timeline with order notes 1`] = `
           <p
             class="MuiTypography-root-id MuiTypography-body2-id TimelineNote-content-id"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            <br />
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
           </p>
         </div>
       </div>
@@ -5332,9 +5330,7 @@ exports[`Storyshots Generics / Timeline with order notes 1`] = `
           <p
             class="MuiTypography-root-id MuiTypography-body2-id TimelineNote-content-id"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            <br />
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
           </p>
         </div>
       </div>
@@ -12433,7 +12429,7 @@ exports[`Storyshots Views / Categories / Category list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. of Products
             </th>
           </tr>
         </thead>
@@ -12844,7 +12840,7 @@ exports[`Storyshots Views / Categories / Category list empty 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. of Products
             </th>
           </tr>
         </thead>
@@ -13077,7 +13073,7 @@ exports[`Storyshots Views / Categories / Category list loading 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. of Products
             </th>
           </tr>
         </thead>
@@ -13309,7 +13305,7 @@ exports[`Storyshots Views / Categories / Create category When loading 1`] = `
                   class="MuiFormLabel-root-id MuiFormLabel-disabled-id MuiInputLabel-disabled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                   data-shrink="false"
                 >
-                  Name
+                  Category Name
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-disabled-id MuiOutlinedInput-disabled-id MuiInputBase-formControl-id"
@@ -13351,7 +13347,7 @@ exports[`Storyshots Views / Categories / Create category When loading 1`] = `
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
                 >
-                  Description
+                  Category Description
                 </span>
                 <div
                   class="Draftail-Editor"
@@ -13765,7 +13761,7 @@ exports[`Storyshots Views / Categories / Create category default 1`] = `
                   class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                   data-shrink="false"
                 >
-                  Name
+                  Category Name
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-formControl-id"
@@ -13806,7 +13802,7 @@ exports[`Storyshots Views / Categories / Create category default 1`] = `
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
                 >
-                  Description
+                  Category Description
                 </span>
                 <div
                   class="Draftail-Editor"
@@ -14219,7 +14215,7 @@ exports[`Storyshots Views / Categories / Update category default 1`] = `
                 class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                 data-shrink="true"
               >
-                Name
+                Category Name
               </label>
               <div
                 class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-formControl-id"
@@ -14260,7 +14256,7 @@ exports[`Storyshots Views / Categories / Update category default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
               >
-                Description
+                Category Description
               </span>
               <div
                 class="Draftail-Editor Draftail-Editor--hide-placeholder"
@@ -14921,7 +14917,7 @@ Ctrl + K"
             <p
               class="MuiFormHelperText-root-id MuiFormHelperText-contained-id MuiFormHelperText-filled-id"
             >
-              Optional
+              (Optional)
             </p>
           </div>
         </div>
@@ -15050,7 +15046,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. of Products
               </th>
             </tr>
           </thead>
@@ -15210,7 +15206,7 @@ exports[`Storyshots Views / Categories / Update category loading 1`] = `
                 class="MuiFormLabel-root-id MuiFormLabel-disabled-id MuiInputLabel-disabled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                 data-shrink="false"
               >
-                Name
+                Category Name
               </label>
               <div
                 class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-disabled-id MuiOutlinedInput-disabled-id MuiInputBase-formControl-id"
@@ -15252,7 +15248,7 @@ exports[`Storyshots Views / Categories / Update category loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
               >
-                Description
+                Category Description
               </span>
               <div
                 class="Draftail-Editor"
@@ -15756,7 +15752,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. of Products
               </th>
             </tr>
           </thead>
@@ -15951,7 +15947,7 @@ exports[`Storyshots Views / Categories / Update category no background 1`] = `
                 class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                 data-shrink="true"
               >
-                Name
+                Category Name
               </label>
               <div
                 class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-formControl-id"
@@ -15992,7 +15988,7 @@ exports[`Storyshots Views / Categories / Update category no background 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
               >
-                Description
+                Category Description
               </span>
               <div
                 class="Draftail-Editor Draftail-Editor--hide-placeholder"
@@ -16653,7 +16649,7 @@ Ctrl + K"
             <p
               class="MuiFormHelperText-root-id MuiFormHelperText-contained-id MuiFormHelperText-filled-id"
             >
-              Optional
+              (Optional)
             </p>
           </div>
         </div>
@@ -16782,7 +16778,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. of Products
               </th>
             </tr>
           </thead>
@@ -16937,7 +16933,7 @@ exports[`Storyshots Views / Categories / Update category no products 1`] = `
                 class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                 data-shrink="true"
               >
-                Name
+                Category Name
               </label>
               <div
                 class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-formControl-id"
@@ -16978,7 +16974,7 @@ exports[`Storyshots Views / Categories / Update category no products 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
               >
-                Description
+                Category Description
               </span>
               <div
                 class="Draftail-Editor Draftail-Editor--hide-placeholder"
@@ -17639,7 +17635,7 @@ Ctrl + K"
             <p
               class="MuiFormHelperText-root-id MuiFormHelperText-contained-id MuiFormHelperText-filled-id"
             >
-              Optional
+              (Optional)
             </p>
           </div>
         </div>
@@ -17952,7 +17948,7 @@ exports[`Storyshots Views / Categories / Update category no subcategories 1`] = 
                 class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                 data-shrink="true"
               >
-                Name
+                Category Name
               </label>
               <div
                 class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-formControl-id"
@@ -17993,7 +17989,7 @@ exports[`Storyshots Views / Categories / Update category no subcategories 1`] = 
               <span
                 class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
               >
-                Description
+                Category Description
               </span>
               <div
                 class="Draftail-Editor Draftail-Editor--hide-placeholder"
@@ -18654,7 +18650,7 @@ Ctrl + K"
             <p
               class="MuiFormHelperText-root-id MuiFormHelperText-contained-id MuiFormHelperText-filled-id"
             >
-              Optional
+              (Optional)
             </p>
           </div>
         </div>
@@ -18783,7 +18779,7 @@ Ctrl + K"
                 class="MuiTableCell-root-id MuiTableCell-head-id CategoryList-colProducts-id"
                 scope="col"
               >
-                No. Products
+                No. of Products
               </th>
             </tr>
           </thead>
@@ -18938,7 +18934,7 @@ exports[`Storyshots Views / Categories / Update category products 1`] = `
                 class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                 data-shrink="true"
               >
-                Name
+                Category Name
               </label>
               <div
                 class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-formControl-id"
@@ -18979,7 +18975,7 @@ exports[`Storyshots Views / Categories / Update category products 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-caption-id MuiTypography-colorPrimary-id RichTextEditor-label-id"
               >
-                Description
+                Category Description
               </span>
               <div
                 class="Draftail-Editor Draftail-Editor--hide-placeholder"
@@ -19640,7 +19636,7 @@ Ctrl + K"
             <p
               class="MuiFormHelperText-root-id MuiFormHelperText-contained-id MuiFormHelperText-filled-id"
             >
-              Optional
+              (Optional)
             </p>
           </div>
         </div>
@@ -20530,7 +20526,7 @@ exports[`Storyshots Views / Collections / Collection details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -21130,7 +21126,7 @@ Ctrl + K"
                   </span>
                 </button>
                 <input
-                  class="CollectionImageComponent-fileField-id"
+                  class="Component-fileField-id"
                   id="fileUpload"
                   type="file"
                 />
@@ -21253,7 +21249,7 @@ Ctrl + K"
                 <p
                   class="MuiFormHelperText-root-id MuiFormHelperText-contained-id MuiFormHelperText-filled-id"
                 >
-                  Optional
+                  (Optional)
                 </p>
               </div>
             </div>
@@ -21974,7 +21970,7 @@ exports[`Storyshots Views / Collections / Collection details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -22371,7 +22367,7 @@ Ctrl + K"
                   </span>
                 </button>
                 <input
-                  class="CollectionImageComponent-fileField-id"
+                  class="Component-fileField-id"
                   id="fileUpload"
                   type="file"
                 />
@@ -22388,7 +22384,7 @@ Ctrl + K"
             >
               <div>
                 <div
-                  class="CollectionImageComponent-imageContainer-id"
+                  class="Component-imageContainer-id"
                 >
                   <span
                     class="Skeleton-skeleton-id"
@@ -22927,7 +22923,7 @@ exports[`Storyshots Views / Collections / Collection details no products 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -23528,7 +23524,7 @@ Ctrl + K"
                   </span>
                 </button>
                 <input
-                  class="CollectionImageComponent-fileField-id"
+                  class="Component-fileField-id"
                   id="fileUpload"
                   type="file"
                 />
@@ -23651,7 +23647,7 @@ Ctrl + K"
                 <p
                   class="MuiFormHelperText-root-id MuiFormHelperText-contained-id MuiFormHelperText-filled-id"
                 >
-                  Optional
+                  (Optional)
                 </p>
               </div>
             </div>
@@ -24088,7 +24084,7 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CollectionList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. of Products
             </th>
             <th
               class="MuiTableCell-root-id MuiTableCell-head-id CollectionList-colAvailability-id"
@@ -24542,7 +24538,7 @@ exports[`Storyshots Views / Collections / Collection list loading 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CollectionList-colProducts-id"
               scope="col"
             >
-              No. Products
+              No. of Products
             </th>
             <th
               class="MuiTableCell-root-id MuiTableCell-head-id CollectionList-colAvailability-id"
@@ -24763,7 +24759,7 @@ exports[`Storyshots Views / Collections / Create collection default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -25159,7 +25155,7 @@ Ctrl + K"
                   </span>
                 </button>
                 <input
-                  class="CollectionImageComponent-fileField-id"
+                  class="Component-fileField-id"
                   id="fileUpload"
                   type="file"
                 />
@@ -25449,7 +25445,7 @@ exports[`Storyshots Views / Collections / Create collection loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -25846,7 +25842,7 @@ Ctrl + K"
                   </span>
                 </button>
                 <input
-                  class="CollectionImageComponent-fileField-id"
+                  class="Component-fileField-id"
                   id="fileUpload"
                   type="file"
                 />
@@ -26347,7 +26343,7 @@ exports[`Storyshots Views / Configuration default 1`] = `
             <p
               class="MuiTypography-root-id MuiTypography-body2-id ConfigurationPage-sectionDescription-id"
             >
-              Manage how you ship out orders.
+              Manage how you ship out orders
             </p>
           </div>
         </div>
@@ -26949,7 +26945,7 @@ exports[`Storyshots Views / Customers / Address Book default 1`] = `
       <h5
         class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
       >
-        Tom Cooper Address Book
+        Tom Cooper's Address Book
       </h5>
       <div
         class="ExtendedPageHeader-action-id"
@@ -27100,7 +27096,7 @@ exports[`Storyshots Views / Customers / Address Book default 1`] = `
               <span
                 class="MuiButton-label-id"
               >
-                Delete
+                Remove
               </span>
             </button>
           </div>
@@ -27214,7 +27210,7 @@ exports[`Storyshots Views / Customers / Address Book default 1`] = `
               <span
                 class="MuiButton-label-id"
               >
-                Delete
+                Remove
               </span>
             </button>
           </div>
@@ -27238,12 +27234,7 @@ exports[`Storyshots Views / Customers / Address Book loading 1`] = `
       <h5
         class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
       >
-        <span
-          class="Skeleton-skeleton-id"
-          style="width:10em"
-        >
-          ‌
-        </span>
+        ...'s Address Book
       </h5>
       <div
         class="ExtendedPageHeader-action-id"
@@ -27375,7 +27366,7 @@ exports[`Storyshots Views / Customers / Address Book loading 1`] = `
               <span
                 class="MuiButton-label-id"
               >
-                Delete
+                Remove
               </span>
             </button>
           </div>
@@ -27569,7 +27560,7 @@ exports[`Storyshots Views / Customers / Create customer default 1`] = `
                     class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                     data-shrink="false"
                   >
-                    Email address
+                    E-mail Address
                   </label>
                   <div
                     class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -27646,7 +27637,7 @@ exports[`Storyshots Views / Customers / Create customer default 1`] = `
                       class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                       data-shrink="false"
                     >
-                      First name
+                      First Name
                     </label>
                     <div
                       class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -27683,7 +27674,7 @@ exports[`Storyshots Views / Customers / Create customer default 1`] = `
                       class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                       data-shrink="false"
                     >
-                      Last name
+                      Last Name
                     </label>
                     <div
                       class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -28287,7 +28278,7 @@ exports[`Storyshots Views / Customers / Create customer form errors 1`] = `
                     class="MuiFormLabel-root-id MuiFormLabel-error-id MuiInputLabel-error-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                     data-shrink="false"
                   >
-                    Email address
+                    E-mail Address
                   </label>
                   <div
                     class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-error-id MuiOutlinedInput-error-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -28369,7 +28360,7 @@ exports[`Storyshots Views / Customers / Create customer form errors 1`] = `
                       class="MuiFormLabel-root-id MuiFormLabel-error-id MuiInputLabel-error-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                       data-shrink="false"
                     >
-                      First name
+                      First Name
                     </label>
                     <div
                       class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-error-id MuiOutlinedInput-error-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -28411,7 +28402,7 @@ exports[`Storyshots Views / Customers / Create customer form errors 1`] = `
                       class="MuiFormLabel-root-id MuiFormLabel-error-id MuiInputLabel-error-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                       data-shrink="false"
                     >
-                      Last name
+                      Last Name
                     </label>
                     <div
                       class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-error-id MuiOutlinedInput-error-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -29067,7 +29058,7 @@ exports[`Storyshots Views / Customers / Create customer loading 1`] = `
                     class="MuiFormLabel-root-id MuiFormLabel-disabled-id MuiInputLabel-disabled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                     data-shrink="false"
                   >
-                    Email address
+                    E-mail Address
                   </label>
                   <div
                     class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-disabled-id MuiOutlinedInput-disabled-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -29145,7 +29136,7 @@ exports[`Storyshots Views / Customers / Create customer loading 1`] = `
                       class="MuiFormLabel-root-id MuiFormLabel-disabled-id MuiInputLabel-disabled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                       data-shrink="false"
                     >
-                      First name
+                      First Name
                     </label>
                     <div
                       class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-disabled-id MuiOutlinedInput-disabled-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -29183,7 +29174,7 @@ exports[`Storyshots Views / Customers / Create customer loading 1`] = `
                       class="MuiFormLabel-root-id MuiFormLabel-disabled-id MuiInputLabel-disabled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                       data-shrink="false"
                     >
-                      Last name
+                      Last Name
                     </label>
                     <div
                       class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-disabled-id MuiOutlinedInput-disabled-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -29702,7 +29693,7 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -29830,7 +29821,7 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
                   class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -30209,7 +30200,7 @@ exports[`Storyshots Views / Customers / Customer details different addresses 1`]
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -30337,7 +30328,7 @@ exports[`Storyshots Views / Customers / Customer details different addresses 1`]
                   class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -30753,7 +30744,7 @@ exports[`Storyshots Views / Customers / Customer details form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -30891,7 +30882,7 @@ exports[`Storyshots Views / Customers / Customer details form errors 1`] = `
                   class="MuiFormLabel-root-id MuiFormLabel-error-id MuiInputLabel-error-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-error-id MuiOutlinedInput-error-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -31280,7 +31271,7 @@ exports[`Storyshots Views / Customers / Customer details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="Skeleton-skeleton-id"
                   style="width:10rem"
@@ -31413,7 +31404,7 @@ exports[`Storyshots Views / Customers / Customer details loading 1`] = `
                   class="MuiFormLabel-root-id MuiFormLabel-disabled-id MuiInputLabel-disabled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                   data-shrink="false"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-disabled-id MuiOutlinedInput-disabled-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -31769,7 +31760,7 @@ exports[`Storyshots Views / Customers / Customer details never logged 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -31897,7 +31888,7 @@ exports[`Storyshots Views / Customers / Customer details never logged 1`] = `
                   class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -32270,7 +32261,7 @@ exports[`Storyshots Views / Customers / Customer details never placed order 1`] 
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -32398,7 +32389,7 @@ exports[`Storyshots Views / Customers / Customer details never placed order 1`] 
                   class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -32771,7 +32762,7 @@ exports[`Storyshots Views / Customers / Customer details no address at all 1`] =
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -32899,7 +32890,7 @@ exports[`Storyshots Views / Customers / Customer details no address at all 1`] =
                   class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -33253,7 +33244,7 @@ exports[`Storyshots Views / Customers / Customer details no default billing addr
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -33381,7 +33372,7 @@ exports[`Storyshots Views / Customers / Customer details no default billing addr
                   class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -33760,7 +33751,7 @@ exports[`Storyshots Views / Customers / Customer details no default shipping add
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
                 <span
                   class="MuiTypography-root-id MuiTypography-caption-id"
                 >
@@ -33888,7 +33879,7 @@ exports[`Storyshots Views / Customers / Customer details no default shipping add
                   class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                   data-shrink="true"
                 >
-                  E-mail
+                  E-mail Address
                 </label>
                 <div
                   class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -34259,7 +34250,7 @@ exports[`Storyshots Views / Customers / Customer list default 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add customer 
+              Add customer
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -34318,13 +34309,13 @@ exports[`Storyshots Views / Customers / Customer list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CustomerList-colEmail-id"
               scope="col"
             >
-              Customer e-mail
+              Customer Email
             </th>
             <th
               class="MuiTableCell-root-id MuiTableCell-head-id CustomerList-colOrders-id"
               scope="col"
             >
-              Orders
+              No. of Orders
             </th>
           </tr>
         </thead>
@@ -35299,7 +35290,7 @@ exports[`Storyshots Views / Customers / Customer list loading 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add customer 
+              Add customer
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -35360,13 +35351,13 @@ exports[`Storyshots Views / Customers / Customer list loading 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CustomerList-colEmail-id"
               scope="col"
             >
-              Customer e-mail
+              Customer Email
             </th>
             <th
               class="MuiTableCell-root-id MuiTableCell-head-id CustomerList-colOrders-id"
               scope="col"
             >
-              Orders
+              No. of Orders
             </th>
           </tr>
         </thead>
@@ -35567,7 +35558,7 @@ exports[`Storyshots Views / Customers / Customer list no data 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add customer 
+              Add customer
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -35610,13 +35601,13 @@ exports[`Storyshots Views / Customers / Customer list no data 1`] = `
               class="MuiTableCell-root-id MuiTableCell-head-id CustomerList-colEmail-id"
               scope="col"
             >
-              Customer e-mail
+              Customer Email
             </th>
             <th
               class="MuiTableCell-root-id MuiTableCell-head-id CustomerList-colOrders-id"
               scope="col"
             >
-              Orders
+              No. of Orders
             </th>
           </tr>
         </thead>
@@ -35792,7 +35783,7 @@ exports[`Storyshots Views / Discounts / Sale create default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -36059,7 +36050,7 @@ exports[`Storyshots Views / Discounts / Sale create form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -36346,7 +36337,7 @@ exports[`Storyshots Views / Discounts / Sale create loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -36617,7 +36608,7 @@ exports[`Storyshots Views / Discounts / Sale details collections 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -37207,7 +37198,7 @@ exports[`Storyshots Views / Discounts / Sale details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -37797,7 +37788,7 @@ exports[`Storyshots Views / Discounts / Sale details form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -38412,7 +38403,7 @@ exports[`Storyshots Views / Discounts / Sale details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -39036,7 +39027,7 @@ exports[`Storyshots Views / Discounts / Sale details products 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -39349,7 +39340,7 @@ exports[`Storyshots Views / Discounts / Sale details products 1`] = `
                     <span
                       class="DiscountProducts-colNameLabel-id"
                     >
-                      Product name
+                      Product Name
                     </span>
                   </th>
                   <th
@@ -39902,7 +39893,7 @@ exports[`Storyshots Views / Discounts / Sale list default 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add sale
+              Add Sale
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -40356,7 +40347,7 @@ exports[`Storyshots Views / Discounts / Sale list loading 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add sale
+              Add Sale
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -40640,7 +40631,7 @@ exports[`Storyshots Views / Discounts / Sale list no data 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add sale
+              Add Sale
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -40871,7 +40862,7 @@ exports[`Storyshots Views / Discounts / Voucher create default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -41360,7 +41351,7 @@ exports[`Storyshots Views / Discounts / Voucher create default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Usage Limit 
+                Usage Limit
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -41587,7 +41578,7 @@ exports[`Storyshots Views / Discounts / Voucher create form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -42086,7 +42077,7 @@ exports[`Storyshots Views / Discounts / Voucher create form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Usage Limit 
+                Usage Limit
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -42323,7 +42314,7 @@ exports[`Storyshots Views / Discounts / Voucher details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -42932,7 +42923,7 @@ exports[`Storyshots Views / Discounts / Voucher details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Usage Limit 
+                Usage Limit
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -43287,7 +43278,7 @@ exports[`Storyshots Views / Discounts / Voucher details form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -43921,7 +43912,7 @@ exports[`Storyshots Views / Discounts / Voucher details form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Usage Limit 
+                Usage Limit
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -44291,7 +44282,7 @@ exports[`Storyshots Views / Discounts / Voucher details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -44884,7 +44875,7 @@ exports[`Storyshots Views / Discounts / Voucher details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Usage Limit 
+                Usage Limit
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -46364,10 +46355,7 @@ exports[`Storyshots Views / HomePage default 1`] = `
                   <p
                     class="MuiTypography-root-id MuiTypography-body2-id"
                   >
-                    <b>
-                      1 Orders
-                    </b>
-                     are ready to fulfill
+                    One order are ready to fulfill
                   </p>
                 </td>
                 <td
@@ -46525,7 +46513,7 @@ exports[`Storyshots Views / HomePage default 1`] = `
                   <p
                     class="MuiTypography-root-id MuiTypography-body2-id MuiTypography-colorTextSecondary-id"
                   >
-                    1 Orders
+                    One ordered
                   </p>
                 </td>
                 <td
@@ -47295,7 +47283,7 @@ exports[`Storyshots Views / HomePage loading 1`] = `
               class="MuiListItem-root-id MuiListItem-default-id MuiListItem-dense-id MuiListItem-gutters-id"
             >
               <div
-                class="MuiListItemText-root-id MuiListItemText-dense-id HomeProductListCard-loadingProducts-id"
+                class="MuiListItemText-root-id MuiListItemText-dense-id HomeActivityCard-loadingProducts-id"
               >
                 <p
                   class="MuiTypography-root-id MuiTypography-body2-id"
@@ -47489,10 +47477,7 @@ exports[`Storyshots Views / HomePage no data 1`] = `
                   <p
                     class="MuiTypography-root-id MuiTypography-body2-id"
                   >
-                    <b>
-                      1 Orders
-                    </b>
-                     are ready to fulfill
+                    One order are ready to fulfill
                   </p>
                 </td>
                 <td
@@ -47658,7 +47643,7 @@ exports[`Storyshots Views / HomePage no data 1`] = `
             class="MuiList-root-id MuiList-dense-id MuiList-padding-id"
           >
             <li
-              class="MuiListItem-root-id MuiListItem-default-id MuiListItem-dense-id MuiListItem-gutters-id HomeProductListCard-noProducts-id"
+              class="MuiListItem-root-id MuiListItem-default-id MuiListItem-dense-id MuiListItem-gutters-id HomeActivityCard-noProducts-id"
             >
               <div
                 class="MuiListItemText-root-id MuiListItemText-dense-id"
@@ -47711,7 +47696,7 @@ exports[`Storyshots Views / Navigation / Menu details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -48508,7 +48493,7 @@ exports[`Storyshots Views / Navigation / Menu details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -48664,7 +48649,7 @@ exports[`Storyshots Views / Navigation / Menu details no data 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -48825,7 +48810,7 @@ exports[`Storyshots Views / Navigation / Menu list default 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add Menu 
+              Add Menu
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -49159,7 +49144,7 @@ exports[`Storyshots Views / Navigation / Menu list loading 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add Menu 
+              Add Menu
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -49448,7 +49433,7 @@ exports[`Storyshots Views / Navigation / Menu list no data 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add Menu 
+              Add Menu
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -49713,7 +49698,7 @@ exports[`Storyshots Views / Orders / Draft order list default 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Create order 
+              Create order
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -50843,7 +50828,7 @@ exports[`Storyshots Views / Orders / Draft order list loading 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Create order 
+              Create order
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -51132,7 +51117,7 @@ exports[`Storyshots Views / Orders / Draft order list when no data 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Create order 
+              Create order
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -51316,7 +51301,7 @@ exports[`Storyshots Views / Orders / Draft order list when no data 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
               colspan="5"
             >
-              No orders found
+              No draft orders found
             </td>
           </tr>
         </tbody>
@@ -51493,7 +51478,7 @@ exports[`Storyshots Views / Orders / Order details cancelled 1`] = `
               <div
                 class="StatusLabel-root-id undefined StatusLabel-errorDot-id"
               >
-                Cancelled (1)
+                Fulfilled (1)
                 <p
                   class="MuiTypography-root-id MuiTypography-body2-id OrderFulfillment-orderNumber-id"
                 >
@@ -51611,7 +51596,7 @@ exports[`Storyshots Views / Orders / Order details cancelled 1`] = `
               <div
                 class="StatusLabel-root-id undefined StatusLabel-errorDot-id"
               >
-                Cancelled (1)
+                Fulfilled (1)
                 <p
                   class="MuiTypography-root-id MuiTypography-body2-id OrderFulfillment-orderNumber-id"
                 >
@@ -64998,7 +64983,7 @@ exports[`Storyshots Views / Orders / Order draft default 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              Order details
+              Order Details
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -65648,7 +65633,7 @@ exports[`Storyshots Views / Orders / Order draft loading 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              Order details
+              Order Details
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -66075,7 +66060,7 @@ exports[`Storyshots Views / Orders / Order draft without lines 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              Order details
+              Order Details
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -66382,7 +66367,7 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Create order 
+              Create order
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -68005,7 +67990,7 @@ exports[`Storyshots Views / Orders / Order list loading 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Create order 
+              Create order
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -68446,7 +68431,7 @@ exports[`Storyshots Views / Orders / Order list when no data 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Create order 
+              Create order
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -68803,7 +68788,7 @@ exports[`Storyshots Views / Orders / Order list with custom filters 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Create order 
+              Create order
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -70894,7 +70879,7 @@ exports[`Storyshots Views / Pages / Page details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -71732,7 +71717,7 @@ exports[`Storyshots Views / Pages / Page details form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -72585,7 +72570,7 @@ exports[`Storyshots Views / Pages / Page details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -74091,7 +74076,7 @@ exports[`Storyshots Views / Product types / Create product type default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -74324,7 +74309,7 @@ exports[`Storyshots Views / Product types / Create product type form errors 1`] 
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -74567,7 +74552,7 @@ exports[`Storyshots Views / Product types / Create product type loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -74804,7 +74789,7 @@ exports[`Storyshots Views / Product types / Product type details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -75435,7 +75420,7 @@ exports[`Storyshots Views / Product types / Product type details form errors 1`]
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -76076,7 +76061,7 @@ exports[`Storyshots Views / Product types / Product type details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -76534,7 +76519,7 @@ exports[`Storyshots Views / Product types / Product type details no attributes 1
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -76846,7 +76831,7 @@ exports[`Storyshots Views / Product types / Product types list default 1`] = `
       <h5
         class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
       >
-        Product types
+        Product Types
       </h5>
       <div
         class="ExtendedPageHeader-action-id"
@@ -77224,7 +77209,7 @@ exports[`Storyshots Views / Product types / Product types list loading 1`] = `
       <h5
         class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
       >
-        Product types
+        Product Types
       </h5>
       <div
         class="ExtendedPageHeader-action-id"
@@ -77495,7 +77480,7 @@ exports[`Storyshots Views / Products / Create product When loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -78574,7 +78559,7 @@ exports[`Storyshots Views / Products / Create product default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -79642,7 +79627,7 @@ exports[`Storyshots Views / Products / Create product form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -80816,7 +80801,7 @@ exports[`Storyshots Views / Products / Create product variant add first variant 
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -81324,7 +81309,7 @@ exports[`Storyshots Views / Products / Create product variant default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -81819,7 +81804,7 @@ exports[`Storyshots Views / Products / Create product variant when loading data 
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -82271,7 +82256,7 @@ exports[`Storyshots Views / Products / Create product variant with errors 1`] = 
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -82642,7 +82627,7 @@ exports[`Storyshots Views / Products / Product edit when data is fully loaded 1`
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -84354,7 +84339,7 @@ exports[`Storyshots Views / Products / Product edit when loading data 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -85450,7 +85435,7 @@ exports[`Storyshots Views / Products / Product edit when product has no images 1
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -87069,7 +87054,7 @@ exports[`Storyshots Views / Products / Product edit when product has no variants
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -88701,7 +88686,7 @@ exports[`Storyshots Views / Products / Product image details when loaded data 1`
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                All photos
+                All Photos
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -88954,7 +88939,7 @@ exports[`Storyshots Views / Products / Product image details when loading data 1
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                All photos
+                All Photos
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -89160,7 +89145,7 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add product 
+              Add Product
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -90154,7 +90139,7 @@ exports[`Storyshots Views / Products / Product list loading 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add product 
+              Add Product
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -90645,7 +90630,7 @@ exports[`Storyshots Views / Products / Product list no data 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add product 
+              Add Product
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -91043,7 +91028,7 @@ exports[`Storyshots Views / Products / Product list with custom filters 1`] = `
             <span
               class="MuiButton-label-id"
             >
-              Add product 
+              Add Product
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root-id"
@@ -92639,7 +92624,7 @@ exports[`Storyshots Views / Products / Product variant details attribute errors 
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -93320,7 +93305,7 @@ exports[`Storyshots Views / Products / Product variant details when loaded data 
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -93927,7 +93912,7 @@ exports[`Storyshots Views / Products / Product variant details when loading data
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -94272,7 +94257,7 @@ exports[`Storyshots Views / Shipping / Create shipping zone default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -94455,7 +94440,7 @@ exports[`Storyshots Views / Shipping / Create shipping zone form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -94643,7 +94628,7 @@ exports[`Storyshots Views / Shipping / Shipping zone details default 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -95292,7 +95277,7 @@ exports[`Storyshots Views / Shipping / Shipping zone details form errors 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -95951,7 +95936,7 @@ exports[`Storyshots Views / Shipping / Shipping zone details loading 1`] = `
               <span
                 class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
               >
-                General Information
+                General Informations
               </span>
               <div
                 class="CardTitle-toolbar-id"
@@ -97787,7 +97772,7 @@ exports[`Storyshots Views / Site settings / Page default 1`] = `
         <h5
           class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
         >
-          General Information
+          General Informations
         </h5>
         <div
           class="ExtendedPageHeader-action-id"
@@ -97814,7 +97799,7 @@ exports[`Storyshots Views / Site settings / Page default 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              General Information
+              General Informations
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -98442,7 +98427,7 @@ exports[`Storyshots Views / Site settings / Page form errors 1`] = `
         <h5
           class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
         >
-          General Information
+          General Informations
         </h5>
         <div
           class="ExtendedPageHeader-action-id"
@@ -98469,7 +98454,7 @@ exports[`Storyshots Views / Site settings / Page form errors 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              General Information
+              General Informations
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -99102,7 +99087,7 @@ exports[`Storyshots Views / Site settings / Page loading 1`] = `
         <h5
           class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
         >
-          General Information
+          General Informations
         </h5>
         <div
           class="ExtendedPageHeader-action-id"
@@ -99129,7 +99114,7 @@ exports[`Storyshots Views / Site settings / Page loading 1`] = `
             <span
               class="MuiTypography-root-id MuiTypography-h5-id CardTitle-title-id"
             >
-              General Information
+              General Informations
             </span>
             <div
               class="CardTitle-toolbar-id"
@@ -99922,7 +99907,7 @@ exports[`Storyshots Views / Staff / Staff member details default 1`] = `
                           class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                           data-shrink="true"
                         >
-                          E-mail
+                          E-mail Address
                         </label>
                         <div
                           class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -100255,7 +100240,7 @@ exports[`Storyshots Views / Staff / Staff member details himself 1`] = `
                           class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                           data-shrink="true"
                         >
-                          E-mail
+                          E-mail Address
                         </label>
                         <div
                           class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -100461,7 +100446,7 @@ exports[`Storyshots Views / Staff / Staff member details loading 1`] = `
                           class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-outlined-id"
                           data-shrink="false"
                         >
-                          E-mail
+                          E-mail Address
                         </label>
                         <div
                           class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -101033,7 +101018,7 @@ exports[`Storyshots Views / Staff / Staff member details not admin 1`] = `
                           class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id MuiInputLabel-outlined-id"
                           data-shrink="true"
                         >
-                          E-mail
+                          E-mail Address
                         </label>
                         <div
                           class="MuiInputBase-root-id MuiOutlinedInput-root-id MuiInputBase-fullWidth-id MuiInputBase-formControl-id"
@@ -101437,7 +101422,7 @@ exports[`Storyshots Views / Staff / Staff members default 1`] = `
       <h5
         class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
       >
-        Staff members
+        Staff Members
       </h5>
       <div
         class="ExtendedPageHeader-action-id"
@@ -102010,7 +101995,7 @@ exports[`Storyshots Views / Staff / Staff members when loading 1`] = `
       <h5
         class="MuiTypography-root-id MuiTypography-h5-id Component-title-id"
       >
-        Staff members
+        Staff Members
       </h5>
       <div
         class="ExtendedPageHeader-action-id"
