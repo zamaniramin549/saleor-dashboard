@@ -4,7 +4,6 @@ import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import { sectionNames } from "@saleor/intl";
 import { useIntl } from "react-intl";
-import { asSortParams } from "@saleor/utils/sort";
 import { WindowTitle } from "../components/WindowTitle";
 import {
   attributeAddPath,
@@ -12,8 +11,7 @@ import {
   attributeListPath,
   AttributeListUrlQueryParams,
   attributePath,
-  AttributeUrlQueryParams,
-  AttributeListUrlSortField
+  AttributeUrlQueryParams
 } from "./urls";
 import AttributeCreateComponent from "./views/AttributeCreate";
 import AttributeDetailsComponent from "./views/AttributeDetails";
@@ -21,11 +19,7 @@ import AttributeListComponent from "./views/AttributeList";
 
 const AttributeList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
   const qs = parseQs(location.search.substr(1));
-  const params: AttributeListUrlQueryParams = asSortParams(
-    qs,
-    AttributeListUrlSortField
-  );
-
+  const params: AttributeListUrlQueryParams = qs;
   return <AttributeListComponent params={params} />;
 };
 

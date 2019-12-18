@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 
-import makeQuery from "@saleor/hooks/makeQuery";
 import { fragmentAddress } from "../orders/queries";
 import { TypedQuery } from "../queries";
 import {
@@ -66,7 +65,6 @@ const customerList = gql`
     $first: Int
     $last: Int
     $filter: CustomerFilterInput
-    $sort: UserSortingInput
   ) {
     customers(
       after: $after
@@ -74,7 +72,6 @@ const customerList = gql`
       first: $first
       last: $last
       filter: $filter
-      sortBy: $sort
     ) {
       edges {
         node {
@@ -93,7 +90,7 @@ const customerList = gql`
     }
   }
 `;
-export const useCustomerListQuery = makeQuery<
+export const TypedCustomerListQuery = TypedQuery<
   ListCustomers,
   ListCustomersVariables
 >(customerList);

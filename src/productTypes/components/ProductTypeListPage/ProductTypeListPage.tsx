@@ -8,13 +8,11 @@ import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import SearchBar from "@saleor/components/SearchBar";
 import { sectionNames } from "@saleor/intl";
-import { ProductTypeListUrlSortField } from "@saleor/productTypes/urls";
 import {
   ListActions,
   PageListProps,
   SearchPageProps,
-  TabPageProps,
-  SortPage
+  TabPageProps
 } from "../../../types";
 import { ProductTypeList_productTypes_edges_node } from "../../types/ProductTypeList";
 import ProductTypeList from "../ProductTypeList";
@@ -23,7 +21,6 @@ export interface ProductTypeListPageProps
   extends PageListProps,
     ListActions,
     SearchPageProps,
-    SortPage<ProductTypeListUrlSortField>,
     TabPageProps {
   productTypes: ProductTypeList_productTypes_edges_node[];
   onBack: () => void;

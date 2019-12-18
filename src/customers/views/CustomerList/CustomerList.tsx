@@ -19,11 +19,9 @@ import usePaginator, {
 import { commonMessages } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
 import { ListViews } from "@saleor/types";
-import { getSortParams } from "@saleor/utils/sort";
-import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import CustomerListPage from "../../components/CustomerListPage";
 import { TypedBulkRemoveCustomers } from "../../mutations";
-import { useCustomerListQuery } from "../../queries";
+import { TypedCustomerListQuery } from "../../queries";
 import { BulkRemoveCustomers } from "../../types/BulkRemoveCustomers";
 import {
   customerAddUrl,
@@ -41,7 +39,6 @@ import {
   getFilterVariables,
   saveFilterTab
 } from "./filter";
-import { getSortQueryVariables } from "./sort";
 
 interface CustomerListProps {
   params: CustomerListUrlQueryParams;
@@ -58,20 +55,6 @@ export const CustomerList: React.FC<CustomerListProps> = ({ params }) => {
     ListViews.CUSTOMER_LIST
   );
   const intl = useIntl();
-
-  const paginationState = createPaginationState(settings.rowNumber, params);
-  const queryVariables = React.useMemo(
-    () => ({
-      ...paginationState,
-      filter: getFilterVariables(params),
-      sort: getSortQueryVariables(params)
-    }),
-    [params]
-  );
-  const { data, loading, refetch } = useCustomerListQuery({
-    displayLoader: true,
-    variables: queryVariables
-  });
 
   const tabs = getFilterTabs();
 
@@ -133,116 +116,130 @@ export const CustomerList: React.FC<CustomerListProps> = ({ params }) => {
     handleTabChange(tabs.length + 1);
   };
 
-  const { loadNextPage, loadPreviousPage, pageInfo } = paginate(
-    maybe(() => data.customers.pageInfo),
-    paginationState,
-    params
+  const paginationState = createPaginationState(settings.rowNumber, params);
+  const queryVariables = React.useMemo(
+    () => ({
+      ...paginationState,
+      filter: getFilterVariables(params)
+    }),
+    [params]
   );
 
-  const handleBulkCustomerDelete = (data: BulkRemoveCustomers) => {
-    if (data.customerBulkDelete.errors.length === 0) {
-      notify({
-        text: intl.formatMessage(commonMessages.savedChanges)
-      });
-      reset();
-      refetch();
-      closeModal();
-    }
-  };
-
-  const handleSort = createSortHandler(navigate, customerListUrl, params);
-
   return (
-    <TypedBulkRemoveCustomers onCompleted={handleBulkCustomerDelete}>
-      {(bulkRemoveCustomers, bulkRemoveCustomersOpts) => (
-        <>
-          <CustomerListPage
-            currentTab={currentTab}
-            initialSearch={params.query || ""}
-            onSearchChange={query => changeFilterField({ query })}
-            onAll={() => navigate(customerListUrl())}
-            onTabChange={handleTabChange}
-            onTabDelete={() => openModal("delete-search")}
-            onTabSave={() => openModal("save-search")}
-            tabs={tabs.map(tab => tab.name)}
-            customers={maybe(() => data.customers.edges.map(edge => edge.node))}
-            settings={settings}
-            disabled={loading}
-            pageInfo={pageInfo}
-            onAdd={() => navigate(customerAddUrl)}
-            onNextPage={loadNextPage}
-            onPreviousPage={loadPreviousPage}
-            onUpdateListSettings={updateListSettings}
-            onRowClick={id => () => navigate(customerUrl(id))}
-            onSort={handleSort}
-            toolbar={
-              <IconButton
-                color="primary"
-                onClick={() =>
-                  navigate(
-                    customerListUrl({
-                      action: "remove",
-                      ids: listElements
+    <TypedCustomerListQuery displayLoader variables={queryVariables}>
+      {({ data, loading, refetch }) => {
+        const { loadNextPage, loadPreviousPage, pageInfo } = paginate(
+          maybe(() => data.customers.pageInfo),
+          paginationState,
+          params
+        );
+
+        const handleBulkCustomerDelete = (data: BulkRemoveCustomers) => {
+          if (data.customerBulkDelete.errors.length === 0) {
+            notify({
+              text: intl.formatMessage(commonMessages.savedChanges)
+            });
+            reset();
+            refetch();
+            closeModal();
+          }
+        };
+
+        return (
+          <TypedBulkRemoveCustomers onCompleted={handleBulkCustomerDelete}>
+            {(bulkRemoveCustomers, bulkRemoveCustomersOpts) => (
+              <>
+                <CustomerListPage
+                  currentTab={currentTab}
+                  initialSearch={params.query || ""}
+                  onSearchChange={query => changeFilterField({ query })}
+                  onAll={() => navigate(customerListUrl())}
+                  onTabChange={handleTabChange}
+                  onTabDelete={() => openModal("delete-search")}
+                  onTabSave={() => openModal("save-search")}
+                  tabs={tabs.map(tab => tab.name)}
+                  customers={maybe(() =>
+                    data.customers.edges.map(edge => edge.node)
+                  )}
+                  settings={settings}
+                  disabled={loading}
+                  pageInfo={pageInfo}
+                  onAdd={() => navigate(customerAddUrl)}
+                  onNextPage={loadNextPage}
+                  onPreviousPage={loadPreviousPage}
+                  onUpdateListSettings={updateListSettings}
+                  onRowClick={id => () => navigate(customerUrl(id))}
+                  toolbar={
+                    <IconButton
+                      color="primary"
+                      onClick={() =>
+                        navigate(
+                          customerListUrl({
+                            action: "remove",
+                            ids: listElements
+                          })
+                        )
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  }
+                  isChecked={isSelected}
+                  selected={listElements.length}
+                  toggle={toggle}
+                  toggleAll={toggleAll}
+                />
+                <ActionDialog
+                  open={
+                    params.action === "remove" &&
+                    maybe(() => params.ids.length > 0)
+                  }
+                  onClose={closeModal}
+                  confirmButtonState={bulkRemoveCustomersOpts.status}
+                  onConfirm={() =>
+                    bulkRemoveCustomers({
+                      variables: {
+                        ids: params.ids
+                      }
                     })
-                  )
-                }
-              >
-                <DeleteIcon />
-              </IconButton>
-            }
-            isChecked={isSelected}
-            selected={listElements.length}
-            sort={getSortParams(params)}
-            toggle={toggle}
-            toggleAll={toggleAll}
-          />
-          <ActionDialog
-            open={
-              params.action === "remove" && maybe(() => params.ids.length > 0)
-            }
-            onClose={closeModal}
-            confirmButtonState={bulkRemoveCustomersOpts.status}
-            onConfirm={() =>
-              bulkRemoveCustomers({
-                variables: {
-                  ids: params.ids
-                }
-              })
-            }
-            variant="delete"
-            title={intl.formatMessage({
-              defaultMessage: "Delete Customers",
-              description: "dialog header"
-            })}
-          >
-            <DialogContentText>
-              <FormattedMessage
-                defaultMessage="Are you sure you want to delete {counter,plural,one{this customer} other{{displayQuantity} customers}}?"
-                values={{
-                  counter: maybe(() => params.ids.length),
-                  displayQuantity: (
-                    <strong>{maybe(() => params.ids.length)}</strong>
-                  )
-                }}
-              />
-            </DialogContentText>
-          </ActionDialog>
-          <SaveFilterTabDialog
-            open={params.action === "save-search"}
-            confirmButtonState="default"
-            onClose={closeModal}
-            onSubmit={handleTabSave}
-          />
-          <DeleteFilterTabDialog
-            open={params.action === "delete-search"}
-            confirmButtonState="default"
-            onClose={closeModal}
-            onSubmit={handleTabDelete}
-            tabName={maybe(() => tabs[currentTab - 1].name, "...")}
-          />
-        </>
-      )}
-    </TypedBulkRemoveCustomers>
+                  }
+                  variant="delete"
+                  title={intl.formatMessage({
+                    defaultMessage: "Delete Customers",
+                    description: "dialog header"
+                  })}
+                >
+                  <DialogContentText>
+                    <FormattedMessage
+                      defaultMessage="Are you sure you want to delete {counter,plural,one{this customer} other{{displayQuantity} customers}}?"
+                      values={{
+                        counter: maybe(() => params.ids.length),
+                        displayQuantity: (
+                          <strong>{maybe(() => params.ids.length)}</strong>
+                        )
+                      }}
+                    />
+                  </DialogContentText>
+                </ActionDialog>
+                <SaveFilterTabDialog
+                  open={params.action === "save-search"}
+                  confirmButtonState="default"
+                  onClose={closeModal}
+                  onSubmit={handleTabSave}
+                />
+                <DeleteFilterTabDialog
+                  open={params.action === "delete-search"}
+                  confirmButtonState="default"
+                  onClose={closeModal}
+                  onSubmit={handleTabDelete}
+                  tabName={maybe(() => tabs[currentTab - 1].name, "...")}
+                />
+              </>
+            )}
+          </TypedBulkRemoveCustomers>
+        );
+      }}
+    </TypedCustomerListQuery>
   );
 };
 export default CustomerList;

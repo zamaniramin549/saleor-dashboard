@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { ProductTypeFilterInput, ProductTypeSortingInput } from "./../../types/globalTypes";
+import { ProductTypeFilterInput } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: ProductTypeList
@@ -52,5 +52,4 @@ export interface ProductTypeListVariables {
   first?: number | null;
   last?: number | null;
   filter?: ProductTypeFilterInput | null;
-  sort?: ProductTypeSortingInput | null;
 }

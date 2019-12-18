@@ -348,22 +348,9 @@ export function findInEnum<TEnum extends object>(
   throw new Error(`Key ${needle} not found in enum`);
 }
 
-export function findValueInEnum<TEnum extends object>(
-  needle: string,
-  haystack: TEnum
-) {
-  const match = Object.entries(haystack).find(([_, value]) => value === needle);
-
-  if (!!match) {
-    return match[1] as TEnum;
-  }
-
-  throw new Error(`Value ${needle} not found in enum`);
-}
-
-export function parseBoolean(a: string, defaultValue: boolean): boolean {
+export function parseBoolean(a: string): boolean {
   if (a === undefined) {
-    return defaultValue;
+    return true;
   }
   return a === "true";
 }

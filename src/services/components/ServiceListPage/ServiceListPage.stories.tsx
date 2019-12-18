@@ -5,29 +5,22 @@ import {
   listActionsProps,
   pageListProps,
   searchPageProps,
-  tabPageProps,
-  sortPageProps
+  tabPageProps
 } from "@saleor/fixtures";
 import ServiceListPage, {
   ServiceListPageProps
 } from "@saleor/services/components/ServiceListPage";
 import Decorator from "@saleor/storybook/Decorator";
-import { ServiceListUrlSortField } from "@saleor/services/urls";
 import { serviceList } from "../../fixtures";
 
 const props: ServiceListPageProps = {
   ...listActionsProps,
   ...pageListProps.default,
   ...searchPageProps,
-  ...sortPageProps,
   ...tabPageProps,
   onBack: () => undefined,
   onRemove: () => undefined,
-  services: serviceList,
-  sort: {
-    ...sortPageProps.sort,
-    sort: ServiceListUrlSortField.name
-  }
+  services: serviceList
 };
 
 storiesOf("Views / Services / Service list", module)

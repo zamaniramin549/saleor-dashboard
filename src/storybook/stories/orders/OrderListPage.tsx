@@ -4,13 +4,11 @@ import React from "react";
 import OrderListPage, {
   OrderListPageProps
 } from "@saleor/orders/components/OrderListPage";
-import { OrderListUrlSortField } from "@saleor/orders/urls";
 import {
   filterPageProps,
   filters,
   listActionsProps,
-  pageListProps,
-  sortPageProps
+  pageListProps
 } from "../../../fixtures";
 import { orders } from "../../../orders/fixtures";
 import Decorator from "../../Decorator";
@@ -19,12 +17,7 @@ const props: OrderListPageProps = {
   ...listActionsProps,
   ...pageListProps.default,
   ...filterPageProps,
-  ...sortPageProps,
-  orders,
-  sort: {
-    ...sortPageProps.sort,
-    sort: OrderListUrlSortField.number
-  }
+  orders
 };
 
 storiesOf("Views / Orders / Order list", module)

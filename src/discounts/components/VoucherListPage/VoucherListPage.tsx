@@ -11,10 +11,8 @@ import {
   ListActions,
   PageListProps,
   SearchPageProps,
-  TabPageProps,
-  SortPage
+  TabPageProps
 } from "@saleor/types";
-import { VoucherListUrlSortField } from "@saleor/discounts/urls";
 import { VoucherList_vouchers_edges_node } from "../../types/VoucherList";
 import VoucherList from "../VoucherList";
 
@@ -22,7 +20,6 @@ export interface VoucherListPageProps
   extends PageListProps,
     ListActions,
     SearchPageProps,
-    SortPage<VoucherListUrlSortField>,
     TabPageProps {
   defaultCurrency: string;
   vouchers: VoucherList_vouchers_edges_node[];

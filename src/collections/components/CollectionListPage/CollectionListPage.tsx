@@ -11,10 +11,8 @@ import {
   ListActions,
   PageListProps,
   SearchPageProps,
-  TabPageProps,
-  SortPage
+  TabPageProps
 } from "@saleor/types";
-import { CollectionListUrlSortField } from "@saleor/collections/urls";
 import { CollectionList_collections_edges_node } from "../../types/CollectionList";
 import CollectionList from "../CollectionList/CollectionList";
 
@@ -22,7 +20,6 @@ export interface CollectionListPageProps
   extends PageListProps,
     ListActions,
     SearchPageProps,
-    SortPage<CollectionListUrlSortField>,
     TabPageProps {
   collections: CollectionList_collections_edges_node[];
 }

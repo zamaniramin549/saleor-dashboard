@@ -7,8 +7,7 @@ import {
   Dialog,
   Filters,
   Pagination,
-  TabActionDialog,
-  Sort
+  TabActionDialog
 } from "../types";
 import { CategoryPageTab } from "./components/CategoryUpdatePage";
 
@@ -20,16 +19,9 @@ export enum CategoryListUrlFiltersEnum {
 }
 export type CategoryListUrlFilters = Filters<CategoryListUrlFiltersEnum>;
 export type CategoryListUrlDialog = "delete" | TabActionDialog;
-export enum CategoryListUrlSortField {
-  name = "name",
-  productCount = "products",
-  subcategoryCount = "subcategories"
-}
-export type CategoryListUrlSort = Sort<CategoryListUrlSortField>;
 export type CategoryListUrlQueryParams = ActiveTab &
   BulkAction &
   CategoryListUrlFilters &
-  CategoryListUrlSort &
   Dialog<CategoryListUrlDialog> &
   Pagination;
 export const categoryListUrl = (params?: CategoryListUrlQueryParams) =>

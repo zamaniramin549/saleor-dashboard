@@ -4,15 +4,13 @@ import { useIntl } from "react-intl";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import { sectionNames } from "@saleor/intl";
-import { asSortParams } from "@saleor/utils/sort";
 import { WindowTitle } from "../components/WindowTitle";
 import {
   productTypeAddPath,
   productTypeListPath,
   ProductTypeListUrlQueryParams,
   productTypePath,
-  ProductTypeUrlQueryParams,
-  ProductTypeListUrlSortField
+  ProductTypeUrlQueryParams
 } from "./urls";
 import ProductTypeCreate from "./views/ProductTypeCreate";
 import ProductTypeListComponent from "./views/ProductTypeList";
@@ -20,19 +18,16 @@ import ProductTypeUpdateComponent from "./views/ProductTypeUpdate";
 
 const ProductTypeList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
   const qs = parseQs(location.search.substr(1));
-  const params: ProductTypeListUrlQueryParams = asSortParams(
-    qs,
-    ProductTypeListUrlSortField
-  );
+  const params: ProductTypeListUrlQueryParams = qs;
   return <ProductTypeListComponent params={params} />;
 };
 
 interface ProductTypeUpdateRouteParams {
   id: string;
 }
-const ProductTypeUpdate: React.FC<RouteComponentProps<
-  ProductTypeUpdateRouteParams
->> = ({ match }) => {
+const ProductTypeUpdate: React.FC<
+  RouteComponentProps<ProductTypeUpdateRouteParams>
+> = ({ match }) => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductTypeUrlQueryParams = qs;
 

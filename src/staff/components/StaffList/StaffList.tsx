@@ -18,10 +18,7 @@ import {
   maybe,
   renderCollection
 } from "@saleor/misc";
-import { ListProps, SortPage } from "@saleor/types";
-import { StaffListUrlSortField } from "@saleor/staff/urls";
-import TableCellHeader from "@saleor/components/TableCellHeader";
-import { getArrowDirection } from "@saleor/utils/sort";
+import { ListProps } from "@saleor/types";
 import { StaffList_staffUsers_edges_node } from "../../types/StaffList";
 
 const useStyles = makeStyles(
@@ -64,7 +61,7 @@ const useStyles = makeStyles(
   { name: "StaffList" }
 );
 
-interface StaffListProps extends ListProps, SortPage<StaffListUrlSortField> {
+interface StaffListProps extends ListProps {
   staffMembers: StaffList_staffUsers_edges_node[];
 }
 
@@ -76,9 +73,7 @@ const StaffList: React.FC<StaffListProps> = props => {
     onPreviousPage,
     onUpdateListSettings,
     onRowClick,
-    onSort,
     pageInfo,
-    sort,
     staffMembers
   } = props;
 
@@ -89,31 +84,15 @@ const StaffList: React.FC<StaffListProps> = props => {
     <ResponsiveTable>
       <TableHead>
         <TableRow>
-          <TableCellHeader
-            direction={
-              sort.sort === StaffListUrlSortField.name
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            arrowPosition="right"
-            onClick={() => onSort(StaffListUrlSortField.name)}
-            className={classes.wideColumn}
-          >
+          <TableCell className={classes.wideColumn}>
             <FormattedMessage
               defaultMessage="Name"
               description="staff member full name"
             />
-          </TableCellHeader>
-          <TableCellHeader
-            direction={
-              sort.sort === StaffListUrlSortField.email
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            onClick={() => onSort(StaffListUrlSortField.email)}
-          >
+          </TableCell>
+          <TableCell>
             <FormattedMessage defaultMessage="Email Address" />
-          </TableCellHeader>
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableFooter>

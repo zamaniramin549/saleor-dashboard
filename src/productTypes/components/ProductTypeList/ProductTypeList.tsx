@@ -12,11 +12,8 @@ import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
-import { ProductTypeListUrlSortField } from "@saleor/productTypes/urls";
-import { getArrowDirection } from "@saleor/utils/sort";
-import TableCellHeader from "@saleor/components/TableCellHeader";
 import { maybe, renderCollection } from "../../../misc";
-import { ListActions, ListProps, SortPage } from "../../../types";
+import { ListActions, ListProps } from "../../../types";
 import { ProductTypeList_productTypes_edges_node } from "../../types/ProductTypeList";
 
 const useStyles = makeStyles(
@@ -42,10 +39,7 @@ const useStyles = makeStyles(
   { name: "ProductTypeList" }
 );
 
-interface ProductTypeListProps
-  extends ListProps,
-    ListActions,
-    SortPage<ProductTypeListUrlSortField> {
+interface ProductTypeListProps extends ListProps, ListActions {
   productTypes: ProductTypeList_productTypes_edges_node[];
 }
 
@@ -59,10 +53,8 @@ const ProductTypeList: React.FC<ProductTypeListProps> = props => {
     onNextPage,
     onPreviousPage,
     onRowClick,
-    onSort,
     isChecked,
     selected,
-    sort,
     toggle,
     toggleAll,
     toolbar
@@ -81,35 +73,18 @@ const ProductTypeList: React.FC<ProductTypeListProps> = props => {
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader
-          direction={
-            sort.sort === ProductTypeListUrlSortField.name
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          arrowPosition="right"
-          onClick={() => onSort(ProductTypeListUrlSortField.name)}
-          className={classes.colName}
-        >
+        <TableCell className={classes.colName}>
           <FormattedMessage
             defaultMessage="Type Name"
             description="product type name"
           />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === ProductTypeListUrlSortField.digital
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(ProductTypeListUrlSortField.digital)}
-          className={classes.colType}
-        >
+        </TableCell>
+        <TableCell className={classes.colType}>
           <FormattedMessage
             defaultMessage="Type"
             description="product type is either simple or configurable"
           />
-        </TableCellHeader>
+        </TableCell>
         <TableCell className={classes.colTax}>
           <FormattedMessage
             defaultMessage="Tax"

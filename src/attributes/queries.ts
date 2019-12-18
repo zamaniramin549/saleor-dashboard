@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 
-import makeQuery from "@saleor/hooks/makeQuery";
 import { pageInfoFragment, TypedQuery } from "../queries";
 import {
   AttributeDetails,
@@ -60,7 +59,6 @@ const attributeList = gql`
     $after: String
     $first: Int
     $last: Int
-    $sort: AttributeSortingInput
   ) {
     attributes(
       filter: $filter
@@ -70,7 +68,6 @@ const attributeList = gql`
       after: $after
       first: $first
       last: $last
-      sortBy: $sort
     ) {
       edges {
         node {
@@ -88,7 +85,7 @@ const attributeList = gql`
     }
   }
 `;
-export const useAttributeListQuery = makeQuery<
+export const AttributeListQuery = TypedQuery<
   AttributeList,
   AttributeListVariables
 >(attributeList);

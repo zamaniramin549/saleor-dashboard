@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 
-import makeQuery from "@saleor/hooks/makeQuery";
 import { TypedQuery } from "../queries";
 import {
   WebhookDetails,
@@ -35,7 +34,6 @@ const webhooksList = gql`
     $last: Int
     $before: String
     $filter: WebhookFilterInput
-    $sort: WebhookSortingInput
   ) {
     webhooks(
       first: $first
@@ -43,7 +41,6 @@ const webhooksList = gql`
       before: $before
       last: $last
       filter: $filter
-      sortBy: $sort
     ) {
       edges {
         node {
@@ -59,7 +56,7 @@ const webhooksList = gql`
     }
   }
 `;
-export const useWebhooksListQuery = makeQuery<Webhooks, WebhooksVariables>(
+export const TypedWebhooksListQuery = TypedQuery<Webhooks, WebhooksVariables>(
   webhooksList
 );
 

@@ -13,13 +13,13 @@ import WebhookCreatePage, { FormData } from "../components/WebhookCreatePage";
 import { TypedWebhookCreate } from "../mutations";
 import {
   webhooksListUrl,
-  WebhookListUrlQueryParams,
+  WebhooksListUrlQueryParams,
   webhooksUrl
 } from "../urls";
 
 export interface WebhooksCreateProps {
   id: string;
-  params: WebhookListUrlQueryParams;
+  params: WebhooksListUrlQueryParams;
 }
 
 export const WebhooksCreate: React.FC<WebhooksCreateProps> = () => {

@@ -9,10 +9,8 @@ import {
   listActionsProps,
   pageListProps,
   searchPageProps,
-  tabPageProps,
-  sortPageProps
+  tabPageProps
 } from "@saleor/fixtures";
-import { AttributeListUrlSortField } from "@saleor/attributes/urls";
 import Decorator from "../../Decorator";
 
 const props: AttributeListPageProps = {
@@ -21,12 +19,7 @@ const props: AttributeListPageProps = {
   ...tabPageProps,
   ...searchPageProps,
   attributes,
-  onBack: () => undefined,
-  onSort: () => undefined,
-  sort: {
-    ...sortPageProps.sort,
-    sort: AttributeListUrlSortField.name
-  }
+  onBack: () => undefined
 };
 
 storiesOf("Views / Attributes / Attribute list", module)

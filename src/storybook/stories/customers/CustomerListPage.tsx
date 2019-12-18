@@ -1,7 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import React from "react";
 
-import { CustomerListUrlSortField } from "@saleor/customers/urls";
 import CustomerListPage, {
   CustomerListPageProps
 } from "../../../customers/components/CustomerListPage";
@@ -10,8 +9,7 @@ import {
   listActionsProps,
   pageListProps,
   searchPageProps,
-  tabPageProps,
-  sortPageProps
+  tabPageProps
 } from "../../../fixtures";
 import Decorator from "../../Decorator";
 
@@ -19,13 +17,8 @@ const props: CustomerListPageProps = {
   ...listActionsProps,
   ...pageListProps.default,
   ...searchPageProps,
-  ...sortPageProps,
   ...tabPageProps,
-  customers: customerList,
-  sort: {
-    ...sortPageProps.sort,
-    sort: CustomerListUrlSortField.name
-  }
+  customers: customerList
 };
 
 storiesOf("Views / Customers / Customer list", module)

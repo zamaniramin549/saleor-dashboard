@@ -7,8 +7,7 @@ import {
   Dialog,
   Filters,
   Pagination,
-  TabActionDialog,
-  Sort
+  TabActionDialog
 } from "../types";
 
 const collectionSectionUrl = "/collections/";
@@ -23,16 +22,9 @@ export type CollectionListUrlDialog =
   | "unpublish"
   | "remove"
   | TabActionDialog;
-export enum CollectionListUrlSortField {
-  name = "name",
-  available = "available",
-  productCount = "products"
-}
-export type CollectionListUrlSort = Sort<CollectionListUrlSortField>;
 export type CollectionListUrlQueryParams = ActiveTab &
   BulkAction &
   CollectionListUrlFilters &
-  CollectionListUrlSort &
   Dialog<CollectionListUrlDialog> &
   Pagination;
 export const collectionListUrl = (params?: CollectionListUrlQueryParams) =>

@@ -17,8 +17,6 @@ import usePaginator, {
 } from "@saleor/hooks/usePaginator";
 import { maybe } from "@saleor/misc";
 import { ListViews } from "@saleor/types";
-import { getSortParams } from "@saleor/utils/sort";
-import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { CategoryListPage } from "../../components/CategoryListPage/CategoryListPage";
 import { useCategoryBulkDeleteMutation } from "../../mutations";
 import { useRootCategoriesQuery } from "../../queries";
@@ -39,7 +37,6 @@ import {
   getFilterVariables,
   saveFilterTab
 } from "./filter";
-import { getSortQueryVariables } from "./sort";
 
 interface CategoryListProps {
   params: CategoryListUrlQueryParams;
@@ -60,8 +57,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({ params }) => {
   const queryVariables = React.useMemo(
     () => ({
       ...paginationState,
-      filter: getFilterVariables(params),
-      sort: getSortQueryVariables(params)
+      filter: getFilterVariables(params)
     }),
     [params]
   );
@@ -152,8 +148,6 @@ export const CategoryList: React.FC<CategoryListProps> = ({ params }) => {
     onCompleted: handleCategoryBulkDelete
   });
 
-  const handleSort = createSortHandler(navigate, categoryListUrl, params);
-
   return (
     <>
       <CategoryListPage
@@ -170,10 +164,8 @@ export const CategoryList: React.FC<CategoryListProps> = ({ params }) => {
         onTabSave={() => openModal("save-search")}
         tabs={tabs.map(tab => tab.name)}
         settings={settings}
-        sort={getSortParams(params)}
         onAdd={() => navigate(categoryAddUrl())}
         onRowClick={id => () => navigate(categoryUrl(id))}
-        onSort={handleSort}
         disabled={loading}
         onNextPage={loadNextPage}
         onPreviousPage={loadPreviousPage}

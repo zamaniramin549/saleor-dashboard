@@ -13,10 +13,7 @@ import Skeleton from "@saleor/components/Skeleton";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
 import { maybe, renderCollection } from "@saleor/misc";
-import { ListActions, ListProps, SortPage } from "@saleor/types";
-import { CategoryListUrlSortField } from "@saleor/categories/urls";
-import TableCellHeader from "@saleor/components/TableCellHeader";
-import { getArrowDirection } from "@saleor/utils/sort";
+import { ListActions, ListProps } from "@saleor/types";
 
 const useStyles = makeStyles(
   theme => ({
@@ -47,10 +44,7 @@ const useStyles = makeStyles(
   { name: "CategoryList" }
 );
 
-interface CategoryListProps
-  extends ListProps,
-    ListActions,
-    SortPage<CategoryListUrlSortField> {
+interface CategoryListProps extends ListProps, ListActions {
   categories?: CategoryFragment[];
   isRoot: boolean;
   onAdd?();
@@ -63,7 +57,6 @@ const CategoryList: React.FC<CategoryListProps> = props => {
     categories,
     disabled,
     settings,
-    sort,
     pageInfo,
     isChecked,
     isRoot,
@@ -74,8 +67,7 @@ const CategoryList: React.FC<CategoryListProps> = props => {
     onNextPage,
     onPreviousPage,
     onUpdateListSettings,
-    onRowClick,
-    onSort
+    onRowClick
   } = props;
 
   const classes = useStyles(props);
@@ -90,53 +82,21 @@ const CategoryList: React.FC<CategoryListProps> = props => {
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader
-          direction={
-            isRoot && sort.sort === CategoryListUrlSortField.name
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          arrowPosition="right"
-          className={classes.colName}
-          disableClick={!isRoot}
-          onClick={() => isRoot && onSort(CategoryListUrlSortField.name)}
-        >
+        <TableCell className={classes.colName}>
           <FormattedMessage defaultMessage="Category Name" />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            isRoot && sort.sort === CategoryListUrlSortField.subcategoryCount
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          className={classes.colSubcategories}
-          disableClick={!isRoot}
-          onClick={() =>
-            isRoot && onSort(CategoryListUrlSortField.subcategoryCount)
-          }
-        >
+        </TableCell>
+        <TableCell className={classes.colSubcategories}>
           <FormattedMessage
             defaultMessage="Subcategories"
             description="number of subcategories"
           />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            isRoot && sort.sort === CategoryListUrlSortField.productCount
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          className={classes.colProducts}
-          disableClick={!isRoot}
-          onClick={() =>
-            isRoot && onSort(CategoryListUrlSortField.productCount)
-          }
-        >
+        </TableCell>
+        <TableCell className={classes.colProducts}>
           <FormattedMessage
             defaultMessage="No. of Products"
             description="number of products"
           />
-        </TableCellHeader>
+        </TableCell>
       </TableHead>
       <TableFooter>
         <TableRow>

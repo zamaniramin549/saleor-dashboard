@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 
-import makeQuery from "@saleor/hooks/makeQuery";
 import { pageInfoFragment, TypedQuery } from "../queries";
 import {
   ServiceDetails,
@@ -25,7 +24,6 @@ const serviceList = gql`
     $last: Int
     $before: String
     $filter: ServiceAccountFilterInput
-    $sort: ServiceAccountSortingInput
   ) {
     serviceAccounts(
       first: $first
@@ -33,7 +31,6 @@ const serviceList = gql`
       before: $before
       last: $last
       filter: $filter
-      sortBy: $sort
     ) {
       edges {
         node {
@@ -46,7 +43,7 @@ const serviceList = gql`
     }
   }
 `;
-export const useServiceListQuery = makeQuery<ServiceList, ServiceListVariables>(
+export const ServiceListQuery = TypedQuery<ServiceList, ServiceListVariables>(
   serviceList
 );
 

@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { SaleFilterInput, SaleSortingInput, SaleType } from "./../../types/globalTypes";
+import { SaleFilterInput, SaleType } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: SaleList
@@ -47,5 +47,4 @@ export interface SaleListVariables {
   first?: number | null;
   last?: number | null;
   filter?: SaleFilterInput | null;
-  sort?: SaleSortingInput | null;
 }

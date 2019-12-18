@@ -6,15 +6,13 @@ import { FormattedMessage, useIntl } from "react-intl";
 import AppHeader from "@saleor/components/AppHeader";
 import SearchBar from "@saleor/components/SearchBar";
 import { sectionNames } from "@saleor/intl";
-import { AttributeListUrlSortField } from "@saleor/attributes/urls";
 import Container from "../../../components/Container";
 import PageHeader from "../../../components/PageHeader";
 import {
   ListActions,
   PageListProps,
   SearchPageProps,
-  TabPageProps,
-  SortPage
+  TabPageProps
 } from "../../../types";
 import { AttributeList_attributes_edges_node } from "../../types/AttributeList";
 import AttributeList from "../AttributeList/AttributeList";
@@ -23,7 +21,6 @@ export interface AttributeListPageProps
   extends PageListProps,
     ListActions,
     SearchPageProps,
-    SortPage<AttributeListUrlSortField>,
     TabPageProps {
   attributes: AttributeList_attributes_edges_node[];
   onBack: () => void;

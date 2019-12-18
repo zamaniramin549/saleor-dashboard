@@ -5,11 +5,9 @@ import {
   listActionsProps,
   pageListProps,
   searchPageProps,
-  tabPageProps,
-  sortPageProps
+  tabPageProps
 } from "@saleor/fixtures";
 import Decorator from "@saleor/storybook/Decorator";
-import { WebhookListUrlSortField } from "@saleor/webhooks/urls";
 import { webhookList } from "../../fixtures";
 import WebhooksListPage, { WebhooksListPageProps } from "./WebhooksListPage";
 
@@ -17,14 +15,9 @@ const props: WebhooksListPageProps = {
   ...listActionsProps,
   ...pageListProps.default,
   ...searchPageProps,
-  ...sortPageProps,
   ...tabPageProps,
   onBack: () => undefined,
   onRemove: () => undefined,
-  sort: {
-    ...sortPageProps.sort,
-    sort: WebhookListUrlSortField.name
-  },
   webhooks: webhookList
 };
 

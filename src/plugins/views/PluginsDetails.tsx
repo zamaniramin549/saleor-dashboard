@@ -16,16 +16,16 @@ import { TypedPluginsDetailsQuery } from "../queries";
 import { Plugin_plugin_configuration } from "../types/Plugin";
 import { PluginUpdate } from "../types/PluginUpdate";
 import {
-  pluginListUrl,
+  pluginsListUrl,
   pluginsUrl,
-  PluginUrlQueryParams,
+  PluginsUrlQueryParams,
   PluginUrlDialog
 } from "../urls";
 import { isSecretField } from "../utils";
 
 export interface PluginsDetailsProps {
   id: string;
-  params: PluginUrlQueryParams;
+  params: PluginsUrlQueryParams;
 }
 
 export function getConfigurationInput(
@@ -117,7 +117,7 @@ export const PluginsDetails: React.FC<PluginsDetailsProps> = ({
                     !params.action ? pluginUpdateOpts.status : "default"
                   }
                   plugin={maybe(() => pluginDetails.data.plugin)}
-                  onBack={() => navigate(pluginListUrl())}
+                  onBack={() => navigate(pluginsListUrl())}
                   onClear={field => openModal("clear", field)}
                   onEdit={field => openModal("edit", field)}
                   onSubmit={formData =>

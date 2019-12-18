@@ -12,10 +12,8 @@ import {
   ListActions,
   PageListProps,
   SearchPageProps,
-  TabPageProps,
-  SortPage
+  TabPageProps
 } from "@saleor/types";
-import { OrderDraftListUrlSortField } from "@saleor/orders/urls";
 import { OrderDraftList_draftOrders_edges_node } from "../../types/OrderDraftList";
 import OrderDraftList from "../OrderDraftList";
 
@@ -23,7 +21,6 @@ export interface OrderDraftListPageProps
   extends PageListProps,
     ListActions,
     SearchPageProps,
-    SortPage<OrderDraftListUrlSortField>,
     TabPageProps {
   orders: OrderDraftList_draftOrders_edges_node[];
 }

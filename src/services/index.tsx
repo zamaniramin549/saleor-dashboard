@@ -4,15 +4,13 @@ import { useIntl } from "react-intl";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import { sectionNames } from "@saleor/intl";
-import { asSortParams } from "@saleor/utils/sort";
 import { WindowTitle } from "../components/WindowTitle";
 import {
   serviceAddPath,
   serviceListPath,
   ServiceListUrlQueryParams,
   servicePath,
-  ServiceUrlQueryParams,
-  ServiceListUrlSortField
+  ServiceUrlQueryParams
 } from "./urls";
 import ServiceCreate from "./views/ServiceCreate";
 import ServiceDetailsComponent from "./views/ServiceDetails";
@@ -20,10 +18,7 @@ import ServiceListComponent from "./views/ServiceList";
 
 const ServiceList: React.FC<RouteComponentProps> = ({ location }) => {
   const qs = parseQs(location.search.substr(1));
-  const params: ServiceListUrlQueryParams = asSortParams(
-    qs,
-    ServiceListUrlSortField
-  );
+  const params: ServiceListUrlQueryParams = qs;
 
   return <ServiceListComponent params={params} />;
 };

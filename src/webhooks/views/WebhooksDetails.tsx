@@ -17,14 +17,14 @@ import { TypedWebhookDelete, TypedWebhookUpdate } from "../mutations";
 import { TypedWebhooksDetailsQuery } from "../queries";
 import {
   webhooksListUrl,
-  WebhookListUrlQueryParams,
+  WebhooksListUrlQueryParams,
   webhooksUrl,
   WebhookUrlDialog
 } from "../urls";
 
 export interface WebhooksDetailsProps {
   id: string;
-  params: WebhookListUrlQueryParams;
+  params: WebhooksListUrlQueryParams;
 }
 
 export const WebhooksDetails: React.FC<WebhooksDetailsProps> = ({

@@ -2,21 +2,13 @@ import { parse as parseQs } from "qs";
 import React from "react";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
-import { asSortParams } from "@saleor/utils/sort";
-import {
-  menuListPath,
-  menuPath,
-  MenuListUrlQueryParams,
-  MenuListUrlSortField
-} from "./urls";
+import { menuListPath, menuPath } from "./urls";
 import MenuDetailsComponent from "./views/MenuDetails";
 import MenuListComponent from "./views/MenuList";
 
 const MenuList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
   const qs = parseQs(location.search.substr(1));
-  const params: MenuListUrlQueryParams = asSortParams(qs, MenuListUrlSortField);
-
-  return <MenuListComponent params={params} />;
+  return <MenuListComponent params={qs} />;
 };
 
 const MenuDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
@@ -24,7 +16,6 @@ const MenuDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
   match
 }) => {
   const qs = parseQs(location.search.substr(1));
-
   return (
     <MenuDetailsComponent
       id={decodeURIComponent(match.params.id)}

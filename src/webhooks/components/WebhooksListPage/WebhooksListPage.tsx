@@ -8,20 +8,13 @@ import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import SearchBar from "@saleor/components/SearchBar";
 import { sectionNames } from "@saleor/intl";
-import {
-  PageListProps,
-  SearchPageProps,
-  TabPageProps,
-  SortPage
-} from "@saleor/types";
-import { WebhookListUrlSortField } from "@saleor/webhooks/urls";
+import { PageListProps, SearchPageProps, TabPageProps } from "@saleor/types";
 import { Webhooks_webhooks_edges_node } from "../../types/Webhooks";
 import WebhooksList from "../WebhooksList/WebhooksList";
 
 export interface WebhooksListPageProps
   extends PageListProps,
     SearchPageProps,
-    SortPage<WebhookListUrlSortField>,
     TabPageProps {
   webhooks: Webhooks_webhooks_edges_node[];
   onBack: () => void;

@@ -15,17 +15,11 @@ import Skeleton from "@saleor/components/Skeleton";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
 import { maybe, renderCollection } from "@saleor/misc";
-import { ListActions, ListProps, SortPage } from "@saleor/types";
+import { ListActions, ListProps } from "@saleor/types";
 import { DiscountValueTypeEnum } from "@saleor/types/globalTypes";
-import { VoucherListUrlSortField } from "@saleor/discounts/urls";
-import TableCellHeader from "@saleor/components/TableCellHeader";
-import { getArrowDirection } from "@saleor/utils/sort";
 import { VoucherList_vouchers_edges_node } from "../../types/VoucherList";
 
-export interface VoucherListProps
-  extends ListProps,
-    ListActions,
-    SortPage<VoucherListUrlSortField> {
+export interface VoucherListProps extends ListProps, ListActions {
   defaultCurrency: string;
   vouchers: VoucherList_vouchers_edges_node[];
 }
@@ -89,12 +83,10 @@ const VoucherList: React.FC<VoucherListProps> = props => {
     onPreviousPage,
     onUpdateListSettings,
     onRowClick,
-    onSort,
     pageInfo,
     vouchers,
     isChecked,
     selected,
-    sort,
     toggle,
     toggleAll,
     toolbar
@@ -112,85 +104,36 @@ const VoucherList: React.FC<VoucherListProps> = props => {
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader
-          direction={
-            sort.sort === VoucherListUrlSortField.code
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          arrowPosition="right"
-          onClick={() => onSort(VoucherListUrlSortField.code)}
-          className={classes.colName}
-        >
+        <TableCell className={classes.colName}>
           <FormattedMessage defaultMessage="Code" description="voucher code" />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === VoucherListUrlSortField.minSpent
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(VoucherListUrlSortField.minSpent)}
-          className={classes.colMinSpent}
-        >
+        </TableCell>
+        <TableCell className={classes.colMinSpent}>
           <FormattedMessage
             defaultMessage="Min. Spent"
             description="minimum amount of spent money to activate voucher"
           />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === VoucherListUrlSortField.startDate
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(VoucherListUrlSortField.startDate)}
-          className={classes.colStart}
-        >
+        </TableCell>
+        <TableCell className={classes.colStart}>
           <FormattedMessage
             defaultMessage="Starts"
             description="voucher is active from date"
           />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === VoucherListUrlSortField.endDate
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(VoucherListUrlSortField.endDate)}
-          className={classes.colEnd}
-        >
+        </TableCell>
+        <TableCell className={classes.colEnd}>
           <FormattedMessage
             defaultMessage="Ends"
             description="voucher is active until date"
           />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === VoucherListUrlSortField.value
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(VoucherListUrlSortField.value)}
-          className={classes.colValue}
-        >
+        </TableCell>
+        <TableCell className={classes.colValue}>
           <FormattedMessage
             defaultMessage="Value"
             description="voucher value"
           />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === VoucherListUrlSortField.limit
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(VoucherListUrlSortField.limit)}
-          className={classes.colUses}
-        >
+        </TableCell>
+        <TableCell className={classes.colUses}>
           <FormattedMessage defaultMessage="Uses" description="voucher uses" />
-        </TableCellHeader>
+        </TableCell>
       </TableHead>
       <TableFooter>
         <TableRow>

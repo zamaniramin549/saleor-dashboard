@@ -8,8 +8,7 @@ import {
   Filters,
   Pagination,
   SingleAction,
-  TabActionDialog,
-  Sort
+  TabActionDialog
 } from "../types";
 
 export const customerSection = "/customers/";
@@ -20,16 +19,9 @@ export enum CustomerListUrlFiltersEnum {
 }
 export type CustomerListUrlFilters = Filters<CustomerListUrlFiltersEnum>;
 export type CustomerListUrlDialog = "remove" | TabActionDialog;
-export enum CustomerListUrlSortField {
-  name = "name",
-  email = "email",
-  orders = "orders"
-}
-export type CustomerListUrlSort = Sort<CustomerListUrlSortField>;
 export type CustomerListUrlQueryParams = ActiveTab &
   BulkAction &
   CustomerListUrlFilters &
-  CustomerListUrlSort &
   Dialog<CustomerListUrlDialog> &
   Pagination;
 export const customerListUrl = (params?: CustomerListUrlQueryParams) =>

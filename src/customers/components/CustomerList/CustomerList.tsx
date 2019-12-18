@@ -12,10 +12,7 @@ import Skeleton from "@saleor/components/Skeleton";
 import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
 import { getUserName, maybe, renderCollection } from "@saleor/misc";
-import { ListActions, ListProps, SortPage } from "@saleor/types";
-import { CustomerListUrlSortField } from "@saleor/customers/urls";
-import TableCellHeader from "@saleor/components/TableCellHeader";
-import { getArrowDirection } from "@saleor/utils/sort";
+import { ListActions, ListProps } from "@saleor/types";
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 
 const useStyles = makeStyles(
@@ -41,10 +38,7 @@ const useStyles = makeStyles(
   { name: "CustomerList" }
 );
 
-export interface CustomerListProps
-  extends ListProps,
-    ListActions,
-    SortPage<CustomerListUrlSortField> {
+export interface CustomerListProps extends ListProps, ListActions {
   customers: ListCustomers_customers_edges_node[];
 }
 
@@ -60,12 +54,10 @@ const CustomerList: React.FC<CustomerListProps> = props => {
     onPreviousPage,
     onUpdateListSettings,
     onRowClick,
-    onSort,
     toolbar,
     toggle,
     toggleAll,
     selected,
-    sort,
     isChecked
   } = props;
 
@@ -81,41 +73,15 @@ const CustomerList: React.FC<CustomerListProps> = props => {
         toggleAll={toggleAll}
         toolbar={toolbar}
       >
-        <TableCellHeader
-          direction={
-            sort.sort === CustomerListUrlSortField.name
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          arrowPosition="right"
-          onClick={() => onSort(CustomerListUrlSortField.name)}
-          className={classes.colName}
-        >
+        <TableCell className={classes.colName}>
           <FormattedMessage defaultMessage="Customer Name" />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === CustomerListUrlSortField.email
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(CustomerListUrlSortField.email)}
-          className={classes.colEmail}
-        >
+        </TableCell>
+        <TableCell className={classes.colEmail}>
           <FormattedMessage defaultMessage="Customer Email" />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === CustomerListUrlSortField.orders
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          textAlign="center"
-          onClick={() => onSort(CustomerListUrlSortField.orders)}
-          className={classes.colOrders}
-        >
+        </TableCell>
+        <TableCell className={classes.colOrders}>
           <FormattedMessage defaultMessage="No. of Orders" />
-        </TableCellHeader>
+        </TableCell>
       </TableHead>
       <TableFooter>
         <TableRow>

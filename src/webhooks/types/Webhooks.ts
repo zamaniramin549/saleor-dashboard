@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { WebhookFilterInput, WebhookSortingInput } from "./../../types/globalTypes";
+import { WebhookFilterInput } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: Webhooks
@@ -51,5 +51,4 @@ export interface WebhooksVariables {
   last?: number | null;
   before?: string | null;
   filter?: WebhookFilterInput | null;
-  sort?: WebhookSortingInput | null;
 }

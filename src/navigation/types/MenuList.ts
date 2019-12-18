@@ -2,8 +2,6 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { MenuSortingInput } from "./../../types/globalTypes";
-
 // ====================================================
 // GraphQL query operation: MenuList
 // ====================================================
@@ -48,5 +46,4 @@ export interface MenuListVariables {
   after?: string | null;
   last?: number | null;
   before?: string | null;
-  sort?: MenuSortingInput | null;
 }

@@ -1,7 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import React from "react";
 
-import { SaleListUrlSortField } from "@saleor/discounts/urls";
 import SaleListPage, {
   SaleListPageProps
 } from "../../../discounts/components/SaleListPage";
@@ -10,8 +9,7 @@ import {
   listActionsProps,
   pageListProps,
   searchPageProps,
-  tabPageProps,
-  sortPageProps
+  tabPageProps
 } from "../../../fixtures";
 import Decorator from "../../Decorator";
 
@@ -19,14 +17,9 @@ const props: SaleListPageProps = {
   ...listActionsProps,
   ...pageListProps.default,
   ...searchPageProps,
-  ...sortPageProps,
   ...tabPageProps,
   defaultCurrency: "USD",
-  sales: saleList,
-  sort: {
-    ...sortPageProps.sort,
-    sort: SaleListUrlSortField.name
-  }
+  sales: saleList
 };
 
 storiesOf("Views / Discounts / Sale list", module)

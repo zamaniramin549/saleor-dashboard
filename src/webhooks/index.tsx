@@ -4,32 +4,26 @@ import { useIntl } from "react-intl";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import { sectionNames } from "@saleor/intl";
-import { asSortParams } from "@saleor/utils/sort";
 import { WindowTitle } from "../components/WindowTitle";
 import {
   webhooksAddUrl,
   webhooksListPath,
-  WebhookListUrlQueryParams,
-  webhooksPath,
-  WebhookListUrlSortField
+  WebhooksListUrlQueryParams,
+  webhooksPath
 } from "./urls";
 import WebhookCreate from "./views/WebhooksCreate";
 import WebhooksDetails from "./views/WebhooksDetails";
-import WebhooksList from "./views/WebhookList";
+import WebhooksList from "./views/WebhooksList";
 
 const WebhookList: React.FC<RouteComponentProps<any>> = ({ location }) => {
   const qs = parseQs(location.search.substr(1));
-  const params: WebhookListUrlQueryParams = asSortParams(
-    qs,
-    WebhookListUrlSortField
-  );
-
+  const params: WebhooksListUrlQueryParams = qs;
   return <WebhooksList params={params} />;
 };
 
 const WebhookDetails: React.FC<RouteComponentProps<any>> = ({ match }) => {
   const qs = parseQs(location.search.substr(1));
-  const params: WebhookListUrlQueryParams = qs;
+  const params: WebhooksListUrlQueryParams = qs;
 
   return (
     <WebhooksDetails id={decodeURIComponent(match.params.id)} params={params} />

@@ -11,10 +11,8 @@ import {
   ListActions,
   PageListProps,
   SearchPageProps,
-  TabPageProps,
-  SortPage
+  TabPageProps
 } from "@saleor/types";
-import { CustomerListUrlSortField } from "@saleor/customers/urls";
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 import CustomerList from "../CustomerList/CustomerList";
 
@@ -22,13 +20,14 @@ export interface CustomerListPageProps
   extends PageListProps,
     ListActions,
     SearchPageProps,
-    SortPage<CustomerListUrlSortField>,
     TabPageProps {
   customers: ListCustomers_customers_edges_node[];
 }
 
 const CustomerListPage: React.FC<CustomerListPageProps> = ({
   currentTab,
+  customers,
+  disabled,
   initialSearch,
   onAdd,
   onAll,
@@ -44,7 +43,12 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.customers)}>
-        <Button color="primary" variant="contained" onClick={onAdd}>
+        <Button
+          color="primary"
+          variant="contained"
+          disabled={disabled}
+          onClick={onAdd}
+        >
           <FormattedMessage
             defaultMessage="Create customer"
             description="button"
@@ -69,7 +73,11 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
           onTabDelete={onTabDelete}
           onTabSave={onTabSave}
         />
-        <CustomerList {...customerListProps} />
+        <CustomerList
+          customers={customers}
+          disabled={disabled}
+          {...customerListProps}
+        />
       </Card>
     </Container>
   );

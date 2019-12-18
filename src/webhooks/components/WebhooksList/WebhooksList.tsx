@@ -14,15 +14,10 @@ import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TablePagination from "@saleor/components/TablePagination";
 import { maybe, renderCollection, stopPropagation } from "@saleor/misc";
-import { ListProps, SortPage } from "@saleor/types";
-import { WebhookListUrlSortField } from "@saleor/webhooks/urls";
-import TableCellHeader from "@saleor/components/TableCellHeader";
-import { getArrowDirection } from "@saleor/utils/sort";
+import { ListProps } from "@saleor/types";
 import { Webhooks_webhooks_edges_node } from "../../types/Webhooks";
 
-export interface WebhooksListProps
-  extends ListProps,
-    SortPage<WebhookListUrlSortField> {
+export interface WebhooksListProps extends ListProps {
   webhooks: Webhooks_webhooks_edges_node[];
   onRemove: (id: string) => void;
 }
@@ -67,10 +62,8 @@ const WebhooksList: React.FC<WebhooksListProps> = ({
   disabled,
   onNextPage,
   pageInfo,
-  sort,
   onRowClick,
   onRemove,
-  onSort,
   onUpdateListSettings,
   onPreviousPage
 }) => {
@@ -81,35 +74,18 @@ const WebhooksList: React.FC<WebhooksListProps> = ({
     <ResponsiveTable className={classes.table}>
       <TableHead>
         <TableRow>
-          <TableCellHeader
-            direction={
-              sort.sort === WebhookListUrlSortField.name
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            arrowPosition="right"
-            onClick={() => onSort(WebhookListUrlSortField.name)}
-            className={classes.colName}
-          >
+          <TableCell className={classes.colName}>
             {intl.formatMessage({
               defaultMessage: "Name",
               description: "webhook name"
             })}
-          </TableCellHeader>
-          <TableCellHeader
-            direction={
-              sort.sort === WebhookListUrlSortField.serviceAccount
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            onClick={() => onSort(WebhookListUrlSortField.serviceAccount)}
-            className={classes.colActive}
-          >
+          </TableCell>
+          <TableCell className={classes.colActive}>
             {intl.formatMessage({
               defaultMessage: "Service Account",
               description: "webhook service account"
             })}
-          </TableCellHeader>
+          </TableCell>
           <TableCell className={classes.colAction}>
             {intl.formatMessage({
               defaultMessage: "Action",

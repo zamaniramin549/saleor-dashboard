@@ -11,10 +11,8 @@ import {
   ListActions,
   PageListProps,
   SearchPageProps,
-  TabPageProps,
-  SortPage
+  TabPageProps
 } from "@saleor/types";
-import { SaleListUrlSortField } from "@saleor/discounts/urls";
 import { SaleList_sales_edges_node } from "../../types/SaleList";
 import SaleList from "../SaleList";
 
@@ -22,7 +20,6 @@ export interface SaleListPageProps
   extends PageListProps,
     ListActions,
     SearchPageProps,
-    SortPage<SaleListUrlSortField>,
     TabPageProps {
   defaultCurrency: string;
   sales: SaleList_sales_edges_node[];
