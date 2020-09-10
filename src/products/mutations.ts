@@ -609,6 +609,10 @@ const productSetAvailabilityForPurchase = gql`
       productId: $productId
       startDate: $startDate
     ) {
+      product {
+        id
+        availableForPurchase
+      }
       errors: productErrors {
         ...ProductErrorFragment
         message
