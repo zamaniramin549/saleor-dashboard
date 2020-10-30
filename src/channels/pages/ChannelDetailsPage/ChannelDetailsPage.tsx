@@ -10,7 +10,6 @@ import React from "react";
 import { ChannelForm, FormData } from "../../components/ChannelForm";
 import { ChannelStatus } from "../../components/ChannelStatus/ChannelStatus";
 import { Channel_channel } from "../../types/Channel";
-import createSingleAutocompleteSelectHandler from "./handlers";
 
 export interface ChannelDetailsPageProps {
   channel?: Channel_channel;
