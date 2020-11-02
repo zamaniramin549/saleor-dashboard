@@ -27,7 +27,7 @@ const useStyles = makeStyles(
 
 interface HomeOrdersCardProps {
   userName: string;
-  channelChoices: Choices[];
+  channelChoices: Choices;
   channelValue: string;
   onChannelChange: (value: string) => void;
 }
