@@ -4,6 +4,8 @@ All notable, unreleased changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- Add Page Types - #807 by @orzechdev
+
 ## 2.11.0
 
 - Add sku column to fulfillment cards - #538 by @dominik-zeglen
