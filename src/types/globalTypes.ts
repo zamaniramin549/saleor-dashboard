@@ -474,6 +474,7 @@ export enum LanguageCodeEnum {
   IS = "IS",
   IT = "IT",
   JA = "JA",
+  KA = "KA",
   KM = "KM",
   KO = "KO",
   LT = "LT",
