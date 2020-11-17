@@ -14,6 +14,7 @@ import { WarehouseFragment } from "@saleor/fragments/types/WarehouseFragment";
 import { VariantUpdate_productVariantUpdate_errors } from "@saleor/products/types/VariantUpdate";
 import { ReorderAction } from "@saleor/types";
 import React from "react";
+import { useIntl } from "react-intl";
 
 import { maybe } from "../../../misc";
 import ProductShipping from "../ProductShipping/ProductShipping";
@@ -84,6 +85,7 @@ const ProductVariantPage: React.FC<ProductVariantPageProps> = ({
   onSetDefaultVariant,
   onWarehouseConfigure
 }) => {
+  const intl = useIntl();
   const [isModalOpened, setModalStatus] = React.useState(false);
   const toggleModal = () => setModalStatus(!isModalOpened);
 
@@ -135,6 +137,22 @@ const ProductVariantPage: React.FC<ProductVariantPageProps> = ({
                 </div>
                 <div>
                   <Attributes
+                    title={intl.formatMessage({
+                      defaultMessage: "Variant Attributes",
+                      description: "attributes, section header"
+                    })}
+                    attributes={data.attributes}
+                    disabled={loading}
+                    errors={errors}
+                    onChange={handlers.selectAttribute}
+                    onMultiChange={handlers.selectAttributeMultiple}
+                  />
+                  <CardSpacer />
+                  <Attributes
+                    title={intl.formatMessage({
+                      defaultMessage: "Variant Selection Attributes",
+                      description: "attributes, section header"
+                    })}
                     attributes={data.attributes}
                     disabled={loading}
                     errors={errors}

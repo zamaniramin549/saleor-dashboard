@@ -31,6 +31,7 @@ export interface AttributeInputData {
 }
 export type AttributeInput = FormsetAtomicData<AttributeInputData, string[]>;
 export interface AttributesProps {
+  title?: string;
   attributes: AttributeInput[];
   disabled: boolean;
   errors: Array<
@@ -138,6 +139,7 @@ function getErrorMessage(
 }
 
 const Attributes: React.FC<AttributesProps> = ({
+  title,
   attributes,
   disabled,
   errors,
@@ -152,10 +154,14 @@ const Attributes: React.FC<AttributesProps> = ({
   return (
     <Card className={classes.card}>
       <CardTitle
-        title={intl.formatMessage({
-          defaultMessage: "Attributes",
-          description: "attributes, section header"
-        })}
+        title={
+          title
+            ? title
+            : intl.formatMessage({
+                defaultMessage: "Attributes",
+                description: "attributes, section header"
+              })
+        }
       />
       <CardContent className={classes.cardContent}>
         <div className={classes.expansionBar}>
