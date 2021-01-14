@@ -11,7 +11,7 @@ import { FormattedMessage } from "react-intl";
 import { OrderDetails_order_lines } from "../../types/OrderDetails";
 import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
-import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
+import CardTitle from "../OrderReturnRefundItemsCard/CardTitle";
 
 const useStyles = makeStyles(
   () => ({

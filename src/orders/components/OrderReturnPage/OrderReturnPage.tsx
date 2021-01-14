@@ -12,8 +12,8 @@ import { defineMessages, useIntl } from "react-intl";
 
 import OrderAmount from "../OrderRefundReturnAmount";
 import { getReturnProductsAmountValues } from "../OrderRefundReturnAmount/utils";
+import ItemsCard from "../OrderReturnItemsCard/ReturnItemsCard";
 import OrderRefundForm, { OrderRefundSubmitData } from "./form";
-import ItemsCard from "./OrderReturnRefundItemsCard/ReturnItemsCard";
 import {
   getFulfilledFulfillemnts,
   getParsedFulfiledLines,

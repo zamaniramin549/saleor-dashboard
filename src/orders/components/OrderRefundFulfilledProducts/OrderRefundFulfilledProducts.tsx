@@ -5,7 +5,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -21,6 +20,7 @@ import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { OrderRefundFormData } from "../OrderRefundPage/form";
+import TableHeader from "./TableHeader";
 
 const useStyles = makeStyles(
   theme => {
@@ -83,6 +83,7 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
     onRefundedProductQuantityChange,
     onSetMaximalQuantities
   } = props;
+  // @ts-ignore
   const classes = useStyles(props);
   const intl = useIntl();
 
@@ -118,34 +119,7 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
         </Button>
       </CardContent>
       <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Product"
-                description="tabel column header"
-              />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Price"
-                description="tabel column header"
-              />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Refunded Qty"
-                description="tabel column header"
-              />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Total"
-                description="tabel column header"
-              />
-            </TableCell>
-          </TableRow>
-        </TableHead>
+        <TableHeader />
         <TableBody>
           {renderCollection(
             fulfillment?.lines,

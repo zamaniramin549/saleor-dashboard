@@ -13,7 +13,7 @@ import { FulfillmentStatus } from "../../../types/globalTypes";
 import { OrderDetails_order_fulfillments } from "../../types/OrderDetails";
 import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
-import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
+import CardTitle from "../OrderReturnRefundItemsCard/CardTitle";
 import ActionButtons from "./ActionButtons";
 import ExtraInfoLines from "./ExtraInfoLines";
 
