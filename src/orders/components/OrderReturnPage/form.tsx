@@ -4,17 +4,14 @@ import useFormset, {
   FormsetData
 } from "@saleor/hooks/useFormset";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
-import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import handleFormSubmit from "@saleor/utils/handlers/handleFormSubmit";
 import React, { useState } from "react";
 
 import { OrderRefundAmountCalculationMode } from "../OrderRefundPage/form";
 import {
   getById,
-  getLineItem,
-  getOrderUnfulfilledLines,
-  getParsedLineData,
-  getParsedLineDataForFulfillmentStatus
+  returnFulfilledStatuses,
+  ReturnLineDataParser
 } from "./utils";
 
 export interface LineItemOptions<T> {
@@ -79,79 +76,33 @@ function useOrderReturnForm(
 ): UseOrderRefundFormResult {
   const form = useForm(getOrderRefundPageFormData());
   const [hasChanged, setHasChanged] = useState(false);
+  const parser = new ReturnLineDataParser(order, returnFulfilledStatuses);
 
   const handleChange: FormChange = (event, cb) => {
     form.change(event, cb);
   };
 
   const unfulfiledItemsQuantites = useFormset<LineItemData, number>(
-    getOrderUnfulfilledLines(order).map(getParsedLineData({ initialValue: 0 }))
+    parser.getUnfulfilledParsedLineData({ initialValue: 0 })
   );
-
-  const getItemsFulfilled = () => {
-    const commonOptions = {
-      initialValue: 0,
-      isFulfillment: true
-    };
-
-    const refundedFulfilmentsItems = getParsedLineDataForFulfillmentStatus(
-      order,
-      FulfillmentStatus.REFUNDED,
-      { ...commonOptions, isRefunded: true }
-    );
-
-    const fulfilledFulfillmentsItems = getParsedLineDataForFulfillmentStatus(
-      order,
-      FulfillmentStatus.FULFILLED,
-      commonOptions
-    );
-
-    return refundedFulfilmentsItems.concat(fulfilledFulfillmentsItems);
-  };
 
   const fulfiledItemsQuatities = useFormset<LineItemData, number>(
-    getItemsFulfilled()
+    parser.getFulfilledParsedLineData()
   );
 
-  const getItemsToBeReplaced = () => {
-    if (!order) {
-      return [];
-    }
-
-    const orderLinesItems = getOrderUnfulfilledLines(order).map(
-      getParsedLineData({ initialValue: false })
-    );
-
-    const refundedFulfilmentsItems = getParsedLineDataForFulfillmentStatus(
-      order,
-      FulfillmentStatus.REFUNDED,
-      { initialValue: false, isFulfillment: true }
-    );
-
-    const fulfilledFulfillmentsItems = getParsedLineDataForFulfillmentStatus(
-      order,
-      FulfillmentStatus.FULFILLED,
-      { initialValue: false, isFulfillment: true }
-    );
-
-    return [
-      ...orderLinesItems,
-      ...refundedFulfilmentsItems,
-      ...fulfilledFulfillmentsItems
-    ];
-  };
-
   const itemsToBeReplaced = useFormset<LineItemData, boolean>(
-    getItemsToBeReplaced()
+    parser.getReplacableParsedLineData()
   );
 
   const handleSetMaximalUnfulfiledItemsQuantities = () => {
     const newQuantities: FormsetQuantityData = unfulfiledItemsQuantites.data.map(
       ({ id }) => {
         const line = order.lines.find(getById(id));
-        const initialValue = line.quantity - line.quantityFulfilled;
+        const newQuantity = line.quantity - line.quantityFulfilled;
 
-        return getLineItem(line, { initialValue });
+        return ReturnLineDataParser.getLineItem(line, {
+          initialValue: newQuantity
+        });
       }
     );
 
@@ -168,11 +119,7 @@ function useOrderReturnForm(
       item => {
         const line = lines.find(getById(item.id));
 
-        if (!line) {
-          return item;
-        }
-
-        return getLineItem(line, {
+        return ReturnLineDataParser.getLineItem(line, {
           initialValue: line.quantity,
           isRefunded: item.data.isRefunded
         });

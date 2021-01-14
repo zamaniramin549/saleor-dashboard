@@ -13,11 +13,10 @@ import { defineMessages, useIntl } from "react-intl";
 import OrderAmount from "../OrderRefundReturnAmount";
 import { getReturnProductsAmountValues } from "../OrderRefundReturnAmount/utils";
 import ItemsCard from "../OrderReturnItemsCard/ReturnItemsCard";
-import OrderRefundForm, { OrderRefundSubmitData } from "./form";
+import OrderReturnForm, { OrderRefundSubmitData } from "./form";
 import {
-  getFulfilledFulfillemnts,
-  getParsedFulfiledLines,
-  getUnfulfilledLines
+  returnFulfilledStatuses,
+  ReturnRefundFulfillmentsParser
 } from "./utils";
 
 const messages = defineMessages({
@@ -41,10 +40,14 @@ export interface OrderReturnPageProps {
 
 const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
   const { order, loading, errors = [], onBack, onSubmit } = props;
+  const fulfillmentsParser = new ReturnRefundFulfillmentsParser(
+    order,
+    returnFulfilledStatuses
+  );
 
   const intl = useIntl();
   return (
-    <OrderRefundForm order={order} onSubmit={onSubmit}>
+    <OrderReturnForm order={order} onSubmit={onSubmit}>
       {({ data, handlers, change, submit }) => {
         const { fulfiledItemsQuantities, unfulfiledItemsQuantities } = data;
 
@@ -71,7 +74,7 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
                     <ItemsCard
                       errors={errors}
                       order={order}
-                      lines={getUnfulfilledLines(order)}
+                      lines={fulfillmentsParser.getUnfulfilledLines()}
                       itemsQuantities={data.unfulfiledItemsQuantities}
                       itemsSelections={data.itemsToBeReplaced}
                       onChangeQuantity={handlers.changeUnfulfiledItemsQuantity}
@@ -84,20 +87,24 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
                   </>
                 )}
                 {renderCollection(
-                  getFulfilledFulfillemnts(order),
-                  ({ id, lines }) => (
+                  fulfillmentsParser.getFulfilledFulfillemnts(),
+                  ({ id, ...rest }) => (
                     <React.Fragment key={id}>
                       <ItemsCard
                         errors={errors}
                         order={order}
                         fulfilmentId={id}
-                        lines={getParsedFulfiledLines(lines)}
+                        lines={ReturnRefundFulfillmentsParser.getParsedLinesOfFulfillment(
+                          { id, ...rest }
+                        )}
                         itemsQuantities={data.fulfiledItemsQuantities}
                         itemsSelections={data.itemsToBeReplaced}
-                        onChangeQuantity={handlers.changeFulfiledItemsQuantity}
-                        onSetMaxQuantity={handlers.handleSetMaximalFulfiledItemsQuantities(
-                          id
-                        )}
+                        onChangeQuantity={
+                          handlers.changeUnfulfiledItemsQuantity
+                        }
+                        onSetMaxQuantity={
+                          handlers.handleSetMaximalUnfulfiledItemsQuantities
+                        }
                         onChangeSelected={handlers.changeItemsToBeReplaced}
                       />
                       <CardSpacer />
@@ -122,7 +129,7 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
           </Container>
         );
       }}
-    </OrderRefundForm>
+    </OrderReturnForm>
   );
 };
 

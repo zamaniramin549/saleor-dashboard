@@ -6,8 +6,9 @@ import {
   OrderReturnFormData
 } from "../components/OrderReturnPage/form";
 import {
-  getAllOrderFulfilledLines,
-  getById
+  getById,
+  returnFulfilledStatuses,
+  ReturnRefundFulfillmentsParser
 } from "../components/OrderReturnPage/utils";
 import {
   OrderDetails_order,
@@ -58,18 +59,24 @@ const selectItemPriceAndQuantity = (
   }: Partial<OrderReturnFormData>,
   id: string,
   isFulfillment: boolean
-) =>
-  isFulfillment
+) => {
+  const parser = new ReturnRefundFulfillmentsParser(
+    order,
+    returnFulfilledStatuses
+  );
+
+  return isFulfillment
     ? getItemPriceAndQuantity({
         id,
         itemsQuantities: fulfiledItemsQuantities,
-        orderLines: getAllOrderFulfilledLines(order)
+        orderLines: parser.getOrderFulfilledParsedLines()
       })
     : getItemPriceAndQuantity({
         id,
         itemsQuantities: unfulfiledItemsQuantities,
         orderLines: order.lines
       });
+};
 
 export const getReplacedProductsAmount = (
   order: OrderDetails_order,
@@ -113,6 +120,11 @@ export const getReturnSelectedProductsAmount = (
     return 0;
   }
 
+  const parser = new ReturnRefundFulfillmentsParser(
+    order,
+    returnFulfilledStatuses
+  );
+
   const unfulfilledItemsValue = getPartialProductsValue({
     itemsQuantities: unfulfiledItemsQuantities,
     itemsToBeReplaced,
@@ -122,7 +134,7 @@ export const getReturnSelectedProductsAmount = (
   const fulfiledItemsValue = getPartialProductsValue({
     itemsQuantities: fulfiledItemsQuantities,
     itemsToBeReplaced,
-    orderLines: getAllOrderFulfilledLines(order)
+    orderLines: parser.getOrderFulfilledParsedLines()
   });
 
   return unfulfilledItemsValue + fulfiledItemsValue;

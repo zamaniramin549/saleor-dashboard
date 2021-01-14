@@ -1,4 +1,4 @@
-import { OrderDetailsFragment_fulfillments_lines } from "@saleor/fragments/types/OrderDetailsFragment";
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
   OrderDetails_order,
   OrderDetails_order_fulfillments
@@ -7,87 +7,201 @@ import { FulfillmentStatus } from "@saleor/types/globalTypes";
 
 import { LineItemOptions } from "./form";
 
-const fulfiledStatuses = [
-  FulfillmentStatus.FULFILLED,
-  FulfillmentStatus.REFUNDED
+export const getById = (idToCompare: string) => (obj: { id: string }) =>
+  obj.id === idToCompare;
+
+export const refundFulfilledStatuses = [FulfillmentStatus.FULFILLED];
+export const returnFulfilledStatuses = [
+  FulfillmentStatus.REFUNDED,
+  FulfillmentStatus.FULFILLED
 ];
 
-export const getOrderUnfulfilledLines = (order: OrderDetails_order) =>
-  order?.lines.filter(line => line.quantityFulfilled !== line.quantity) || [];
+export class ReturnRefundFulfillmentsParser {
+  static defaultOrderValues: Partial<OrderDetails_order> = {
+    fulfillments: [],
+    lines: []
+  };
+  order: Partial<OrderDetails_order>;
+  fulfilledStatuses: FulfillmentStatus[];
 
-export const getFulfilledFulfillment = fulfillment =>
-  fulfiledStatuses.includes(fulfillment.status);
+  constructor(
+    order: OrderDetails_order,
+    fulfilledStatuses: FulfillmentStatus[]
+  ) {
+    this.order = order || ReturnRefundFulfillmentsParser.defaultOrderValues;
+    this.fulfilledStatuses = fulfilledStatuses;
+  }
 
-export const getFulfilledFulfillemnts = (order?: OrderDetails_order) =>
-  order?.fulfillments.filter(getFulfilledFulfillment) || [];
+  private getOrderLines = () => this.order.lines;
 
-export const getUnfulfilledLines = (order?: OrderDetails_order) =>
-  order?.lines.filter(line => line.quantity !== line.quantityFulfilled) || [];
+  private getOrderFulfillments = () => this.order.fulfillments;
 
-export const getAllOrderFulfilledLines = (order?: OrderDetails_order) =>
-  getFulfilledFulfillemnts(order).reduce(
-    (result, { lines }) => [...result, ...getParsedFulfiledLines(lines)],
-    []
-  );
+  isFulfillmentFulfilled = fulfillment =>
+    this.fulfilledStatuses.includes(fulfillment.status);
 
-export function getLineItem<T>(
-  { id }: { id: string },
-  {
+  getFulfilledFulfillemnts = () =>
+    this.getOrderFulfillments().filter(this.isFulfillmentFulfilled);
+
+  getUnfulfilledLines = () =>
+    this.getOrderLines().filter(
+      ({ quantity, quantityFulfilled }) => quantity !== quantityFulfilled
+    );
+
+  getOrderFulfilledParsedLines = () =>
+    ReturnRefundFulfillmentsParser.getParsedLinesOfFulfillments(
+      this.getFulfilledFulfillemnts()
+    );
+
+  getAllOrderParsedLines = () =>
+    ReturnRefundFulfillmentsParser.getParsedLinesOfFulfillments(
+      this.getOrderFulfillments()
+    );
+
+  getParsedLinesOfFullfillmentsWithStatus = (
+    fulfillmentStatus: FulfillmentStatus
+  ) =>
+    ReturnRefundFulfillmentsParser.getParsedLinesOfFulfillments(
+      this.getFulfillmentsWithStatus(fulfillmentStatus)
+    );
+
+  getFulfillmentsWithStatus = (fulfillmentStatus: FulfillmentStatus) =>
+    this.getOrderFulfillments().filter(
+      ({ status }) => status === fulfillmentStatus
+    );
+
+  static getParsedLinesOfFulfillments = (
+    fulfillments: OrderDetails_order_fulfillments[]
+  ) =>
+    fulfillments.reduce(
+      (result, fulfillment) => [
+        ...result,
+        ...ReturnRefundFulfillmentsParser.getParsedLinesOfFulfillment(
+          fulfillment
+        )
+      ],
+      []
+    );
+
+  static getParsedLinesOfFulfillment = ({
+    lines
+  }: OrderDetails_order_fulfillments) =>
+    lines.map(({ id, quantity, orderLine }) => ({
+      ...orderLine,
+      id,
+      quantity
+    }));
+}
+
+export type LineDataParserArgs = Parameters<
+  (order: OrderDetails_order, fulfilledStatuses: FulfillmentStatus[]) => void
+>;
+
+export class LineDataParser {
+  fulfillmentsParser: ReturnRefundFulfillmentsParser;
+
+  constructor(
+    order: OrderDetails_order,
+    fulfilledStatuses: FulfillmentStatus[]
+  ) {
+    this.fulfillmentsParser = new ReturnRefundFulfillmentsParser(
+      order,
+      fulfilledStatuses
+    );
+  }
+
+  getUnfulfilledParsedLineData = function<T>(options: LineItemOptions<T>) {
+    return this.fulfillmentsParser
+      .getUnfulfilledLines()
+      .map(ReturnLineDataParser.getParsedLineData(options));
+  };
+
+  static getParsedLineData = function<T>({
     initialValue,
     isFulfillment = false,
     isRefunded = false
-  }: LineItemOptions<T>
-) {
-  return {
-    data: { isFulfillment, isRefunded },
-    id,
-    label: null,
-    value: initialValue
+  }: LineItemOptions<T>) {
+    return (item: { id: string }) =>
+      LineDataParser.getLineItem(item, {
+        initialValue,
+        isFulfillment,
+        isRefunded
+      });
+  };
+
+  static getLineItem = function<T>(
+    { id }: { id: string },
+    {
+      initialValue,
+      isFulfillment = false,
+      isRefunded = false
+    }: LineItemOptions<T>
+  ) {
+    return {
+      data: { isFulfillment, isRefunded },
+      id,
+      label: null,
+      value: initialValue
+    };
   };
 }
 
-export function getParsedLineData<T>({
-  initialValue,
-  isFulfillment = false,
-  isRefunded = false
-}: LineItemOptions<T>) {
-  return (item: { id: string }) =>
-    getLineItem(item, { initialValue, isFulfillment, isRefunded });
+export class ReturnLineDataParser extends LineDataParser {
+  constructor(...args: LineDataParserArgs) {
+    super(...args);
+  }
+
+  getFulfilledParsedLineData = () => {
+    const commonOptions = {
+      initialValue: 0,
+      isFulfillment: true
+    };
+
+    const refundedFulfilmentsItems = this.getParsedLineDataForFulfillmentStatus(
+      FulfillmentStatus.REFUNDED,
+      { ...commonOptions, isRefunded: true }
+    );
+
+    const fulfilledFulfillmentsItems = this.getParsedLineDataForFulfillmentStatus(
+      FulfillmentStatus.FULFILLED,
+      commonOptions
+    );
+
+    return refundedFulfilmentsItems.concat(fulfilledFulfillmentsItems);
+  };
+
+  getReplacableParsedLineData = () => {
+    const orderLinesItems = this.getUnfulfilledParsedLineData({
+      initialValue: false
+    });
+
+    const commonOptions = {
+      initialValue: false,
+      isFulfillment: true
+    };
+
+    const refundedFulfilmentsItems = this.getParsedLineDataForFulfillmentStatus(
+      FulfillmentStatus.REFUNDED,
+      commonOptions
+    );
+
+    const fulfilledFulfillmentsItems = this.getParsedLineDataForFulfillmentStatus(
+      FulfillmentStatus.FULFILLED,
+      commonOptions
+    );
+
+    return [
+      ...orderLinesItems,
+      ...refundedFulfilmentsItems,
+      ...fulfilledFulfillmentsItems
+    ];
+  };
+
+  getParsedLineDataForFulfillmentStatus = function<T>(
+    fulfillmentStatus: FulfillmentStatus,
+    lineItemOptions: LineItemOptions<T>
+  ) {
+    return this.fulfillmentsParser
+      .getParsedLinesOfFullfillmentsWithStatus(fulfillmentStatus)
+      .map(ReturnLineDataParser.getParsedLineData(lineItemOptions));
+  };
 }
-
-export function getParsedLineDataForFulfillmentStatus<T>(
-  order: OrderDetails_order,
-  fulfillmentStatus: FulfillmentStatus,
-  lineItemOptions: LineItemOptions<T>
-) {
-  return getParsedLinesOfFulfillments(
-    getFulfillmentsWithStatus(order, fulfillmentStatus)
-  ).map(getParsedLineData(lineItemOptions));
-}
-
-export const getFulfillmentsWithStatus = (
-  order: OrderDetails_order,
-  fulfillmentStatus: FulfillmentStatus
-) =>
-  order?.fulfillments.filter(({ status }) => status === fulfillmentStatus) ||
-  [];
-
-export const getParsedLinesOfFulfillments = (
-  fullfillments: OrderDetails_order_fulfillments[]
-) =>
-  fullfillments.reduce(
-    (result, { lines }) => [...result, ...getParsedFulfiledLines(lines)],
-    []
-  );
-
-export const getParsedFulfiledLines = (
-  lines: OrderDetailsFragment_fulfillments_lines[]
-) =>
-  lines.map(({ id, quantity, orderLine }) => ({
-    ...orderLine,
-    id,
-    quantity
-  }));
-
-export const getById = (idToCompare: string) => (obj: { id: string }) =>
-  obj.id === idToCompare;
