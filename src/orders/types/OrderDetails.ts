@@ -315,6 +315,12 @@ export interface OrderDetails_order_channel {
   currencyCode: string;
 }
 
+export interface OrderDetails_order_totalBalance {
+  __typename: "Money";
+  amount: number;
+  currency: string;
+}
+
 export interface OrderDetails_order {
   __typename: "Order";
   id: string;
@@ -346,6 +352,7 @@ export interface OrderDetails_order {
   invoices: (OrderDetails_order_invoices | null)[] | null;
   channel: OrderDetails_order_channel;
   isPaid: boolean | null;
+  totalBalance: OrderDetails_order_totalBalance;
 }
 
 export interface OrderDetails_shop_countries {

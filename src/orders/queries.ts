@@ -142,6 +142,10 @@ export const orderDetailsQuery = gql`
   query OrderDetails($id: ID!) {
     order(id: $id) {
       ...OrderDetailsFragment
+      totalBalance {
+        amount
+        currency
+      }
     }
     shop {
       countries {
@@ -264,47 +268,3 @@ export const orderSettingsQuery = gql`
 export const useOrderSettingsQuery = makeQuery<OrderSettings, never>(
   orderSettingsQuery
 );
-
-const orderRefundData = gql`
-  ${fragmentMoney}
-  ${fragmentRefundOrderLine}
-  query OrderRefundData($orderId: ID!) {
-    order(id: $orderId) {
-      id
-      number
-      total {
-        gross {
-          ...Money
-        }
-      }
-      totalCaptured {
-        ...Money
-      }
-      shippingPrice {
-        gross {
-          ...Money
-        }
-      }
-      lines {
-        ...RefundOrderLineFragment
-        quantityFulfilled
-      }
-      fulfillments {
-        id
-        status
-        fulfillmentOrder
-        lines {
-          id
-          quantity
-          orderLine {
-            ...RefundOrderLineFragment
-          }
-        }
-      }
-    }
-  }
-`;
-export const useOrderRefundData = makeQuery<
-  OrderRefundData,
-  OrderRefundDataVariables
->(orderRefundData);

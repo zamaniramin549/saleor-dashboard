@@ -26,147 +26,15 @@ export type OrderWithTotalAndTotalCaptured = Pick<
   "total" | "totalCaptured"
 >;
 
-export function getPreviouslyRefundedPrice(
-  order: OrderWithTotalAndTotalCaptured
-): IMoney {
-  return (
-    order?.totalCaptured &&
-    order?.total?.gross &&
-    subtractMoney(order?.totalCaptured, order?.total?.gross)
-  );
-}
-
-const getItemPriceAndQuantity = ({
-  orderLines,
-  itemsQuantities,
-  id
-}: {
-  orderLines: OrderDetails_order_lines[];
-  itemsQuantities: FormsetData<LineItemData, number>;
-  id: string;
-}) => {
-  const { unitPrice } = orderLines.find(getById(id));
-  const selectedQuantity = itemsQuantities.find(getById(id))?.value;
-
-  return { selectedQuantity, unitPrice };
-};
-
-const selectItemPriceAndQuantity = (
-  order: OrderDetails_order,
-  {
-    fulfiledItemsQuantities,
-    unfulfiledItemsQuantities
-  }: Partial<OrderReturnFormData>,
-  id: string,
-  isFulfillment: boolean
-) => {
-  const parser = new ReturnRefundFulfillmentsParser(
-    order,
-    returnFulfilledStatuses
-  );
-
-  return isFulfillment
-    ? getItemPriceAndQuantity({
-        id,
-        itemsQuantities: fulfiledItemsQuantities,
-        orderLines: parser.getOrderFulfilledParsedLines()
-      })
-    : getItemPriceAndQuantity({
-        id,
-        itemsQuantities: unfulfiledItemsQuantities,
-        orderLines: order.lines
-      });
-};
-
-export const getReplacedProductsAmount = (
-  order: OrderDetails_order,
-  {
-    itemsToBeReplaced,
-    unfulfiledItemsQuantities,
-    fulfiledItemsQuantities
-  }: Partial<OrderReturnFormData>
-) => {
-  if (!order || !itemsToBeReplaced.length) {
-    return 0;
-  }
-
-  return itemsToBeReplaced.reduce(
-    (
-      resultAmount: number,
-      { id, value: isItemToBeReplaced, data: { isFulfillment, isRefunded } }
-    ) => {
-      if (!isItemToBeReplaced || isRefunded) {
-        return resultAmount;
-      }
-
-      const { unitPrice, selectedQuantity } = selectItemPriceAndQuantity(
-        order,
-        { fulfiledItemsQuantities, unfulfiledItemsQuantities },
-        id,
-        isFulfillment
-      );
-
-      return resultAmount + unitPrice?.gross?.amount * selectedQuantity;
-    },
-    0
-  );
-};
-
-export const getReturnSelectedProductsAmount = (
-  order: OrderDetails_order,
-  { itemsToBeReplaced, unfulfiledItemsQuantities, fulfiledItemsQuantities }
-) => {
-  if (!order) {
-    return 0;
-  }
-
-  const parser = new ReturnRefundFulfillmentsParser(
-    order,
-    returnFulfilledStatuses
-  );
-
-  const unfulfilledItemsValue = getPartialProductsValue({
-    itemsQuantities: unfulfiledItemsQuantities,
-    itemsToBeReplaced,
-    orderLines: order.lines
-  });
-
-  const fulfiledItemsValue = getPartialProductsValue({
-    itemsQuantities: fulfiledItemsQuantities,
-    itemsToBeReplaced,
-    orderLines: parser.getOrderFulfilledParsedLines()
-  });
-
-  return unfulfilledItemsValue + fulfiledItemsValue;
-};
-
-const getPartialProductsValue = ({
-  orderLines,
-  itemsQuantities,
-  itemsToBeReplaced
-}: {
-  itemsToBeReplaced: FormsetData<LineItemData, boolean>;
-  itemsQuantities: FormsetData<LineItemData, number>;
-  orderLines: OrderDetails_order_lines[];
-}) =>
-  itemsQuantities.reduce((resultAmount, { id, value: quantity }) => {
-    const {
-      value: isItemToBeReplaced,
-      data: { isRefunded }
-    } = itemsToBeReplaced.find(getById(id));
-
-    if (quantity < 1 || isItemToBeReplaced || isRefunded) {
-      return resultAmount;
-    }
-
-    const { selectedQuantity, unitPrice } = getItemPriceAndQuantity({
-      id,
-      itemsQuantities,
-      orderLines
-    });
-
-    return resultAmount + unitPrice.gross.amount * selectedQuantity;
-  }, 0);
+// export function getPreviouslyRefundedPrice(
+//   order: OrderWithTotalAndTotalCaptured
+// ): IMoney {
+//   return (
+//     order?.totalCaptured &&
+//     order?.total?.gross &&
+//     subtractMoney(order?.totalCaptured, order?.total?.gross)
+//   );
+// }
 
 export function getRefundedLinesPriceSum(
   lines: OrderRefundData_order_lines[],

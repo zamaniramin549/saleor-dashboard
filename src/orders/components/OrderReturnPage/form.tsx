@@ -8,6 +8,7 @@ import handleFormSubmit from "@saleor/utils/handlers/handleFormSubmit";
 import React, { useState } from "react";
 
 import { OrderRefundAmountCalculationMode } from "../OrderRefundPage/form";
+import { OrderReturnRefundCommonFormData } from "../OrderRefundReturnAmount/utils/types";
 import {
   getById,
   returnFulfilledStatuses,
@@ -42,10 +43,8 @@ export interface OrderReturnHandlers {
   handleSetMaximalUnfulfiledItemsQuantities;
 }
 
-export interface OrderReturnFormData extends OrderReturnData {
+export interface OrderReturnFormData extends OrderReturnRefundCommonFormData {
   itemsToBeReplaced: FormsetReplacementData;
-  fulfiledItemsQuantities: FormsetQuantityData;
-  unfulfiledItemsQuantities: FormsetQuantityData;
 }
 
 export type OrderRefundSubmitData = OrderReturnFormData;
