@@ -8,6 +8,8 @@ import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import handleFormSubmit from "@saleor/utils/handlers/handleFormSubmit";
 import React from "react";
 
+import { OrderReturnRefundCommonFormData } from "../OrderRefundReturnAmount/utils/types";
+
 export enum OrderRefundType {
   MISCELLANEOUS = "miscellaneous",
   PRODUCTS = "products"
@@ -31,10 +33,7 @@ export interface OrderRefundHandlers {
   setMaximalRefundedFulfilledProductQuantities: (fulfillmentId: string) => void;
 }
 
-export interface OrderRefundFormData extends OrderRefundData {
-  refundedProductQuantities: FormsetData<null, string>;
-  refundedFulfilledProductQuantities: FormsetData<null, string>;
-}
+export type OrderRefundFormData = OrderReturnRefundCommonFormData;
 
 export type OrderRefundSubmitData = OrderRefundFormData;
 

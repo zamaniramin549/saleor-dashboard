@@ -1,3 +1,6 @@
+import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
+
+import { OrderRefundFormData } from "../../OrderRefundPage/form";
 import { refundFulfilledStatuses } from "../../OrderReturnPage/utils";
 import AmountValuesCalculator from "./ReturnRefundAmountCalculator";
 import {
@@ -6,6 +9,8 @@ import {
 } from "./types";
 
 export class RefundAmountValuesCalculator extends AmountValuesCalculator {
+  protected formData: OrderRefundFormData;
+
   public getCalculatedProductsAmountValues = (): OrderRefundAmountValues => ({
     ...this.getCommonCalculatedAmountValues(),
     ...this.getMiscellanousAmountValues(),
@@ -20,3 +25,10 @@ export class RefundAmountValuesCalculator extends AmountValuesCalculator {
     previouslyRefunded: this.getPreviouslyRefundedAmount()
   });
 }
+
+const useRefundAmountCalculator = (
+  order: OrderDetails_order,
+  formData: OrderRefundFormData
+) => new RefundAmountValuesCalculator(order, formData);
+
+export default useRefundAmountCalculator;

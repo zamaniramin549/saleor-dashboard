@@ -36,8 +36,8 @@ export interface OrderReturnData {
 }
 
 export interface OrderReturnHandlers {
-  changeFulfiledItemsQuantity: FormsetChange<number>;
-  changeUnfulfiledItemsQuantity: FormsetChange<number>;
+  changeFulfilledItemsQuantity: FormsetChange<number>;
+  changeUnfulfilledItemsQuantity: FormsetChange<number>;
   changeItemsToBeReplaced: FormsetChange<boolean>;
   handleSetMaximalFulfiledItemsQuantities;
   handleSetMaximalUnfulfiledItemsQuantities;

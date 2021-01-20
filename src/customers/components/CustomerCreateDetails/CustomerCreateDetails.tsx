@@ -53,6 +53,9 @@ const CustomerCreateDetails: React.FC<CustomerCreateDetailsProps> = props => {
       <CardContent>
         <div className={classes.root}>
           <TextField
+            FormHelperTextProps={{
+              "data-test-id": "lol"
+            }}
             disabled={disabled}
             error={!!formErrors.customerFirstName}
             fullWidth

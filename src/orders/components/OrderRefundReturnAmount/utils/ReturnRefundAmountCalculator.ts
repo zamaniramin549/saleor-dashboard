@@ -21,9 +21,9 @@ import {
 } from "./types";
 
 export default class AmountValuesCalculator {
-  order: OrderDetails_order;
-  formData: OrderReturnRefundCommonFormData;
-  defaultCurrency: string;
+  protected order: OrderDetails_order;
+  protected formData: OrderReturnRefundCommonFormData;
+  protected defaultCurrency: string;
 
   constructor(
     order: OrderDetails_order,

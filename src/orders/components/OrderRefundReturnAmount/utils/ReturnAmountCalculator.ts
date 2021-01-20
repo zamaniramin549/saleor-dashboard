@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/member-ordering */
+import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
+
 import { OrderReturnFormData } from "../../OrderReturnPage/form";
 import { returnFulfilledStatuses } from "../../OrderReturnPage/utils";
 import AmountValuesCalculator from "./ReturnRefundAmountCalculator";
 import { OrderReturnAmountValues } from "./types";
 
 export class ReturnAmountValuesCalculator extends AmountValuesCalculator {
-  formData: OrderReturnFormData;
+  protected formData: OrderReturnFormData;
 
   public getCalculatedValues = (): OrderReturnAmountValues => ({
     ...this.getCommonCalculatedAmountValues(),
@@ -47,3 +49,10 @@ export class ReturnAmountValuesCalculator extends AmountValuesCalculator {
     return this.getValueAsMoney(amount);
   };
 }
+
+const useReturnAmountCalculator = (
+  order: OrderDetails_order,
+  formData: OrderReturnFormData
+) => new ReturnAmountValuesCalculator(order, formData);
+
+export default useReturnAmountCalculator;
