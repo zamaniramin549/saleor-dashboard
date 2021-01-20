@@ -205,3 +205,19 @@ export class ReturnLineDataParser extends LineDataParser {
       .map(ReturnLineDataParser.getParsedLineData(lineItemOptions));
   };
 }
+
+/* eslint-disable @typescript-eslint/member-ordering */
+// import { LineItemOptions } from "../OrderReturnPage/form";
+// import { LineDataParser, LineDataParserArgs } from "../OrderReturnPage/utils";
+
+export class RefundLineDataParser extends LineDataParser {
+  constructor(...args: LineDataParserArgs) {
+    super(...args);
+  }
+
+  getFulfilledParsedLineData = function<T>(options: LineItemOptions<T>) {
+    return this.fulfillmentsParser
+      .getOrderFulfilledParsedLines()
+      .map(LineDataParser.getParsedLineData(options));
+  };
+}
