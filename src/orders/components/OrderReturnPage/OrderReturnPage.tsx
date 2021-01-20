@@ -17,7 +17,7 @@ import OrderReturnForm, { OrderRefundSubmitData } from "./form";
 import {
   returnFulfilledStatuses,
   ReturnRefundFulfillmentsParser
-} from "./utils";
+} from "./utils/FulfillmentsParser";
 
 const messages = defineMessages({
   appTitle: {

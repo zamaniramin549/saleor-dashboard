@@ -1,18 +1,24 @@
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 
 import {
-  getFulfilledFulfillemnts,
-  getUnfulfilledLines
-} from "../OrderReturnPage/utils";
+  returnFulfilledStatuses,
+  ReturnRefundFulfillmentsParser
+} from "../OrderReturnPage/utils/FulfillmentsParser";
 
 export const hasAnyItemsReplaceable = (order?: OrderDetails_order) => {
   if (!order) {
     return false;
   }
 
-  const hasAnyUnfulfilledItems = getUnfulfilledLines(order).length > 0;
+  const parser = new ReturnRefundFulfillmentsParser(
+    order,
+    returnFulfilledStatuses
+  );
 
-  const hasAnyFulfilmentsToReturn = getFulfilledFulfillemnts(order).length > 0;
+  const hasAnyUnfulfilledItems = parser.getUnfulfilledLines().length > 0;
+
+  const hasAnyFulfilmentsToReturn =
+    parser.getFulfilledFulfillemnts().length > 0;
 
   return hasAnyUnfulfilledItems || hasAnyFulfilmentsToReturn;
 };

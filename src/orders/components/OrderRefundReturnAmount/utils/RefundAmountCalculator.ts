@@ -1,7 +1,7 @@
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 
 import { OrderRefundFormData } from "../../OrderRefundPage/form";
-import { refundFulfilledStatuses } from "../../OrderReturnPage/utils";
+import { refundFulfilledStatuses } from "../../OrderReturnPage/utils/FulfillmentsParser";
 import AmountValuesCalculator from "./ReturnRefundAmountCalculator";
 import {
   OrderRefundAmountValues,

@@ -11,10 +11,8 @@ import {
   FormsetReplacementData,
   LineItemData
 } from "../../OrderReturnPage/form";
-import {
-  getById,
-  ReturnRefundFulfillmentsParser
-} from "../../OrderReturnPage/utils";
+import { getById } from "../../OrderReturnPage/utils";
+import { ReturnRefundFulfillmentsParser } from "../../OrderReturnPage/utils/FulfillmentsParser";
 import {
   OrderReturnRefundCommonFormData,
   ReturnRefundCommonAmountValues

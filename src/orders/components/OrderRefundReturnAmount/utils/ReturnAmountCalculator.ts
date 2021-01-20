@@ -2,7 +2,7 @@
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 
 import { OrderReturnFormData } from "../../OrderReturnPage/form";
-import { returnFulfilledStatuses } from "../../OrderReturnPage/utils";
+import { returnFulfilledStatuses } from "../../OrderReturnPage/utils/FulfillmentsParser";
 import AmountValuesCalculator from "./ReturnRefundAmountCalculator";
 import { OrderReturnAmountValues } from "./types";
 
