@@ -1,3 +1,4 @@
+import reduce from "lodash/reduce";
 import { ReturnLineDataParser } from "./ReturnLineDataParser";
 
 export const getById = (idToCompare: string) => (obj: { id: string }) =>
@@ -14,3 +15,23 @@ export const getItemsWithMaxedQuantities = ({ lines, itemsQuantites }) =>
       initialValue: newQuantity
     });
   });
+
+export const getHandlersWithTriggerChange = (
+  handlers: Record<string, Function>,
+  triggerChange: () => void
+) =>
+  reduce(
+    handlers,
+    (resultHandlers, handlerFn, handlerName) => {
+      const handlerWithTriggerChange = handleHandlerChange(handlerFn);
+      return { ...resultHandlers, [handlerName]: handlerWithTriggerChange };
+    },
+    {}
+  );
+
+const handleHandlerChange = (callback: (...args: any[]) => void) => (
+  ...args: []
+) => {
+  this.triggerChange();
+  callback(...args);
+};
