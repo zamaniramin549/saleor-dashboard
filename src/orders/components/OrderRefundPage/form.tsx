@@ -3,6 +3,7 @@ import useFormset, {
   FormsetChange,
   FormsetData
 } from "@saleor/hooks/useFormset";
+import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { OrderRefundData_order } from "@saleor/orders/types/OrderRefundData";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import handleFormSubmit from "@saleor/utils/handlers/handleFormSubmit";
@@ -48,7 +49,7 @@ export interface UseOrderRefundFormResult {
 
 interface OrderRefundFormProps {
   children: (props: UseOrderRefundFormResult) => React.ReactNode;
-  order: OrderRefundData_order;
+  order: OrderDetails_order;
   defaultType: OrderRefundType;
   onSubmit: (data: OrderRefundSubmitData) => SubmitPromise;
 }

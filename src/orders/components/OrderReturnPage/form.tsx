@@ -130,9 +130,9 @@ function useOrderReturnForm(
   };
 
   const data: OrderReturnFormData = {
-    fulfiledItemsQuantities: fulfiledItemsQuatities.data,
+    fulfilledItemsQuantities: fulfiledItemsQuatities.data,
     itemsToBeReplaced: itemsToBeReplaced.data,
-    unfulfiledItemsQuantities: unfulfiledItemsQuantites.data,
+    unfulfilledItemsQuantities: unfulfiledItemsQuantites.data,
     ...form.data
   };
 
@@ -151,11 +151,11 @@ function useOrderReturnForm(
     change: handleChange,
     data,
     handlers: {
-      changeFulfiledItemsQuantity: handleHandlerChange(
+      changeFulfilledItemsQuantity: handleHandlerChange(
         fulfiledItemsQuatities.change
       ),
       changeItemsToBeReplaced: handleHandlerChange(itemsToBeReplaced.change),
-      changeUnfulfiledItemsQuantity: handleHandlerChange(
+      changeUnfulfilledItemsQuantity: handleHandlerChange(
         unfulfiledItemsQuantites.change
       ),
       handleSetMaximalFulfiledItemsQuantities,

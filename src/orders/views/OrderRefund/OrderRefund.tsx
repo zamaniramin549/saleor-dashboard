@@ -10,7 +10,7 @@ import {
   useOrderFulfillmentRefundProductsMutation,
   useOrderRefundMutation
 } from "@saleor/orders/mutations";
-import { useOrderRefundData } from "@saleor/orders/queries";
+import { useOrderQuery } from "@saleor/orders/queries";
 import { orderUrl } from "@saleor/orders/urls";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -60,12 +60,13 @@ const OrderRefund: React.FC<OrderRefundProps> = ({ orderId }) => {
   const notify = useNotifier();
   const intl = useIntl();
 
-  const { data, loading } = useOrderRefundData({
+  const { data, loading } = useOrderQuery({
     displayLoader: true,
     variables: {
-      orderId
+      id: orderId
     }
   });
+
   const [refundOrder, refundOrderOpts] = useOrderRefundMutation({
     onCompleted: data => {
       if (data.orderRefund.errors.length === 0) {
