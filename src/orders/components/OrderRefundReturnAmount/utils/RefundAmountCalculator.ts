@@ -1,9 +1,7 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 
-import {
-  OrderRefundFormData,
-  OrderRefundType
-} from "../../OrderRefundPage/form";
+import { OrderRefundFormData } from "../../OrderRefundPage/form";
 import { refundFulfilledStatuses } from "../../OrderReturnPage/utils/FulfillmentsParser";
 import AmountValuesCalculator from "./ReturnRefundAmountCalculator";
 import {
@@ -11,31 +9,25 @@ import {
   OrderRefundMiscellaneousAmountValues
 } from "./types";
 
-type ValuesType =
-  | OrderRefundAmountValues
-  | OrderRefundMiscellaneousAmountValues;
-
 export class RefundAmountValuesCalculator extends AmountValuesCalculator<
   OrderRefundFormData
 > {
-  public getCalculatedValues = function<ValuesType>(): ValuesType {
-    return this.formData.type === OrderRefundType.PRODUCTS
-      ? this.getCalculatedProductsAmountValues()
-      : this.getMiscellanousAmountValues();
-  };
-
-  private getCalculatedProductsAmountValues = (): OrderRefundAmountValues => ({
+  public getCalculatedProductsAmountValues = (): OrderRefundAmountValues => ({
     ...this.getCommonCalculatedAmountValues(),
     ...this.getMiscellanousAmountValues(),
-    selectedProductsAmount: this.getSelectedProductsAmount(
-      refundFulfilledStatuses
-    )
+    refundTotalAmount: this.getTotalAmount(
+      this.getRefundSelectedProductsAmount()
+    ),
+    selectedProductsAmount: this.getRefundSelectedProductsAmount()
   });
 
-  private getMiscellanousAmountValues = (): OrderRefundMiscellaneousAmountValues => ({
+  private getRefundSelectedProductsAmount = () =>
+    this.getSelectedProductsAmount(refundFulfilledStatuses);
+
+  public getMiscellanousAmountValues = (): OrderRefundMiscellaneousAmountValues => ({
     authorizedAmount: this.getAuthorizedAmount(),
-    maxRefund: this.getMaxRefundAmount(),
-    previouslyRefunded: this.getPreviouslyRefundedAmount()
+    maxRefundAmount: this.getMaxRefundAmount(),
+    previouslyRefundedAmount: this.getPreviouslyRefundedAmount()
   });
 }
 

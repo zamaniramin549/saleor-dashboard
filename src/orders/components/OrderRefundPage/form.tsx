@@ -8,6 +8,7 @@ import { useState } from "react";
 import {
   FormsetQuantityData,
   LineItemData,
+  OrderReturnRefundCommonFormData,
   OrderReturnRefundCommonHandlers
 } from "../OrderRefundReturnAmount/utils/types";
 import {
@@ -28,19 +29,11 @@ export enum OrderRefundAmountCalculationMode {
   MANUAL = "manual"
 }
 
-export interface OrderRefundData {
-  amount: number;
-  type: OrderRefundType;
-  refundShipmentCosts: boolean;
-  amountCalculationMode: OrderRefundAmountCalculationMode;
-}
-
 export type OrderRefundHandlers = OrderReturnRefundCommonHandlers;
 
-export interface OrderRefundFormData extends OrderRefundData {
-  unfulfilledItemsQuantities: FormsetQuantityData;
-  fulfilledItemsQuantities: FormsetQuantityData;
-}
+export type OrderRefundFormData = OrderReturnRefundCommonFormData & {
+  type: OrderRefundType;
+};
 
 export interface UseOrderRefundFormResult {
   change: FormChange;

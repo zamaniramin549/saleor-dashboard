@@ -28,17 +28,6 @@ const useStyles = makeStyles(
   { name: "OrderRefundAmountValues" }
 );
 
-export interface OrderRefundAmountValuesProps {
-  authorizedAmount: IMoney;
-  shipmentCost?: IMoney;
-  selectedProductsValue?: IMoney;
-  previouslyRefunded: IMoney;
-  maxRefund: IMoney;
-  proposedRefundAmount?: IMoney;
-  replacedProductsValue?: IMoney;
-  refundTotalAmount?: IMoney;
-}
-
 const messages = defineMessages({
   authorizedAmount: {
     defaultMessage: "Authorized Amount",

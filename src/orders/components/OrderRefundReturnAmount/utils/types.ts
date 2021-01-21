@@ -1,20 +1,23 @@
 import { IMoney } from "@saleor/components/Money";
 import { FormsetChange, FormsetData } from "@saleor/hooks/useFormset";
+import { MessageDescriptor } from "react-intl";
 
 import { OrderRefundAmountCalculationMode } from "../../OrderRefundPage/form";
 
 export interface OrderRefundMiscellaneousAmountValues {
   authorizedAmount: IMoney;
-  previouslyRefunded: IMoney;
-  maxRefund: IMoney;
+  previouslyRefundedAmount: IMoney;
+  maxRefundAmount: IMoney;
 }
 
 export type OrderRefundAmountValues = OrderRefundMiscellaneousAmountValues &
   ReturnRefundCommonAmountValues & {
     selectedProductsAmount: IMoney;
+    refundTotalAmount: IMoney;
   };
 
 export interface ReturnRefundCommonAmountValues {
+  maxRefundAmount: IMoney;
   previouslyRefunded: IMoney;
   authorizedAmount: IMoney;
   shipmentCost: IMoney;
@@ -26,13 +29,12 @@ export interface OrderReturnAmountValues extends OrderRefundAmountValues {
 }
 
 export interface OrderReturnRefundCommonFormData {
-  amount: number;
+  manualAmount: number;
   refundShipmentCosts: boolean;
   amountCalculationMode: OrderRefundAmountCalculationMode;
   unfulfilledItemsQuantities: FormsetQuantityData;
   fulfilledItemsQuantities: FormsetQuantityData;
 }
-
 export interface LineItemOptions<T> {
   initialValue: T;
   isFulfillment?: boolean;
@@ -54,6 +56,7 @@ export interface OrderReturnData {
   amount: number;
   refundShipmentCosts: boolean;
   amountCalculationMode: OrderRefundAmountCalculationMode;
+  noRefund: boolean;
 }
 
 export interface OrderReturnRefundCommonHandlers {
@@ -62,3 +65,8 @@ export interface OrderReturnRefundCommonHandlers {
   handleSetMaximalFulfiledItemsQuantities: (fulfillmentId: string) => void;
   handleSetMaximalUnfulfiledItemsQuantities: () => void;
 }
+
+export type OrderReturnRefundAmountMessages = Record<
+  "submitButton" | "cannotBeFulfilled",
+  MessageDescriptor
+>;

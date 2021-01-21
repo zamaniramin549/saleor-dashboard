@@ -1,19 +1,27 @@
+import { IMoney } from "@saleor/components/Money";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import React from "react";
+import { useIntl } from "react-intl";
 import { defineMessages } from "react-intl";
-import { OrderRefundAmountCalculationMode, OrderRefundFormData, OrderRefundType } from "../OrderRefundPage/form";
 
+import {
+  OrderRefundAmountCalculationMode,
+  OrderRefundFormData,
+  OrderRefundType
+} from "../OrderRefundPage/form";
 import OrderReturnRefundAmount from "./OrderRefundReturnAmount";
+import SubmitButton from "./SubmitButton";
+import { isProperManualAmount } from "./utils";
 import useRefundAmountCalculator from "./utils/RefundAmountCalculator";
 
 const messages = defineMessages({
   cannotBeFulfilled: {
-    defaultMessage: "Returned items can't be fulfilled",
+    defaultMessage: "Refunded items can't be fulfilled",
     description: "order return subtitle"
   },
   submitButton: {
-    defaultMessage: "Return & Replace products",
-    description: "order return amount button"
+    defaultMessage: "Refund {currency} {amount}",
+    description: "order refund submit button"
   }
 });
 
@@ -30,36 +38,46 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = ({
   onChange,
   onSubmit
 }) => {
-  const { type, amountCalculationMode } = formData
+  const { type, amountCalculationMode } = formData;
   const amountCalculator = useRefundAmountCalculator(order, formData);
-  const amountData = amountCalculator.getCalculatedValues()
+  const intl = useIntl();
 
-  const hasProperRefundAmount = () => {
-    if(type === OrderRefundType.MISCELLANEOUS) { return true }
+  const productsAmountValues = amountCalculator.getCalculatedProductsAmountValues();
+  const miscellaneousAmountValues = amountCalculator.getMiscellanousAmountValues();
 
-    if(amountCalculationMode === OrderRefundAmountCalculationMode.AUTOMATIC) {
-      return amountData.
+  const hasProperRefundAmount = (): boolean => {
+    if (type === OrderRefundType.MISCELLANEOUS) {
+      return true;
     }
-    ? refundTotalAmount?.amount
-    : data.amount
-  }
 
-  const shouldDisableSubmit = !
+    if (amountCalculationMode === OrderRefundAmountCalculationMode.AUTOMATIC) {
+      return !!productsAmountValues.refundTotalAmount.amount;
+    }
+
+    return isProperManualAmount(productsAmountValues, formData);
+  };
+
+  const getSubmitButtonTextValues = (): IMoney =>
+    type === OrderRefundType.MISCELLANEOUS
+      ? miscellaneousAmountValues.maxRefundAmount
+      : productsAmountValues.selectedProductsAmount;
 
   return (
     <OrderReturnRefundAmount
-      // isReturn
-      // amountData={amountCalculator.getCalculatedValues()}
-      // data={data}
-      // order={order}
-      // disableSubmitButton={!hasAnyItemsSelected}
-      // disabled={loading}
       // errors={errors}
-      submitDisabled={!hasAnyItemsSelected}
-      messages={messages}
-      onChange={change}
-      onSubmit={onSubmit}
-    />
+      onChange={onChange}
+    >
+      <SubmitButton
+        formData={formData}
+        onSubmit={onSubmit}
+        disabled={!hasProperRefundAmount}
+        buttonText={intl.formatMessage(
+          messages.submitButton,
+          getSubmitButtonTextValues()
+        )}
+        helperText={intl.formatMessage(messages.cannotBeFulfilled)}
+      />
+    </OrderReturnRefundAmount>
   );
 };
 

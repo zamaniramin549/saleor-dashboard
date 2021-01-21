@@ -25,7 +25,9 @@ export interface OrderReturnHandlers extends OrderReturnRefundCommonHandlers {
   changeItemsToBeReplaced: FormsetReplacementChange;
 }
 
-export interface OrderReturnFormData extends OrderReturnRefundCommonFormData {
+export interface OrderReturnFormData
+  extends OrderReturnData,
+    OrderReturnRefundCommonFormData {
   itemsToBeReplaced: FormsetReplacementData;
 }
 
@@ -48,6 +50,7 @@ interface OrderReturnProps {
 const getOrderRefundPageFormData = (): OrderReturnData => ({
   amount: undefined,
   amountCalculationMode: OrderRefundAmountCalculationMode.AUTOMATIC,
+  noRefund: false,
   refundShipmentCosts: false
 });
 

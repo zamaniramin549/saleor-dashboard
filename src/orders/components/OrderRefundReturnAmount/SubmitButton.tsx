@@ -1,40 +1,44 @@
-import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
+import { Button, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
-import { defineMessages } from "react-intl";
 
-import { OrderReturnFormData } from "../OrderReturnPage/form";
-import OrderReturnRefundAmount from "./OrderRefundReturnAmount";
 import { isItemSelected } from "./utils";
-import useReturnAmountCalculator from "./utils/ReturnAmountCalculator";
+import { OrderReturnRefundCommonFormData } from "./utils/types";
 
-const messages = defineMessages({
-  cannotBeFulfilled: {
-    defaultMessage: "Returned items can't be fulfilled",
-    description: "order return subtitle"
-  },
-  submitButton: {
-    defaultMessage: "Return & Replace products",
-    description: "order return amount button"
-  }
-});
+const useStyles = makeStyles(
+  theme => ({
+    helperText: {
+      marginTop: theme.spacing(1)
+    },
+    submitButton: {
+      marginTop: theme.spacing(2)
+    }
+  }),
+  { name: "SubmitButton" }
+);
 
 export interface SubmitButtonProps {
-  //   order: OrderDetails_order;
-  //   formData: OrderReturnFormData;
-  //   onChange: (event: React.ChangeEvent<any>) => void;
+  formData: OrderReturnRefundCommonFormData;
   disabled?: boolean;
   onSubmit: () => void;
+  buttonText: string;
+  helperText: string;
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ onSubmit, disabled }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({
+  formData,
+  onSubmit,
+  disabled,
+  buttonText,
+  helperText
+}) => {
   const { fulfilledItemsQuantities, unfulfilledItemsQuantities } = formData;
-  const intl = useIntl();
+  const classes = useStyles({});
 
   const hasAnyItemsSelected =
     fulfilledItemsQuantities.some(isItemSelected) ||
     unfulfilledItemsQuantities.some(isItemSelected);
 
-  const disableRefundButton = isAmountTooBig || isAmountTooSmall;
+  const isDisabled = disabled || !hasAnyItemsSelected;
 
   return (
     <>
@@ -43,36 +47,19 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ onSubmit, disabled }) => {
         variant="contained"
         fullWidth
         size="large"
-        onClick={onSumit}
-        className={classes.refundButton}
-        disabled={disableRefundButton}
+        onClick={onSubmit}
+        className={classes.submitButton}
+        disabled={isDisabled}
         data-test="submit"
       >
-        {!disableRefundButton && !isReturn ? (
-          <FormattedMessage
-            defaultMessage="Refund {currency} {amount}"
-            description="order refund amount, input button"
-            values={{
-              amount: Number(selectedRefundAmount).toFixed(2),
-              currency: amountCurrency
-            }}
-          />
-        ) : (
-          intl.formatMessage(
-            isReturn ? messages.returnButton : messages.refundButton
-          )
-        )}
+        {buttonText}
       </Button>
       <Typography
         variant="caption"
         color="textSecondary"
-        className={classes.refundCaution}
+        className={classes.helperText}
       >
-        {intl.formatMessage(
-          isReturn
-            ? messages.returnCannotBeFulfilled
-            : messages.refundCannotBeFulfilled
-        )}
+        {helperText}
       </Typography>
     </>
   );

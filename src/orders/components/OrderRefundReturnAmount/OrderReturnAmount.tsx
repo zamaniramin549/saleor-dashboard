@@ -3,8 +3,9 @@ import React from "react";
 import { defineMessages } from "react-intl";
 
 import { OrderReturnFormData } from "../OrderReturnPage/form";
+import { OrderRefundAmountCalculationMode } from "../OrderReturnPage/utils";
 import OrderReturnRefundAmount from "./OrderRefundReturnAmount";
-import { isItemSelected } from "./utils";
+import { isItemSelected, isProperManualAmount } from "./utils";
 import useReturnAmountCalculator from "./utils/ReturnAmountCalculator";
 
 const messages = defineMessages({
@@ -31,20 +32,29 @@ const OrderReturnAmount: React.FC<OrderReturnAmountProps> = ({
   onChange,
   onSubmit
 }) => {
-  const { fulfilledItemsQuantities, unfulfilledItemsQuantities } = formData;
+  const { noRefund, amountCalculationMode } = formData;
 
   const amountCalculator = useReturnAmountCalculator(order, formData);
+  const amountValues = amountCalculator.getCalculatedValues();
 
-  const hasAnyItemsSelected =
-    fulfilledItemsQuantities.some(isItemSelected) ||
-    unfulfilledItemsQuantities.some(isItemSelected);
+  const hasProperRefundAmount = () => {
+    if (noRefund) {
+      return true;
+    }
+
+    if (amountCalculationMode === OrderRefundAmountCalculationMode.AUTOMATIC) {
+      return !!amountValues.refundTotalAmount.amount;
+    }
+
+    return isProperManualAmount(amountValues, formData);
+  };
 
   return (
     <OrderReturnRefundAmount
       amountData={amountCalculator.getCalculatedValues()}
-      submitDisabled={!hasAnyItemsSelected}
+      submitDisabled={!hasProperRefundAmount()}
       messages={messages}
-      onChange={change}
+      onChange={onChange}
       onSubmit={onSubmit}
     />
   );

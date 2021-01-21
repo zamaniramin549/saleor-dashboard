@@ -70,7 +70,7 @@ export enum OrderRefundAmountCalculationMode {
 }
 
 export const orderReturnRefundDefaultFormData = {
-  amount: undefined,
   amountCalculationMode: OrderRefundAmountCalculationMode.AUTOMATIC,
+  manualAmount: undefined,
   refundShipmentCosts: false
 };

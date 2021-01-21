@@ -9,6 +9,7 @@ import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
 import Hr from "@saleor/components/Hr";
+import { IMoney } from "@saleor/components/Money";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { OrderRefundData_order } from "@saleor/orders/types/OrderRefundData";
@@ -31,6 +32,7 @@ import OrderRefundAmountValues, {
 } from "./OrderRefundReturnAmountValues";
 import RefundAmountInput from "./RefundAmountInput";
 import SubmitButton from "./SubmitButton";
+import { OrderReturnRefundAmountMessages } from "./utils/types";
 
 const useStyles = makeStyles(
   theme => ({
@@ -80,44 +82,32 @@ const useStyles = makeStyles(
 //   }
 // });
 
-type OrderReturnRefundAmountMessages = Record<
-  "submitButton" | "cannotBeFulfilled",
-  MessageDescriptor
->;
-
 // interface OrderReturnRefundAmountCommonProps {
 //   onChange: (event: React.ChangeEvent<any>) => void;
 //   onRefund: () => void;
 // }
 
+export interface OrderRefundAmountValuesProps {
+  authorizedAmount: IMoney;
+  maxRefundAmount: IMoney;
+  previouslyRefunded: IMoney;
+  shipmentCost?: IMoney;
+  selectedProductsValue?: IMoney;
+  proposedRefundAmount?: IMoney;
+  replacedProductsValue?: IMoney;
+  refundTotalAmount?: IMoney;
+}
+
 interface OrderRefundAmountProps {
-  // data: OrderRefundFormData | OrderReturnFormData;
-  // order: OrderRefundData_order | OrderDetails_order;
-  // disabled: boolean;
-  // disableSubmitButton?: boolean;
-  // isReturn?: boolean;
   type?: OrderRefundType;
-  messages: OrderReturnRefundAmountMessages;
+  children: React.ReactNode;
   errors: OrderErrorFragment[];
-  submitDisabled?: boolean;
   amountData: OrderRefundAmountValuesProps;
   onChange: (event: React.ChangeEvent<any>) => void;
-  onSubmit: () => void;
 }
 
 const OrderReturnRefundAmount: React.FC<OrderRefundAmountProps> = props => {
-  const {
-    data,
-    order,
-    type,
-    disabled,
-    errors,
-    onChange,
-    onSubmit,
-    amountData,
-    disableSubmitButton,
-    submitDisabled
-  } = props;
+  const { data, order, type, errors, onChange, amountData, children } = props;
   const classes = useStyles(props);
   const intl = useIntl();
 
@@ -256,7 +246,7 @@ const OrderReturnRefundAmount: React.FC<OrderRefundAmountProps> = props => {
             />
           </>
         )}
-        <SubmitButton onSubmit={onSubmit} disabled={submitDisabled} />
+        {children}
       </CardContent>
     </Card>
   );
