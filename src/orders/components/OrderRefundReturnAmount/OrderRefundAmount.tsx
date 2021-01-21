@@ -38,7 +38,7 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = ({
     if(type === OrderRefundType.MISCELLANEOUS) { return true }
 
     if(amountCalculationMode === OrderRefundAmountCalculationMode.AUTOMATIC) {
-      return 
+      return amountData.
     }
     ? refundTotalAmount?.amount
     : data.amount
