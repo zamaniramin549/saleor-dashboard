@@ -5,21 +5,29 @@ import {
 } from "@saleor/orders/types/OrderDetails";
 import reduce from "lodash/reduce";
 
-import { OrderRefundAmountCalculationMode } from "../../OrderRefundPage/form";
 import { LineItemData } from "../../OrderRefundReturnAmount/utils/types";
 import { ReturnLineDataParser } from "./ReturnLineDataParser";
 
 export const getById = (idToCompare: string) => (obj: { id: string }) =>
   obj.id === idToCompare;
 
-export const getItemsWithMaxedQuantities = (
-  itemsQuantities: UseFormsetOutput<LineItemData, number>,
-  lines: OrderDetails_order_lines[] | OrderDetails_order_fulfillments_lines[]
-) =>
+interface ItemsWithMaxedQuantitiesArgs {
+  itemsQuantities: UseFormsetOutput<LineItemData, number>;
+  lines: OrderDetails_order_lines[] | OrderDetails_order_fulfillments_lines[];
+  isFulfillment?: boolean;
+}
+
+export const getItemsWithMaxedQuantities = ({
+  itemsQuantities,
+  lines,
+  isFulfillment = false
+}: ItemsWithMaxedQuantitiesArgs) =>
   itemsQuantities.data.map(item => {
     const { id } = item;
     const line = lines.find(getById(id));
-    const newQuantity = line.quantity - line.quantityFulfilled;
+    const newQuantity = isFulfillment
+      ? line.quantity
+      : line.quantity - line.quantityFulfilled;
 
     return ReturnLineDataParser.getLineItem(line, {
       ...item,
@@ -55,6 +63,11 @@ const handleHandlerChange = (
   triggerChange();
   callback(...args);
 };
+
+export enum OrderRefundAmountCalculationMode {
+  AUTOMATIC = "automatic",
+  MANUAL = "manual"
+}
 
 export const orderReturnRefundDefaultFormData = {
   amount: undefined,

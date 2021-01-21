@@ -91,15 +91,19 @@ function useOrderRefundForm(
 
   const setMaximalUnfulfilledItemsQuantities = () =>
     unfulfilledItemsQuantities.set(
-      getItemsWithMaxedQuantities(unfulfilledItemsQuantities, order.lines)
+      getItemsWithMaxedQuantities({
+        itemsQuantities: unfulfilledItemsQuantities,
+        lines: order.lines
+      })
     );
 
   const setMaximalFulfilledItemsQuantities = (fulfillmentId: string) =>
     fulfilledItemsQuantities.set(
-      getItemsWithMaxedQuantities(
-        fulfilledItemsQuantities,
-        order.fulfillments.find(getById(fulfillmentId))?.lines
-      )
+      getItemsWithMaxedQuantities({
+        isFulfillment: true,
+        itemsQuantities: fulfilledItemsQuantities,
+        lines: order.fulfillments.find(getById(fulfillmentId))?.lines
+      })
     );
 
   const data: OrderRefundFormData = {

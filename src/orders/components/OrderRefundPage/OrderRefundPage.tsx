@@ -14,15 +14,8 @@ import { useIntl } from "react-intl";
 import OrderRefund from "../OrderRefund";
 import OrderRefundFulfilledProducts from "../OrderRefundFulfilledProducts";
 import OrderRefundAmount from "../OrderRefundReturnAmount";
-import {
-  getMiscellaneousAmountValues,
-  getRefundProductsAmountValues
-} from "../OrderRefundReturnAmount/utils";
 import OrderRefundUnfulfilledProducts from "../OrderRefundUnfulfilledProducts";
-import OrderRefundForm, {
-  OrderRefundSubmitData,
-  OrderRefundType
-} from "./form";
+import OrderRefundForm, { OrderRefundType } from "./form";
 
 export interface OrderRefundPageProps {
   order: OrderRefundData_order;
@@ -140,11 +133,11 @@ const OrderRefundPage: React.FC<OrderRefundPageProps> = props => {
               </div>
               <div>
                 <OrderRefundAmount
-                  amountData={
-                    isProductRefund
-                      ? getRefundProductsAmountValues(order, data)
-                      : getMiscellaneousAmountValues(order)
-                  }
+                  // amountData={
+                  //   isProductRefund
+                  //     ? getRefundProductsAmountValues(order, data)
+                  //     : getMiscellaneousAmountValues(order)
+                  // }
                   data={data}
                   order={order}
                   disabled={disabled}

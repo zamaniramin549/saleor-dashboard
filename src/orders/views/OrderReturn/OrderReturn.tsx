@@ -11,7 +11,7 @@ import React from "react";
 import { defineMessages } from "react-intl";
 import { useIntl } from "react-intl";
 
-import ReturnFormDataParser from "./utils";
+import ReturnFormDataParser from "./utils/ReturnFormDataParser";
 
 export const messages = defineMessages({
   cannotRefundDescription: {

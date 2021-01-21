@@ -4,7 +4,6 @@ import TableBody from "@material-ui/core/TableBody";
 import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
-import { mergeRepeatedOrderLines } from "@saleor/orders/utils/data";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -59,7 +58,8 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
     ];
 
     if (statusesToMergeLines.includes(fulfillment?.status)) {
-      return mergeRepeatedOrderLines(fulfillment.lines);
+      // return mergeRepeatedOrderLines(fulfillment.lines);
+      return [];
     }
 
     return fulfillment?.lines || [];

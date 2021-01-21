@@ -46,6 +46,11 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
   );
 
   const intl = useIntl();
+
+  if (!order) {
+    return null;
+  }
+
   return (
     <OrderReturnForm order={order} onSubmit={onSubmit}>
       {({ data, handlers, change, submit }) => {

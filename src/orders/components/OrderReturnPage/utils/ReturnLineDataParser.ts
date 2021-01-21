@@ -1,6 +1,6 @@
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
 
-import { LineItemOptions } from "../form";
+import { LineItemOptions } from "../../OrderRefundReturnAmount/utils/types";
 import { LineDataParser, LineDataParserArgs } from "./LineDataParser";
 
 export class ReturnLineDataParser extends LineDataParser {
