@@ -1,46 +1,28 @@
 import useForm, { FormChange, SubmitPromise } from "@saleor/hooks/useForm";
-import useFormset, {
-  FormsetChange,
-  FormsetData
-} from "@saleor/hooks/useFormset";
+import useFormset from "@saleor/hooks/useFormset";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import handleFormSubmit from "@saleor/utils/handlers/handleFormSubmit";
 import React, { useState } from "react";
 
 import { OrderRefundAmountCalculationMode } from "../OrderRefundPage/form";
-import { OrderReturnRefundCommonFormData } from "../OrderRefundReturnAmount/utils/types";
+import {
+  FormsetReplacementChange,
+  FormsetReplacementData,
+  LineItemData,
+  OrderReturnData,
+  OrderReturnRefundCommonFormData,
+  OrderReturnRefundCommonHandlers
+} from "../OrderRefundReturnAmount/utils/types";
 import {
   getById,
-  returnFulfilledStatuses,
-  ReturnLineDataParser
+  getHandlersWithTriggerChange,
+  getItemsWithMaxedQuantities
 } from "./utils";
+import { returnFulfilledStatuses } from "./utils/FulfillmentsParser";
+import { ReturnLineDataParser } from "./utils/ReturnLineDataParser";
 
-export interface LineItemOptions<T> {
-  initialValue: T;
-  isFulfillment?: boolean;
-  isRefunded?: boolean;
-}
-
-export interface LineItemData {
-  isFulfillment: boolean;
-  isRefunded: boolean;
-}
-
-export type FormsetQuantityData = FormsetData<LineItemData, number>;
-export type FormsetReplacementData = FormsetData<LineItemData, boolean>;
-
-export interface OrderReturnData {
-  amount: number;
-  refundShipmentCosts: boolean;
-  amountCalculationMode: OrderRefundAmountCalculationMode;
-}
-
-export interface OrderReturnHandlers {
-  changeFulfilledItemsQuantity: FormsetChange<number>;
-  changeUnfulfilledItemsQuantity: FormsetChange<number>;
-  changeItemsToBeReplaced: FormsetChange<boolean>;
-  handleSetMaximalFulfiledItemsQuantities;
-  handleSetMaximalUnfulfiledItemsQuantities;
+export interface OrderReturnHandlers extends OrderReturnRefundCommonHandlers {
+  changeItemsToBeReplaced: FormsetReplacementChange;
 }
 
 export interface OrderReturnFormData extends OrderReturnRefundCommonFormData {
@@ -77,15 +59,18 @@ function useOrderReturnForm(
   const [hasChanged, setHasChanged] = useState(false);
   const parser = new ReturnLineDataParser(order, returnFulfilledStatuses);
 
+  const triggerChange = () => setHasChanged(true);
+
   const handleChange: FormChange = (event, cb) => {
+    triggerChange();
     form.change(event, cb);
   };
 
-  const unfulfiledItemsQuantites = useFormset<LineItemData, number>(
+  const unfulfilledItemsQuantites = useFormset<LineItemData, number>(
     parser.getUnfulfilledParsedLineData({ initialValue: 0 })
   );
 
-  const fulfiledItemsQuatities = useFormset<LineItemData, number>(
+  const fulfilledItemsQuantities = useFormset<LineItemData, number>(
     parser.getFulfilledParsedLineData()
   );
 
@@ -93,74 +78,45 @@ function useOrderReturnForm(
     parser.getReplacableParsedLineData()
   );
 
-  const handleSetMaximalUnfulfiledItemsQuantities = () => {
-    const newQuantities: FormsetQuantityData = unfulfiledItemsQuantites.data.map(
-      ({ id }) => {
-        const line = order.lines.find(getById(id));
-        const newQuantity = line.quantity - line.quantityFulfilled;
-
-        return ReturnLineDataParser.getLineItem(line, {
-          initialValue: newQuantity
-        });
-      }
+  const handleSetMaximalUnfulfiledItemsQuantities = () =>
+    unfulfilledItemsQuantites.set(
+      getItemsWithMaxedQuantities(unfulfilledItemsQuantites, order.lines)
     );
-
-    triggerChange();
-    unfulfiledItemsQuantites.set(newQuantities);
-  };
 
   const handleSetMaximalFulfiledItemsQuantities = (
     fulfillmentId: string
-  ) => () => {
-    const { lines } = order.fulfillments.find(getById(fulfillmentId));
-
-    const newQuantities: FormsetQuantityData = fulfiledItemsQuatities.data.map(
-      item => {
-        const line = lines.find(getById(item.id));
-
-        return ReturnLineDataParser.getLineItem(line, {
-          initialValue: line.quantity,
-          isRefunded: item.data.isRefunded
-        });
-      }
+  ) => () =>
+    fulfilledItemsQuantities.set(
+      getItemsWithMaxedQuantities(
+        fulfilledItemsQuantities,
+        order.fulfillments.find(getById(fulfillmentId))?.lines
+      )
     );
 
-    triggerChange();
-    fulfiledItemsQuatities.set(newQuantities);
-  };
-
   const data: OrderReturnFormData = {
-    fulfilledItemsQuantities: fulfiledItemsQuatities.data,
+    fulfilledItemsQuantities: fulfilledItemsQuantities.data,
     itemsToBeReplaced: itemsToBeReplaced.data,
-    unfulfilledItemsQuantities: unfulfiledItemsQuantites.data,
+    unfulfilledItemsQuantities: unfulfilledItemsQuantites.data,
     ...form.data
   };
 
   const submit = () => handleFormSubmit(data, onSubmit, setHasChanged);
 
-  const triggerChange = () => setHasChanged(true);
-
-  function handleHandlerChange<T>(callback: (id: string, value: T) => void) {
-    return (id: string, value: T) => {
-      triggerChange();
-      callback(id, value);
-    };
-  }
+  const handlers = {
+    changeFulfilledItemsQuantity: fulfilledItemsQuantities.change,
+    changeItemsToBeReplaced: itemsToBeReplaced.change,
+    changeUnfulfilledItemsQuantity: unfulfilledItemsQuantites.change,
+    handleSetMaximalFulfiledItemsQuantities,
+    handleSetMaximalUnfulfiledItemsQuantities
+  };
 
   return {
     change: handleChange,
     data,
-    handlers: {
-      changeFulfilledItemsQuantity: handleHandlerChange(
-        fulfiledItemsQuatities.change
-      ),
-      changeItemsToBeReplaced: handleHandlerChange(itemsToBeReplaced.change),
-      changeUnfulfilledItemsQuantity: handleHandlerChange(
-        unfulfiledItemsQuantites.change
-      ),
-      handleSetMaximalFulfiledItemsQuantities,
-      handleSetMaximalUnfulfiledItemsQuantities
-    },
+    handlers: getHandlersWithTriggerChange<OrderReturnHandlers>(
+      handlers,
+      triggerChange
+    ),
     hasChanged,
     submit
   };
