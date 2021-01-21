@@ -13,7 +13,12 @@ import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { OrderRefundData_order } from "@saleor/orders/types/OrderRefundData";
 import React from "react";
-import { defineMessages, FormattedMessage, useIntl } from "react-intl";
+import {
+  defineMessages,
+  FormattedMessage,
+  MessageDescriptor,
+  useIntl
+} from "react-intl";
 
 import {
   OrderRefundAmountCalculationMode,
@@ -25,6 +30,7 @@ import OrderRefundAmountValues, {
   OrderRefundAmountValuesProps
 } from "./OrderRefundReturnAmountValues";
 import RefundAmountInput from "./RefundAmountInput";
+import SubmitButton from "./SubmitButton";
 
 const useStyles = makeStyles(
   theme => ({
@@ -55,53 +61,65 @@ const useStyles = makeStyles(
   { name: "OrderRefundAmount" }
 );
 
-const messages = defineMessages({
-  refundButton: {
-    defaultMessage: "Refund",
-    description: "order refund amount button"
-  },
-  refundCannotBeFulfilled: {
-    defaultMessage: "Refunded items can't be fulfilled",
-    description: "order refund subtitle"
-  },
-  returnButton: {
-    defaultMessage: "Return & Replace products",
-    description: "order return amount button"
-  },
-  returnCannotBeFulfilled: {
-    defaultMessage: "Returned items can't be fulfilled",
-    description: "order return subtitle"
-  }
-});
+// const messages = defineMessages({
+//   refundButton: {
+//     defaultMessage: "Refund",
+//     description: "order refund amount button"
+//   },
+//   refundCannotBeFulfilled: {
+//     defaultMessage: "Refunded items can't be fulfilled",
+//     description: "order refund subtitle"
+//   },
+//   returnButton: {
+//     defaultMessage: "Return & Replace products",
+//     description: "order return amount button"
+//   },
+//   returnCannotBeFulfilled: {
+//     defaultMessage: "Returned items can't be fulfilled",
+//     description: "order return subtitle"
+//   }
+// });
+
+type OrderReturnRefundAmountMessages = Record<
+  "submitButton" | "cannotBeFulfilled",
+  MessageDescriptor
+>;
+
+// interface OrderReturnRefundAmountCommonProps {
+//   onChange: (event: React.ChangeEvent<any>) => void;
+//   onRefund: () => void;
+// }
 
 interface OrderRefundAmountProps {
-  data: OrderRefundFormData | OrderReturnFormData;
-  order: OrderRefundData_order | OrderDetails_order;
-  disabled: boolean;
-  disableSubmitButton?: boolean;
-  isReturn?: boolean;
+  // data: OrderRefundFormData | OrderReturnFormData;
+  // order: OrderRefundData_order | OrderDetails_order;
+  // disabled: boolean;
+  // disableSubmitButton?: boolean;
+  // isReturn?: boolean;
+  type?: OrderRefundType;
+  messages: OrderReturnRefundAmountMessages;
   errors: OrderErrorFragment[];
+  submitDisabled?: boolean;
   amountData: OrderRefundAmountValuesProps;
   onChange: (event: React.ChangeEvent<any>) => void;
-  onRefund: () => void;
+  onSubmit: () => void;
 }
 
-const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
+const OrderReturnRefundAmount: React.FC<OrderRefundAmountProps> = props => {
   const {
     data,
     order,
+    type,
     disabled,
     errors,
     onChange,
-    onRefund,
-    isReturn = false,
+    onSubmit,
     amountData,
-    disableSubmitButton
+    disableSubmitButton,
+    submitDisabled
   } = props;
   const classes = useStyles(props);
   const intl = useIntl();
-
-  const { type = OrderRefundType.PRODUCTS } = data as OrderRefundFormData;
 
   const amountCurrency = order?.total?.gross?.currency;
 
@@ -124,10 +142,6 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
 
   const isAmountTooSmall = selectedRefundAmount && selectedRefundAmount <= 0;
   const isAmountTooBig = selectedRefundAmount > maxRefund?.amount;
-
-  const disableRefundButton = isReturn
-    ? disableSubmitButton || isAmountTooSmall || isAmountTooBig
-    : !selectedRefundAmount || isAmountTooBig || isAmountTooSmall;
 
   return (
     <Card>
@@ -242,45 +256,10 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
             />
           </>
         )}
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          size="large"
-          onClick={onRefund}
-          className={classes.refundButton}
-          disabled={disableRefundButton}
-          data-test="submit"
-        >
-          {!disableRefundButton && !isReturn ? (
-            <FormattedMessage
-              defaultMessage="Refund {currency} {amount}"
-              description="order refund amount, input button"
-              values={{
-                amount: Number(selectedRefundAmount).toFixed(2),
-                currency: amountCurrency
-              }}
-            />
-          ) : (
-            intl.formatMessage(
-              isReturn ? messages.returnButton : messages.refundButton
-            )
-          )}
-        </Button>
-        <Typography
-          variant="caption"
-          color="textSecondary"
-          className={classes.refundCaution}
-        >
-          {intl.formatMessage(
-            isReturn
-              ? messages.returnCannotBeFulfilled
-              : messages.refundCannotBeFulfilled
-          )}
-        </Typography>
+        <SubmitButton onSubmit={onSubmit} disabled={submitDisabled} />
       </CardContent>
     </Card>
   );
 };
-OrderRefundAmount.displayName = "OrderRefundAmount";
-export default OrderRefundAmount;
+
+export default OrderReturnRefundAmount;

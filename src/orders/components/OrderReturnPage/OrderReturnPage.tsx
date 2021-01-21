@@ -11,6 +11,7 @@ import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
 import OrderAmount from "../OrderRefundReturnAmount";
+import OrderReturnAmount from "../OrderRefundReturnAmount/OrderReturnAmount";
 import useReturnAmountCalculator from "../OrderRefundReturnAmount/utils/ReturnAmountCalculator";
 import ItemsCard from "../OrderReturnItemsCard/ReturnItemsCard";
 import OrderReturnForm, { OrderRefundSubmitData } from "./form";
@@ -59,11 +60,6 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
           unfulfilledItemsQuantities,
           itemsToBeReplaced
         } = data;
-
-        const hasAnyItemsSelected =
-          fulfilledItemsQuantities.some(({ value }) => !!value) ||
-          unfulfilledItemsQuantities.some(({ value }) => !!value);
-        const amountCalculator = useReturnAmountCalculator(order, data);
 
         return (
           <Container>
@@ -121,7 +117,7 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
                 )}
               </div>
               <div>
-                <OrderAmount
+                <OrderReturnAmount
                   isReturn
                   amountData={amountCalculator.getCalculatedValues()}
                   data={data}
