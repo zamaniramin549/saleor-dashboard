@@ -8,9 +8,9 @@ import {
   OrderRefundMiscellaneousAmountValues
 } from "./types";
 
-export class RefundAmountValuesCalculator extends AmountValuesCalculator {
-  protected formData: OrderRefundFormData;
-
+export class RefundAmountValuesCalculator extends AmountValuesCalculator<
+  OrderRefundFormData
+> {
   public getCalculatedProductsAmountValues = (): OrderRefundAmountValues => ({
     ...this.getCommonCalculatedAmountValues(),
     ...this.getMiscellanousAmountValues(),

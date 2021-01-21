@@ -63,7 +63,6 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
         const hasAnyItemsSelected =
           fulfilledItemsQuantities.some(({ value }) => !!value) ||
           unfulfilledItemsQuantities.some(({ value }) => !!value);
-
         const amountCalculator = useReturnAmountCalculator(order, data);
 
         return (

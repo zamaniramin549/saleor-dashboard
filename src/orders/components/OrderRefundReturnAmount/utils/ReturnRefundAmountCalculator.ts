@@ -7,26 +7,23 @@ import {
 } from "@saleor/orders/types/OrderDetails";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
 
-import {
-  FormsetReplacementData,
-  LineItemData
-} from "../../OrderReturnPage/form";
 import { getById } from "../../OrderReturnPage/utils";
 import { ReturnRefundFulfillmentsParser } from "../../OrderReturnPage/utils/FulfillmentsParser";
 import {
+  FormsetReplacementData,
+  LineItemData,
   OrderReturnRefundCommonFormData,
   ReturnRefundCommonAmountValues
 } from "./types";
 
-export default class AmountValuesCalculator {
+export default class AmountValuesCalculator<
+  FormDataType extends OrderReturnRefundCommonFormData
+> {
   protected order: OrderDetails_order;
-  protected formData: OrderReturnRefundCommonFormData;
+  protected formData: FormDataType;
   protected defaultCurrency: string;
 
-  constructor(
-    order: OrderDetails_order,
-    formData: OrderReturnRefundCommonFormData
-  ) {
+  constructor(order: OrderDetails_order, formData: FormDataType) {
     this.order = order;
     this.formData = formData;
     this.defaultCurrency = order.totalBalance.currency;

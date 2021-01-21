@@ -6,9 +6,9 @@ import { returnFulfilledStatuses } from "../../OrderReturnPage/utils/Fulfillment
 import AmountValuesCalculator from "./ReturnRefundAmountCalculator";
 import { OrderReturnAmountValues } from "./types";
 
-export class ReturnAmountValuesCalculator extends AmountValuesCalculator {
-  protected formData: OrderReturnFormData;
-
+export class ReturnAmountValuesCalculator extends AmountValuesCalculator<
+  OrderReturnFormData
+> {
   public getCalculatedValues = (): OrderReturnAmountValues => ({
     ...this.getCommonCalculatedAmountValues(),
     maxRefund: this.getMaxRefundAmount(),
