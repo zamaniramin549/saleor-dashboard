@@ -70,6 +70,11 @@ export enum AppTypeEnum {
   THIRDPARTY = "THIRDPARTY",
 }
 
+export enum AttributeEntityTypeEnum {
+  PAGE = "PAGE",
+  PRODUCT = "PRODUCT",
+}
+
 export enum AttributeErrorCode {
   ALREADY_EXISTS = "ALREADY_EXISTS",
   GRAPHQL_ERROR = "GRAPHQL_ERROR",
@@ -83,6 +88,7 @@ export enum AttributeInputTypeEnum {
   DROPDOWN = "DROPDOWN",
   FILE = "FILE",
   MULTISELECT = "MULTISELECT",
+  REFERENCE = "REFERENCE",
 }
 
 export enum AttributeSortField {
@@ -1030,6 +1036,7 @@ export interface AppTokenInput {
 
 export interface AttributeCreateInput {
   inputType?: AttributeInputTypeEnum | null;
+  entityType?: AttributeEntityTypeEnum | null;
   name: string;
   slug?: string | null;
   type: AttributeTypeEnum;
@@ -1092,6 +1099,7 @@ export interface AttributeValueInput {
   values?: (string | null)[] | null;
   file?: string | null;
   contentType?: string | null;
+  references?: string[] | null;
 }
 
 export interface BulkAttributeValueInput {
@@ -1326,6 +1334,7 @@ export interface OrderDraftFilterInput {
   customer?: string | null;
   created?: DateRangeInput | null;
   search?: string | null;
+  channels?: (string | null)[] | null;
 }
 
 export interface OrderFilterInput {
@@ -1334,6 +1343,7 @@ export interface OrderFilterInput {
   customer?: string | null;
   created?: DateRangeInput | null;
   search?: string | null;
+  channels?: (string | null)[] | null;
 }
 
 export interface OrderFulfillInput {
@@ -1738,6 +1748,7 @@ export interface ShippingZipCodeRulesCreateInputRange {
 
 export interface ShippingZoneCreateInput {
   name?: string | null;
+  description?: string | null;
   countries?: (string | null)[] | null;
   default?: boolean | null;
   addWarehouses?: (string | null)[] | null;
@@ -1745,6 +1756,7 @@ export interface ShippingZoneCreateInput {
 
 export interface ShippingZoneUpdateInput {
   name?: string | null;
+  description?: string | null;
   countries?: (string | null)[] | null;
   default?: boolean | null;
   addWarehouses?: (string | null)[] | null;
