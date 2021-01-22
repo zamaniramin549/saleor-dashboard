@@ -1,10 +1,12 @@
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import React from "react";
+import { useIntl } from "react-intl";
 import { defineMessages } from "react-intl";
 
 import { OrderReturnFormData } from "../OrderReturnPage/form";
 import { OrderRefundAmountCalculationMode } from "../OrderReturnPage/utils";
 import OrderReturnRefundAmount from "./OrderRefundReturnAmount";
+import SubmitButton from "./SubmitButton";
 import { isItemSelected, isProperManualAmount } from "./utils";
 import useReturnAmountCalculator from "./utils/ReturnAmountCalculator";
 
@@ -33,6 +35,7 @@ const OrderReturnAmount: React.FC<OrderReturnAmountProps> = ({
   onSubmit
 }) => {
   const { noRefund, amountCalculationMode } = formData;
+  const intl = useIntl();
 
   const amountCalculator = useReturnAmountCalculator(order, formData);
   const amountValues = amountCalculator.getCalculatedValues();
@@ -51,12 +54,18 @@ const OrderReturnAmount: React.FC<OrderReturnAmountProps> = ({
 
   return (
     <OrderReturnRefundAmount
+      allowNoRefund
       amountData={amountCalculator.getCalculatedValues()}
-      submitDisabled={!hasProperRefundAmount()}
-      messages={messages}
       onChange={onChange}
-      onSubmit={onSubmit}
-    />
+    >
+      <SubmitButton
+        formData={formData}
+        disabled={!hasProperRefundAmount()}
+        onSubmit={onSubmit}
+        helperText={intl.formatMessage(messages.cannotBeFulfilled)}
+        buttonText={intl.formatMessage(messages.submitButton)}
+      />
+    </OrderReturnRefundAmount>
   );
 };
 

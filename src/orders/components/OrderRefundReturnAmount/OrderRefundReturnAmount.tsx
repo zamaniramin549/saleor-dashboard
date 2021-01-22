@@ -32,7 +32,10 @@ import OrderRefundAmountValues, {
 } from "./OrderRefundReturnAmountValues";
 import RefundAmountInput from "./RefundAmountInput";
 import SubmitButton from "./SubmitButton";
-import { OrderReturnRefundAmountMessages } from "./utils/types";
+import {
+  OrderReturnRefundAmountMessages,
+  OrderReturnRefundCommonFormData
+} from "./utils/types";
 
 const useStyles = makeStyles(
   theme => ({
@@ -63,29 +66,12 @@ const useStyles = makeStyles(
   { name: "OrderRefundAmount" }
 );
 
-// const messages = defineMessages({
-//   refundButton: {
-//     defaultMessage: "Refund",
-//     description: "order refund amount button"
-//   },
-//   refundCannotBeFulfilled: {
-//     defaultMessage: "Refunded items can't be fulfilled",
-//     description: "order refund subtitle"
-//   },
-//   returnButton: {
-//     defaultMessage: "Return & Replace products",
-//     description: "order return amount button"
-//   },
-//   returnCannotBeFulfilled: {
-//     defaultMessage: "Returned items can't be fulfilled",
-//     description: "order return subtitle"
-//   }
-// });
-
-// interface OrderReturnRefundAmountCommonProps {
-//   onChange: (event: React.ChangeEvent<any>) => void;
-//   onRefund: () => void;
-// }
+const messages = defineMessages({
+  noRefund: {
+    defaultMessage: "No refund",
+    description: "no refund redio button"
+  }
+});
 
 export interface OrderRefundAmountValuesProps {
   authorizedAmount: IMoney;
@@ -99,6 +85,8 @@ export interface OrderRefundAmountValuesProps {
 }
 
 interface OrderRefundAmountProps {
+  formData: OrderReturnRefundCommonFormData;
+  allowNoRefund?: boolean;
   type?: OrderRefundType;
   children: React.ReactNode;
   errors: OrderErrorFragment[];
@@ -107,7 +95,16 @@ interface OrderRefundAmountProps {
 }
 
 const OrderReturnRefundAmount: React.FC<OrderRefundAmountProps> = props => {
-  const { data, order, type, errors, onChange, amountData, children } = props;
+  const {
+    formData,
+    order,
+    type,
+    errors,
+    onChange,
+    amountData,
+    children,
+    allowNoRefund = false
+  } = props;
   const classes = useStyles(props);
   const intl = useIntl();
 
@@ -124,15 +121,6 @@ const OrderReturnRefundAmount: React.FC<OrderRefundAmountProps> = props => {
     replacedProductsValue
   } = amountData;
 
-  const selectedRefundAmount =
-    type === OrderRefundType.PRODUCTS &&
-    data.amountCalculationMode === OrderRefundAmountCalculationMode.AUTOMATIC
-      ? refundTotalAmount?.amount
-      : data.amount;
-
-  const isAmountTooSmall = selectedRefundAmount && selectedRefundAmount <= 0;
-  const isAmountTooBig = selectedRefundAmount > maxRefund?.amount;
-
   return (
     <Card>
       <CardTitle
@@ -144,10 +132,22 @@ const OrderReturnRefundAmount: React.FC<OrderRefundAmountProps> = props => {
       <CardContent>
         {type === OrderRefundType.PRODUCTS && (
           <RadioGroup
-            value={data.amountCalculationMode}
+            value={formData.amountCalculationMode}
             onChange={onChange}
             name="amountCalculationMode"
           >
+            {allowNoRefund && (
+              <>
+                <ControlledCheckbox
+                  checked={formData.noRefund}
+                  label={intl.formatMessage(messages.noRefund)}
+                  name="noRefundButton"
+                  onChange={onChange}
+                />
+                <Hr />
+                <CardSpacer />
+              </>
+            )}
             <FormControlLabel
               disabled={disabled}
               value={OrderRefundAmountCalculationMode.AUTOMATIC}
