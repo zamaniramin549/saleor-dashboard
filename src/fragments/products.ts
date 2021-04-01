@@ -40,16 +40,16 @@ export const priceRangeFragment = gql`
   }
 `;
 
-// export const fragmentProductMedia = gql`
-//   fragment ProductMediaFragment on ProductMedia {
-//     id
-//     alt
-//     sortOrder
-//     url
-//     type
-//     oembedData
-//   }
-// `;
+export const fragmentProductMedia = gql`
+  fragment ProductMediaFragment on ProductMedia {
+    id
+    alt
+    sortOrder
+    url
+    type
+    oembedData
+  }
+`;
 
 export const channelListingProductWithoutPricingFragment = gql`
   fragment ChannelListingProductWithoutPricingFragment on ProductChannelListing {
@@ -161,6 +161,7 @@ export const productVariantAttributesFragment = gql`
 `;
 
 export const productFragmentDetails = gql`
+  ${fragmentProductMedia}
   ${productVariantAttributesFragment}
   ${stockFragment}
   ${weightFragment}
@@ -192,15 +193,18 @@ export const productFragmentDetails = gql`
     channelListings {
       ...ChannelListingProductFragment
     }
-    # media {
-    #   ...ProductMediaFragment
-    # }
+    media {
+      ...ProductMediaFragment
+    }
     isAvailable
     variants {
       id
       sku
       name
       margin
+      media {
+        url(size: 200)
+      }
       stocks {
         ...StockFragment
       }
@@ -255,6 +259,7 @@ export const selectedVariantAttributeFragment = gql`
 `;
 
 export const fragmentVariant = gql`
+  ${fragmentProductMedia}
   ${selectedVariantAttributeFragment}
   ${priceRangeFragment}
   ${stockFragment}
@@ -272,21 +277,21 @@ export const fragmentVariant = gql`
     ) {
       ...SelectedVariantAttributeFragment
     }
-    # media {
-    #   id
-    #   url
-    #   type
-    #   oembedData
-    # }
+    media {
+      id
+      url
+      type
+      oembedData
+    }
     name
     product {
       id
       defaultVariant {
         id
       }
-      # media {
-      #   ...ProductMediaFragment
-      # }
+      media {
+        ...ProductMediaFragment
+      }
       name
       thumbnail {
         url
@@ -307,12 +312,12 @@ export const fragmentVariant = gql`
         id
         name
         sku
-        # media {
-        #   id
-        #   url
-        #   type
-        #   oembedData
-        # }
+        media {
+          id
+          url
+          type
+          oembedData
+        }
       }
       defaultVariant {
         id
