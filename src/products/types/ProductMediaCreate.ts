@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ProductErrorCode, AttributeInputTypeEnum, AttributeEntityTypeEnum, WeightUnitsEnum } from "./../../types/globalTypes";
+import { ProductErrorCode, AttributeInputTypeEnum, AttributeEntityTypeEnum, ProductMediaType, WeightUnitsEnum } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: ProductMediaCreate
@@ -179,6 +179,21 @@ export interface ProductMediaCreate_productMediaCreate_product_collections {
   name: string;
 }
 
+export interface ProductMediaCreate_productMediaCreate_product_media {
+  __typename: "ProductMedia";
+  id: string;
+  alt: string;
+  sortOrder: number | null;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
+export interface ProductMediaCreate_productMediaCreate_product_variants_media {
+  __typename: "ProductMedia";
+  url: string;
+}
+
 export interface ProductMediaCreate_productMediaCreate_product_variants_stocks_warehouse {
   __typename: "Warehouse";
   id: string;
@@ -225,6 +240,7 @@ export interface ProductMediaCreate_productMediaCreate_product_variants {
   sku: string;
   name: string;
   margin: number | null;
+  media: ProductMediaCreate_productMediaCreate_product_variants_media[] | null;
   stocks: (ProductMediaCreate_productMediaCreate_product_variants_stocks | null)[] | null;
   trackInventory: boolean;
   channelListings: ProductMediaCreate_productMediaCreate_product_variants_channelListings[] | null;
@@ -260,6 +276,7 @@ export interface ProductMediaCreate_productMediaCreate_product {
   category: ProductMediaCreate_productMediaCreate_product_category | null;
   collections: (ProductMediaCreate_productMediaCreate_product_collections | null)[] | null;
   chargeTaxes: boolean;
+  media: ProductMediaCreate_productMediaCreate_product_media[] | null;
   isAvailable: boolean | null;
   variants: (ProductMediaCreate_productMediaCreate_product_variants | null)[] | null;
   weight: ProductMediaCreate_productMediaCreate_product_weight | null;

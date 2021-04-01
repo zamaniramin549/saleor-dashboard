@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ProductInput, ProductVariantInput, StockInput, ProductErrorCode, AttributeInputTypeEnum, AttributeEntityTypeEnum, WeightUnitsEnum, StockErrorCode } from "./../../types/globalTypes";
+import { ProductInput, ProductVariantInput, StockInput, ProductErrorCode, AttributeInputTypeEnum, AttributeEntityTypeEnum, ProductMediaType, WeightUnitsEnum, StockErrorCode } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: SimpleProductUpdate
@@ -180,6 +180,21 @@ export interface SimpleProductUpdate_productUpdate_product_collections {
   name: string;
 }
 
+export interface SimpleProductUpdate_productUpdate_product_media {
+  __typename: "ProductMedia";
+  id: string;
+  alt: string;
+  sortOrder: number | null;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
+export interface SimpleProductUpdate_productUpdate_product_variants_media {
+  __typename: "ProductMedia";
+  url: string;
+}
+
 export interface SimpleProductUpdate_productUpdate_product_variants_stocks_warehouse {
   __typename: "Warehouse";
   id: string;
@@ -226,6 +241,7 @@ export interface SimpleProductUpdate_productUpdate_product_variants {
   sku: string;
   name: string;
   margin: number | null;
+  media: SimpleProductUpdate_productUpdate_product_variants_media[] | null;
   stocks: (SimpleProductUpdate_productUpdate_product_variants_stocks | null)[] | null;
   trackInventory: boolean;
   channelListings: SimpleProductUpdate_productUpdate_product_variants_channelListings[] | null;
@@ -261,6 +277,7 @@ export interface SimpleProductUpdate_productUpdate_product {
   category: SimpleProductUpdate_productUpdate_product_category | null;
   collections: (SimpleProductUpdate_productUpdate_product_collections | null)[] | null;
   chargeTaxes: boolean;
+  media: SimpleProductUpdate_productUpdate_product_media[] | null;
   isAvailable: boolean | null;
   variants: (SimpleProductUpdate_productUpdate_product_variants | null)[] | null;
   weight: SimpleProductUpdate_productUpdate_product_weight | null;
@@ -386,9 +403,27 @@ export interface SimpleProductUpdate_productVariantUpdate_productVariant_nonSele
   values: (SimpleProductUpdate_productVariantUpdate_productVariant_nonSelectionAttributes_values | null)[];
 }
 
+export interface SimpleProductUpdate_productVariantUpdate_productVariant_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantUpdate_productVariant_product_defaultVariant {
   __typename: "ProductVariant";
   id: string;
+}
+
+export interface SimpleProductUpdate_productVariantUpdate_productVariant_product_media {
+  __typename: "ProductMedia";
+  id: string;
+  alt: string;
+  sortOrder: number | null;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
 }
 
 export interface SimpleProductUpdate_productVariantUpdate_productVariant_product_thumbnail {
@@ -442,17 +477,27 @@ export interface SimpleProductUpdate_productVariantUpdate_productVariant_product
   pricing: SimpleProductUpdate_productVariantUpdate_productVariant_product_channelListings_pricing | null;
 }
 
+export interface SimpleProductUpdate_productVariantUpdate_productVariant_product_variants_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantUpdate_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string;
+  media: SimpleProductUpdate_productVariantUpdate_productVariant_product_variants_media[] | null;
 }
 
 export interface SimpleProductUpdate_productVariantUpdate_productVariant_product {
   __typename: "Product";
   id: string;
   defaultVariant: SimpleProductUpdate_productVariantUpdate_productVariant_product_defaultVariant | null;
+  media: SimpleProductUpdate_productVariantUpdate_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantUpdate_productVariant_product_thumbnail | null;
   channelListings: SimpleProductUpdate_productVariantUpdate_productVariant_product_channelListings[] | null;
@@ -512,6 +557,7 @@ export interface SimpleProductUpdate_productVariantUpdate_productVariant {
   privateMetadata: (SimpleProductUpdate_productVariantUpdate_productVariant_privateMetadata | null)[];
   selectionAttributes: SimpleProductUpdate_productVariantUpdate_productVariant_selectionAttributes[];
   nonSelectionAttributes: SimpleProductUpdate_productVariantUpdate_productVariant_nonSelectionAttributes[];
+  media: SimpleProductUpdate_productVariantUpdate_productVariant_media[] | null;
   name: string;
   product: SimpleProductUpdate_productVariantUpdate_productVariant_product;
   channelListings: SimpleProductUpdate_productVariantUpdate_productVariant_channelListings[] | null;
@@ -640,9 +686,27 @@ export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_n
   values: (SimpleProductUpdate_productVariantStocksCreate_productVariant_nonSelectionAttributes_values | null)[];
 }
 
+export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product_defaultVariant {
   __typename: "ProductVariant";
   id: string;
+}
+
+export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product_media {
+  __typename: "ProductMedia";
+  id: string;
+  alt: string;
+  sortOrder: number | null;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
 }
 
 export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product_thumbnail {
@@ -696,17 +760,27 @@ export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_p
   pricing: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_channelListings_pricing | null;
 }
 
+export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product_variants_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string;
+  media: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_variants_media[] | null;
 }
 
 export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product {
   __typename: "Product";
   id: string;
   defaultVariant: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_defaultVariant | null;
+  media: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_thumbnail | null;
   channelListings: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_channelListings[] | null;
@@ -766,6 +840,7 @@ export interface SimpleProductUpdate_productVariantStocksCreate_productVariant {
   privateMetadata: (SimpleProductUpdate_productVariantStocksCreate_productVariant_privateMetadata | null)[];
   selectionAttributes: SimpleProductUpdate_productVariantStocksCreate_productVariant_selectionAttributes[];
   nonSelectionAttributes: SimpleProductUpdate_productVariantStocksCreate_productVariant_nonSelectionAttributes[];
+  media: SimpleProductUpdate_productVariantStocksCreate_productVariant_media[] | null;
   name: string;
   product: SimpleProductUpdate_productVariantStocksCreate_productVariant_product;
   channelListings: SimpleProductUpdate_productVariantStocksCreate_productVariant_channelListings[] | null;
@@ -893,9 +968,27 @@ export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_n
   values: (SimpleProductUpdate_productVariantStocksDelete_productVariant_nonSelectionAttributes_values | null)[];
 }
 
+export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product_defaultVariant {
   __typename: "ProductVariant";
   id: string;
+}
+
+export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product_media {
+  __typename: "ProductMedia";
+  id: string;
+  alt: string;
+  sortOrder: number | null;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
 }
 
 export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product_thumbnail {
@@ -949,17 +1042,27 @@ export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_p
   pricing: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_channelListings_pricing | null;
 }
 
+export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product_variants_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string;
+  media: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_variants_media[] | null;
 }
 
 export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product {
   __typename: "Product";
   id: string;
   defaultVariant: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_defaultVariant | null;
+  media: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_thumbnail | null;
   channelListings: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_channelListings[] | null;
@@ -1019,6 +1122,7 @@ export interface SimpleProductUpdate_productVariantStocksDelete_productVariant {
   privateMetadata: (SimpleProductUpdate_productVariantStocksDelete_productVariant_privateMetadata | null)[];
   selectionAttributes: SimpleProductUpdate_productVariantStocksDelete_productVariant_selectionAttributes[];
   nonSelectionAttributes: SimpleProductUpdate_productVariantStocksDelete_productVariant_nonSelectionAttributes[];
+  media: SimpleProductUpdate_productVariantStocksDelete_productVariant_media[] | null;
   name: string;
   product: SimpleProductUpdate_productVariantStocksDelete_productVariant_product;
   channelListings: SimpleProductUpdate_productVariantStocksDelete_productVariant_channelListings[] | null;
@@ -1147,9 +1251,27 @@ export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_n
   values: (SimpleProductUpdate_productVariantStocksUpdate_productVariant_nonSelectionAttributes_values | null)[];
 }
 
+export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_defaultVariant {
   __typename: "ProductVariant";
   id: string;
+}
+
+export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_media {
+  __typename: "ProductMedia";
+  id: string;
+  alt: string;
+  sortOrder: number | null;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
 }
 
 export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_thumbnail {
@@ -1203,17 +1325,27 @@ export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_p
   pricing: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_channelListings_pricing | null;
 }
 
+export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_variants_media {
+  __typename: "ProductMedia";
+  id: string;
+  url: string;
+  type: ProductMediaType;
+  oembedData: any;
+}
+
 export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string;
+  media: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_variants_media[] | null;
 }
 
 export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product {
   __typename: "Product";
   id: string;
   defaultVariant: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_defaultVariant | null;
+  media: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_thumbnail | null;
   channelListings: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_channelListings[] | null;
@@ -1273,6 +1405,7 @@ export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant {
   privateMetadata: (SimpleProductUpdate_productVariantStocksUpdate_productVariant_privateMetadata | null)[];
   selectionAttributes: SimpleProductUpdate_productVariantStocksUpdate_productVariant_selectionAttributes[];
   nonSelectionAttributes: SimpleProductUpdate_productVariantStocksUpdate_productVariant_nonSelectionAttributes[];
+  media: SimpleProductUpdate_productVariantStocksUpdate_productVariant_media[] | null;
   name: string;
   product: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product;
   channelListings: SimpleProductUpdate_productVariantStocksUpdate_productVariant_channelListings[] | null;
