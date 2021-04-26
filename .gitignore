@@ -10,6 +10,7 @@
 !.gqlconfig
 !.github
 !.gitignore
+!.gitattributes
 !.nvmrc
 !.npmrc
 !.plop
