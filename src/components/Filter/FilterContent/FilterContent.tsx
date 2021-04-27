@@ -7,12 +7,13 @@ import { renderCollectionWithDividers } from "@saleor/misc";
 import React from "react";
 
 import { FilterReducerAction } from "../reducer";
-import { FieldType, IFilter, IFilterElement } from "../types";
+import { FieldType, FilterErrors, IFilter, IFilterElement } from "../types";
 import FilterContentBody, { FilterContentBodyProps } from "./FilterContentBody";
 import FilterContentBodyNameField from "./FilterContentBodyNameField";
 import FilterContentHeader from "./FilterContentHeader";
 
 export interface FilterContentProps<T extends string = string> {
+  errors?: FilterErrors<T>;
   filters: IFilter<T>;
   onFilterPropertyChange: React.Dispatch<FilterReducerAction<T>>;
   onClear: () => void;
@@ -27,6 +28,7 @@ type FilterAutocompleteDisplayValues = Record<
 >;
 
 const FilterContent: React.FC<FilterContentProps> = ({
+  errors,
   currencySymbol,
   filters,
   onClear,
@@ -73,6 +75,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
     FilterContentBodyProps,
     "filter" | "onFilterPropertyChange"
   > = {
+    errors,
     currencySymbol,
     autocompleteDisplayValues,
     setAutocompleteDisplayValues
@@ -82,24 +85,6 @@ const FilterContent: React.FC<FilterContentProps> = ({
     action: FilterReducerAction<T>
   ) {
     const { update } = action.payload;
-
-    // const parentFilter = dataStructure.find(({ multipleFields }) => {
-    //   if (!multipleFields) {
-    //     return false;
-    //   }
-
-    //   return multipleFields.find(({ name }) => name === action.payload.name);
-    // });
-
-    // const parentAction = {
-    //   payload: {
-    //     name: parentFilter.name,
-    //     update: {
-    //       active: true
-    //     }
-    //   },
-    //   type: "set-property"
-    // };
 
     onFilterPropertyChange({
       ...action,

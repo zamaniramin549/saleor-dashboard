@@ -10,10 +10,11 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 
 import { FilterContent } from ".";
-import { IFilter, IFilterElement } from "./types";
+import { FilterErrors, IFilter, IFilterElement } from "./types";
 import useFilter from "./useFilter";
 
 export interface FilterProps<TFilterKeys extends string = string> {
+  errors?: FilterErrors<TFilterKeys>;
   currencySymbol?: string;
   menu: IFilter<TFilterKeys>;
   onFilterAdd: (filter: Array<IFilterElement<string>>) => void;

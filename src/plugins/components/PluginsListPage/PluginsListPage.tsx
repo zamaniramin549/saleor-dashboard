@@ -1,6 +1,7 @@
 import Card from "@material-ui/core/Card";
 import AppHeader from "@saleor/components/AppHeader";
 import Container from "@saleor/components/Container";
+import { FilterErrors, IFilter } from "@saleor/components/Filter";
 import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
 import { sectionNames } from "@saleor/intl";
@@ -11,7 +12,8 @@ import {
   SortPage,
   TabPageProps
 } from "@saleor/types";
-import React from "react";
+import compact from "lodash-es/compact";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Plugins_plugins_edges_node } from "../../types/Plugins";
@@ -21,6 +23,7 @@ import {
   PluginFilterKeys,
   PluginListFilterOpts
 } from "./filters";
+import { getByName } from "./utils";
 
 export interface PluginsListPageProps
   extends PageListProps,
@@ -48,8 +51,34 @@ const PluginsListPage: React.FC<PluginsListPageProps> = ({
 }) => {
   const intl = useIntl();
 
+  const [filterErrors, setFilterErrors] = useState<
+    FilterErrors<PluginFilterKeys>
+  >({});
   const filterStructure = createFilterStructure(intl, filterOpts);
-  console.log({ filterStructure });
+
+  const handleFiltersChange = (filtersData: IFilter<PluginFilterKeys>) => {
+    const statusField = filtersData.find(getByName(PluginFilterKeys.status));
+    const channelsField = statusField.multipleFields.find(
+      getByName(PluginFilterKeys.channels)
+    );
+
+    if (
+      !statusField.active ||
+      (statusField.active && !!compact(channelsField.value).length)
+    ) {
+      onFilterChange(filtersData);
+      return;
+    }
+
+    setFilterErrors({
+      [PluginFilterKeys.active]: {
+        isError: true,
+        message: intl.formatMessage({
+          defaultMessage: "No channels selected"
+        })
+      }
+    });
+  };
 
   return (
     <Container>
@@ -59,10 +88,11 @@ const PluginsListPage: React.FC<PluginsListPageProps> = ({
       <PageHeader title={intl.formatMessage(sectionNames.plugins)} />
       <Card>
         <FilterBar
+          errors={filterErrors}
           currentTab={currentTab}
           initialSearch={initialSearch}
           onAll={onAll}
-          onFilterChange={onFilterChange}
+          onFilterChange={handleFiltersChange}
           onSearchChange={onSearchChange}
           onTabChange={onTabChange}
           onTabDelete={onTabDelete}

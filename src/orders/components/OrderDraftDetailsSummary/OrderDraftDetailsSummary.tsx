@@ -249,6 +249,7 @@ const OrderDraftDetailsSummary: React.FC<OrderDraftDetailsSummaryProps> = props 
             <Money money={order.total.tax} />
           </td>
         </tr>
+
         <tr>
           <td>{intl.formatMessage(messages.total)}</td>
           <td className={classes.textRight}>

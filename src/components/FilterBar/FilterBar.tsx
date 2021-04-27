@@ -49,7 +49,8 @@ const FilterBar: React.FC<FilterBarProps> = props => {
     onFilterChange,
     onTabChange,
     onTabDelete,
-    onTabSave
+    onTabSave,
+    errors
   } = props;
 
   const classes = useStyles(props);
@@ -84,6 +85,7 @@ const FilterBar: React.FC<FilterBarProps> = props => {
       </FilterTabs>
       <div className={classes.root}>
         <Filter
+          errors={errors}
           menu={filterStructure}
           currencySymbol={currencySymbol}
           onFilterAdd={onFilterChange}

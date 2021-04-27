@@ -32,6 +32,13 @@ export interface IFilterElement<T extends string = string>
   multipleFields?: IFilterElement[];
 }
 
+interface FilterError {
+  message: string;
+  isError: boolean;
+}
+
+export type FilterErrors<T extends string> = Partial<Record<T, FilterError>>;
+
 export interface FilterBaseFieldProps<T extends string = string> {
   filterField: IFilterElement<T>;
   onFilterPropertyChange: React.Dispatch<FilterReducerAction<T>>;

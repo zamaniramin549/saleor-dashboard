@@ -3,9 +3,10 @@ import {
   FormControlLabel,
   makeStyles,
   Radio,
-  TextField,
-  Typography
+  TextField
 } from "@material-ui/core";
+import Alert from "@saleor/components/Alert/Alert";
+import InlineAlert from "@saleor/components/Alert/InlineAlert";
 import FormSpacer from "@saleor/components/FormSpacer";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import SingleSelectField from "@saleor/components/SingleSelectField";
@@ -17,7 +18,7 @@ import Arrow from "../Arrow";
 import FilterAutocompleteField from "../FilterAutocompleteField";
 import FilterOptionField from "../FilterOptionField";
 import { FilterReducerAction } from "../reducer";
-import { FieldType, FilterType, IFilterElement } from "../types";
+import { FieldType, FilterErrors, FilterType, IFilterElement } from "../types";
 import { getIsFilterMultipleChoices } from "./utils";
 
 const useStyles = makeStyles(
@@ -29,7 +30,7 @@ const useStyles = makeStyles(
       marginRight: theme.spacing(2)
     },
     filterSettings: {
-      background: fade(theme.palette.primary.main, 0.2),
+      background: fade(theme.palette.primary.main, 0.1),
       padding: theme.spacing(2, 3)
     },
     input: {
@@ -54,6 +55,7 @@ const useStyles = makeStyles(
 const filterTestingContext = "filter-field";
 
 export interface FilterContentBodyProps<T extends string = string> {
+  errors?: FilterErrors<T>;
   children?: React.ReactNode;
   filter: IFilterElement<T>;
   currencySymbol?: string;
@@ -66,6 +68,7 @@ export interface FilterContentBodyProps<T extends string = string> {
 
 const FilterContentBody: React.FC<FilterContentBodyProps> = ({
   filter,
+  errors = {},
   children,
   currencySymbol,
   onFilterPropertyChange,
@@ -79,8 +82,11 @@ const FilterContentBody: React.FC<FilterContentBodyProps> = ({
     return null;
   }
 
+  const error = errors[filter.name];
+
   return (
     <div className={classes.filterSettings}>
+      {error?.isError && <InlineAlert description={error?.message} />}
       {children}
       {filter.type === FieldType.text && (
         <TextField
