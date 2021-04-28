@@ -92,15 +92,9 @@ const Filter: React.FC<FilterProps> = props => {
 
   const anchor = React.useRef<HTMLDivElement>();
   const [isFilterMenuOpened, setFilterMenuOpened] = React.useState(false);
-  const [];
   const [data, dispatch, reset] = useFilter(menu);
 
   const isFilterActive = menu.some(filterElement => filterElement.active);
-
-  const handleSubmit = function<T extends string>(filterData: IFilter<T>) {
-    onFilterAdd(data);
-    setFilterMenuOpened(false);
-  };
 
   return (
     <ClickAwayListener
@@ -168,7 +162,10 @@ const Filter: React.FC<FilterProps> = props => {
                 filters={data}
                 onClear={reset}
                 onFilterPropertyChange={dispatch}
-                onSubmit={handleSubmit}
+                onSubmit={() => {
+                  onFilterAdd(data);
+                  setFilterMenuOpened(false);
+                }}
               />
             </Grow>
           )}
