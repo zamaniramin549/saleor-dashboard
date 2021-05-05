@@ -1,4 +1,5 @@
 import Typography from "@material-ui/core/Typography";
+import Alert from "@saleor/components/Alert";
 import AppHeader from "@saleor/components/AppHeader";
 import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
@@ -11,11 +12,16 @@ import SaveButtonBar from "@saleor/components/SaveButtonBar";
 import Skeleton from "@saleor/components/Skeleton";
 import { sectionNames } from "@saleor/intl";
 import DraftOrderChannelSectionCard from "@saleor/orders/components/DraftOrderChannelSectionCard";
+import {
+  getOrderDraftErrorDescription,
+  getOrderDraftErrorTitle,
+  OrderDraftErrorTypes
+} from "@saleor/orders/views/OrderDetails/OrderDraftDetails";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
 import { makeStyles } from "@saleor/theme";
 import { FetchMoreProps, UserPermissionProps } from "@saleor/types";
 import React from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 
 import { DraftOrderInput } from "../../../types/globalTypes";
 import { OrderDetails_order } from "../../types/OrderDetails";
@@ -37,6 +43,24 @@ const useStyles = makeStyles(
   { name: "OrderDraftPage" }
 );
 
+const getErrorAlert = (errors: OrderDraftErrorTypes[], intl: IntlShape) => {
+  if (errors.length === 1) {
+    return (
+      <Alert show={true} title={getOrderDraftErrorTitle(errors[0], intl)}>
+        {getOrderDraftErrorDescription(errors[0], intl)}
+      </Alert>
+    );
+  } else if (errors.length > 1) {
+    return (
+      <Alert show={true} title="multi">
+        {errors.map(error => (
+          <p>{getOrderDraftErrorTitle(error, intl)}</p>
+        ))}
+      </Alert>
+    );
+  }
+};
+
 export interface OrderDraftPageProps
   extends FetchMoreProps,
     UserPermissionProps {
@@ -49,6 +73,7 @@ export interface OrderDraftPageProps
     label: string;
   }>;
   saveButtonBarState: ConfirmButtonTransitionState;
+  globalErrors: OrderDraftErrorTypes[];
   fetchUsers: (query: string) => void;
   onBack: () => void;
   onBillingAddressEdit: () => void;
@@ -74,6 +99,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
     fetchUsers,
     hasMore,
     saveButtonBarState,
+    globalErrors,
     onBack,
     onBillingAddressEdit,
     onCustomerEdit,
@@ -127,6 +153,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
           <Skeleton style={{ width: "10em" }} />
         )}
       </div>
+      {globalErrors.length && getErrorAlert(globalErrors, intl)}
       <Grid>
         <div>
           <OrderDraftDetails
