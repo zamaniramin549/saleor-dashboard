@@ -10,7 +10,6 @@ export function createAttribute(name, attributeValues = ["value"]) {
       attribute{
         id
         name
-        values{name}
       }
       attributeErrors{
         field
