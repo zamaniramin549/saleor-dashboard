@@ -46,8 +46,12 @@ export const PageTypeCreate: React.FC = () => {
       }
     });
 
-    return result.data?.pageTypeCreate.pageType?.id || null;
+    return {
+      id: result.data?.pageTypeCreate.pageType?.id || null,
+      errors: result.data?.pageTypeCreate?.errors
+    };
   };
+
   const handleSubmit = createMetadataCreateHandler(
     handleCreate,
     updateMetadata,

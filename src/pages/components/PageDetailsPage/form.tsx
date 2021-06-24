@@ -103,9 +103,6 @@ function usePageForm(
   onSubmit: (data: PageData) => SubmitPromise,
   opts: UsePageFormOpts
 ): UsePageUpdateFormResult {
-  const [changed, setChanged] = React.useState(false);
-  const triggerChange = () => setChanged(true);
-
   const pageExists = page !== null;
 
   const attributes = useFormset(

@@ -134,10 +134,15 @@ export const ProductVariant: React.FC<ProductVariantCreateProps> = ({
         firstValues: 10
       }
     });
+
     const id = result.data?.productVariantCreate?.productVariant?.id;
 
-    return id || null;
+    return {
+      id: id || null,
+      errors: result.data?.productVariantCreate?.errors
+    };
   };
+
   const handleSubmit = createMetadataCreateHandler(
     handleCreate,
     updateMetadata,

@@ -130,7 +130,7 @@ export const CollectionCreate: React.FC<CollectionCreateProps> = ({
       });
     }
 
-    return id;
+    return { id, errors: result.data?.collectionCreate?.errors };
   };
 
   const handleSubmit = createMetadataCreateHandler(

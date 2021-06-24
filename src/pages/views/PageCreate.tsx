@@ -170,8 +170,12 @@ export const PageCreate: React.FC<PageCreateProps> = ({ params }) => {
             }
           });
 
-          return result.data.pageCreate.page?.id || null;
+          return {
+            id: result.data.pageCreate.page?.id || null,
+            errors: result.data?.pageCreate?.errors
+          };
         };
+
         const handleSubmit = createMetadataCreateHandler(
           handleCreate,
           updateMetadata,
