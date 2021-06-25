@@ -52,12 +52,8 @@ export const ProductTypeCreate: React.FC = () => {
             }
           });
 
-          return {
-            id: result.data?.productTypeCreate.productType?.id || null,
-            errors: result.data?.productTypeCreate?.errors
-          };
+          return result.data?.productTypeCreate.productType?.id || null;
         };
-
         const handleSubmit = createMetadataCreateHandler(
           handleCreate,
           updateMetadata,

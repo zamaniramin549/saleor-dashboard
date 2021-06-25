@@ -130,7 +130,7 @@ export function createHandler(
     const productId = result.data.productCreate.product?.id;
 
     if (!productId) {
-      return { errors };
+      return null;
     }
 
     if (!hasVariants) {
@@ -177,9 +177,8 @@ export function createHandler(
     if (productId && hasErrors) {
       await productDelete({ variables: { id: productId } });
 
-      return { id: null, errors };
+      return null;
     }
-
-    return { id: productId || null, errors };
+    return productId || null;
   };
 }

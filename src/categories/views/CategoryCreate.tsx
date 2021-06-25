@@ -61,10 +61,7 @@ export const CategoryCreateView: React.FC<CategoryCreateViewProps> = ({
       }
     });
 
-    return {
-      id: result.data?.categoryCreate.category?.id || null,
-      errors: result.data?.categoryCreate?.errors
-    };
+    return result.data?.categoryCreate.category?.id || null;
   };
   const handleSubmit = createMetadataCreateHandler(
     handleCreate,

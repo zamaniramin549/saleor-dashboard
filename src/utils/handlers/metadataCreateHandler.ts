@@ -11,7 +11,7 @@ import {
 } from "../metadata/types/UpdatePrivateMetadata";
 
 function createMetadataCreateHandler<T extends MetadataFormData>(
-  create: (data: T) => Promise<{ id?: string | null; errors: any[] }>,
+  create: (data: T) => Promise<string>,
   setMetadata: MutationFunction<UpdateMetadata, UpdateMetadataVariables>,
   setPrivateMetadata: MutationFunction<
     UpdatePrivateMetadata,
@@ -19,10 +19,10 @@ function createMetadataCreateHandler<T extends MetadataFormData>(
   >
 ) {
   return async (data: T) => {
-    const { id, errors } = await create(data);
+    const id = await create(data);
 
     if (id === null) {
-      return Promise.reject(errors);
+      return null;
     }
 
     if (data.metadata.length > 0) {

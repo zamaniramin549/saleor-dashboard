@@ -155,12 +155,8 @@ const AttributeDetails: React.FC<AttributeDetailsProps> = ({ params }) => {
       }
     });
 
-    return {
-      id: result.data?.attributeCreate?.attribute?.id || null,
-      errors: result.data?.attributeCreate?.errors
-    };
+    return result.data.attributeCreate?.attribute?.id || null;
   };
-
   const handleSubmit = createMetadataCreateHandler(
     handleCreate,
     updateMetadata,
