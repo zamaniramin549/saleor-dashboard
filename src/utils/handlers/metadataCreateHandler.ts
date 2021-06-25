@@ -22,7 +22,7 @@ function createMetadataCreateHandler<T extends MetadataFormData>(
     const { id, errors } = await create(data);
 
     if (id === null) {
-      return errors;
+      return Promise.reject(errors);
     }
 
     if (data.metadata.length > 0) {
