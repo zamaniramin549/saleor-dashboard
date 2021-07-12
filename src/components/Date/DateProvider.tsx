@@ -2,33 +2,19 @@ import React from "react";
 
 import { Provider } from "./DateContext";
 
-interface DateProviderState {
-  date: number;
-}
+export const DateProvider: React.FC = ({ children }) => {
+  const [date, setDate] = React.useState(Date.now());
+  const intervalId = React.useRef<number>();
 
-export class DateProvider extends React.Component<{}, DateProviderState> {
-  static contextTypes = {};
+  React.useEffect(() => {
+    intervalId.current = window.setInterval(() => setDate(Date.now()), 60_000);
 
-  intervalId: number;
+    return () => {
+      if (intervalId.current) {
+        clearInterval(intervalId.current);
+      }
+    };
+  }, []);
 
-  state = {
-    date: Date.now()
-  };
-
-  componentDidMount() {
-    this.intervalId = window.setInterval(
-      () => this.setState({ date: Date.now() }),
-      10000
-    );
-  }
-
-  componentWillUnmount() {
-    window.clearInterval(this.intervalId);
-  }
-
-  render() {
-    const { children } = this.props;
-    const { date } = this.state;
-    return <Provider value={date}>{children}</Provider>;
-  }
-}
+  return <Provider value={date}>{children}</Provider>;
+};
