@@ -1,9 +1,12 @@
+import { IFilterElement } from "@saleor/components/Filter";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import {
   createFilterTabUtils,
   createFilterUtils,
-  dedupeFilter
+  dedupeFilter,
+  getMultipleValueQueryParam,
+  getSingleValueQueryParam
 } from "@saleor/utils/filters";
 import { mapSingleValueNodeToChoice } from "@saleor/utils/maps";
 
@@ -116,25 +119,40 @@ export const getFilterOpts = ({
 //   };
 // }
 
-// export function getFilterQueryParam(
-//   filter: IFilterElement<CollectionFilterKeys>
-// ): CollectionListUrlFilters {
-//   const { name } = filter;
+export function getFilterQueryParam(
+  filter: IFilterElement<GiftCardListUrlFiltersEnum>
+): GiftCardListUrlFilters {
+  const { name } = filter;
 
-//   switch (name) {
-//     case CollectionFilterKeys.status:
-//       return getSingleEnumValueQueryParam(
-//         filter,
-//         CollectionListUrlFiltersEnum.status,
-//         CollectionPublished
-//       );
-//     case CollectionFilterKeys.channel:
-//       return getSingleValueQueryParam(
-//         filter,
-//         CollectionListUrlFiltersEnum.channel
-//       );
-//   }
-// }
+  const {
+    balanceAmount,
+    balanceCurrency,
+    tags,
+    currency,
+    usedBy,
+    product
+  } = GiftCardListUrlFiltersEnum;
+
+  const singleValueQueryParamKeys = [
+    balanceAmount,
+    balanceCurrency,
+    currency,
+    usedBy,
+    product
+  ];
+
+  // const multipleValueQueryParamKeys = [tags];
+
+  const singleValueQueryParam = singleValueQueryParamKeys.find(
+    key => key === name
+  );
+
+  if (singleValueQueryParam) {
+    return getSingleValueQueryParam(filter, singleValueQueryParam);
+  }
+
+  return getMultipleValueQueryParam(filter, tags);
+}
 
 export const {
   deleteFilterTab,

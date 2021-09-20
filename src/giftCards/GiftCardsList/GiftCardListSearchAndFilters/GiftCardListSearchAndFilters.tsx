@@ -1,18 +1,46 @@
+import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import FilterBar from "@saleor/components/FilterBar";
+import SaveFilterTabDialog, {
+  SaveFilterTabDialogFormData
+} from "@saleor/components/SaveFilterTabDialog";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
 import useGiftCardTagsSearch from "@saleor/giftCards/components/GiftCardTagInput/useGiftCardTagsSearch";
+import { giftCardListUrl } from "@saleor/giftCards/urls";
 import { getSearchFetchMoreProps } from "@saleor/hooks/makeTopLevelSearch/utils";
+import useNavigator from "@saleor/hooks/useNavigator";
 import useCustomerSearch from "@saleor/searches/useCustomerSearch";
 import useProductSearch from "@saleor/searches/useProductSearch";
+import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
+import { useIntl } from "react-intl";
 
+import useGiftCardListDialogs from "../providers/GiftCardListDialogsProvider/hooks/useGiftCardListDialogs";
 import useGiftCardList from "../providers/GiftCardListProvider/hooks/useGiftCardList";
-import { getFilterOpts, getFiltersCurrentTab, getFilterTabs } from "./filters";
+import useGiftCardListBulkActions from "../providers/hooks/useGiftCardListBulkActions";
+import { GiftCardListActionParamsEnum } from "../types";
+import {
+  deleteFilterTab,
+  getActiveFilters,
+  getFilterOpts,
+  getFilterQueryParam,
+  getFiltersCurrentTab,
+  getFilterTabs,
+  saveFilterTab
+} from "./filters";
 import { useGiftCardCurrencySearch } from "./queries";
 
 const GiftCardListSearchAndFilters: React.FC = ({}) => {
+  const navigate = useNavigator();
+  const intl = useIntl();
+
   const { params } = useGiftCardList();
+  const { reset } = useGiftCardListBulkActions();
+  const {
+    closeDialog,
+    openSearchDeleteDialog,
+    openSearchSaveDialog
+  } = useGiftCardListDialogs();
 
   const defaultSearchVariables = {
     variables: DEFAULT_INITIAL_SEARCH_DATA
@@ -100,38 +128,73 @@ const GiftCardListSearchAndFilters: React.FC = ({}) => {
   //   [params]
   // );
 
-  // const [
-  //   changeFilters,
-  //   resetFilters,
-  //   handleSearchChange
-  // ] = createFilterHandlers({
-  //   createUrl: pluginListUrl,
-  //   getFilterQueryParam,
-  //   navigate,
-  //   params
-  // });
+  const [
+    changeFilters,
+    resetFilters,
+    handleSearchChange
+  ] = createFilterHandlers({
+    createUrl: giftCardListUrl,
+    getFilterQueryParam,
+    navigate,
+    params
+  });
+
+  const handleTabChange = (tab: number) => {
+    reset();
+    navigate(
+      giftCardListUrl({
+        activeTab: tab.toString(),
+        ...getFilterTabs()[tab - 1].data
+      })
+    );
+  };
+
+  const handleTabDelete = () => {
+    deleteFilterTab(currentTab);
+    reset();
+    navigate(giftCardListUrl());
+  };
+
+  const handleTabSave = (data: SaveFilterTabDialogFormData) => {
+    saveFilterTab(data.name, getActiveFilters(params));
+    handleTabChange(tabs.length + 1);
+  };
 
   return (
-    <FilterBar
-      allTabLabel={intl.formatMessage({
-        defaultMessage: "All Collections",
-        description: "tab name"
-      })}
-      currentTab={currentTab}
-      filterStructure={filterStructure}
-      initialSearch={initialSearch}
-      onAll={onAll}
-      onFilterChange={onFilterChange}
-      onFilterAttributeFocus={onFilterAttributeFocus}
-      onSearchChange={onSearchChange}
-      onTabChange={onTabChange}
-      onTabDelete={onTabDelete}
-      onTabSave={onTabSave}
-      searchPlaceholder={intl.formatMessage({
-        defaultMessage: "Search Collections"
-      })}
-      tabs={tabs}
-    />
+    <>
+      <FilterBar
+        tabs={tabs}
+        currentTab={currentTab}
+        filterStructure={filterStructure}
+        initialSearch={params?.query || ""}
+        onAll={resetFilters}
+        onFilterChange={changeFilters}
+        onSearchChange={handleSearchChange}
+        onTabChange={handleTabChange}
+        onTabDelete={openSearchDeleteDialog}
+        onTabSave={openSearchSaveDialog}
+        searchPlaceholder={intl.formatMessage({
+          defaultMessage: "Search Collections"
+        })}
+        allTabLabel={intl.formatMessage({
+          defaultMessage: "All Collections",
+          description: "tab name"
+        })}
+      />
+      <SaveFilterTabDialog
+        open={params.action === GiftCardListActionParamsEnum.SAVE_SEARCH}
+        confirmButtonState="default"
+        onClose={closeDialog}
+        onSubmit={handleTabSave}
+      />
+      <DeleteFilterTabDialog
+        open={params.action === GiftCardListActionParamsEnum.DELETE_SEARCH}
+        confirmButtonState="default"
+        onClose={closeDialog}
+        onSubmit={handleTabDelete}
+        tabName={maybe(() => tabs[currentTab - 1].name, "...")}
+      />
+    </>
   );
 };
 
