@@ -27,6 +27,7 @@ export const giftCardList = gql`
     }
   }
 `;
+
 export const useGiftCardListQuery = makeQuery<
   GiftCardList,
   GiftCardListVariables

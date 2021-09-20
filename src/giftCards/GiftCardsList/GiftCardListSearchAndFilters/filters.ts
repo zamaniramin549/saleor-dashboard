@@ -20,15 +20,15 @@ export const GIFT_CARD_FILTERS_KEY = "giftCardFilters";
 interface GiftCardFilterOptsProps {
   params: GiftCardListUrlFilters;
   currencies: string[];
-  currencySearchProps: SearchWithFetchMoreProps<{ currency: string }>;
+  currencySearchProps: SearchWithFetchMoreProps;
   products: SearchProducts_search_edges_node[];
-  productSearchProps: SearchWithFetchMoreProps<{ product: string }>;
+  productSearchProps: SearchWithFetchMoreProps;
   customers: SearchCustomers_search_edges_node[];
-  customerSearchProps: SearchWithFetchMoreProps<{ customer: string }>;
+  customerSearchProps: SearchWithFetchMoreProps;
   balanceCurrencies: string[];
-  balanceCurrencySearchProps: SearchWithFetchMoreProps<{ currency: string }>;
+  balanceCurrencySearchProps: SearchWithFetchMoreProps;
   tags: string[];
-  tagSearchProps: SearchWithFetchMoreProps<{ tags: string[] }>;
+  tagSearchProps: SearchWithFetchMoreProps;
 }
 
 export const getFilterOpts = ({

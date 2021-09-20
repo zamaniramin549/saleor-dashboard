@@ -1,4 +1,6 @@
-import { Dialog, Pagination, SingleAction } from "@saleor/types";
+import { ActiveTab, Dialog, Pagination, SingleAction } from "@saleor/types";
+
+import { GiftCardListUrlFilters } from "./GiftCardListSearchAndFilters/types";
 
 export type GiftCardListColummns =
   | "giftCardCode"
@@ -14,6 +16,8 @@ export enum GiftCardListActionParamsEnum {
 
 export type GiftCardListUrlQueryParams = Pagination &
   Dialog<GiftCardListActionParamsEnum> &
-  SingleAction;
+  SingleAction &
+  GiftCardListUrlFilters &
+  ActiveTab;
 
 export const GIFT_CARD_LIST_QUERY = "GiftCardList";

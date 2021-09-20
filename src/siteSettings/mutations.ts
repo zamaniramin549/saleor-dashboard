@@ -27,7 +27,7 @@ const shopSettingsUpdate = gql`
         ...ShopFragment
       }
     }
-    shopDomainUpdate(input: $shopDomainInput) @skip(if: ${IS_CLOUD_INSTANCE}) {
+    shopDomainUpdate(input: $shopDomainInput) {
       errors {
         ...ShopErrorFragment
       }

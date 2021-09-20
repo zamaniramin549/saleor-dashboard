@@ -27,7 +27,4 @@ export interface GiftCardListFilterOpts {
   balanceAmount: FilterOpts<number>;
 }
 
-export type SearchWithFetchMoreProps<T extends {}> = FetchMoreProps &
-  Search &
-  SearchProps &
-  T;
+export type SearchWithFetchMoreProps = FetchMoreProps & Search & SearchProps;

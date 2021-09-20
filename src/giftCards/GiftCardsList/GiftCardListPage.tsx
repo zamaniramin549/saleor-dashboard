@@ -1,6 +1,7 @@
 import Container from "@saleor/components/Container";
 import React from "react";
 
+import GiftCardListSearchAndFilters from "./GiftCardListSearchAndFilters";
 import GiftCardsListHeader from "./GiftCardsListHeader";
 import GiftCardsListTable from "./GiftCardsListTable";
 
