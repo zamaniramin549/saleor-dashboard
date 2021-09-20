@@ -7,6 +7,7 @@ import GiftCardsListTable from "./GiftCardsListTable";
 const GiftCardsListPage: React.FC = () => (
   <Container>
     <GiftCardsListHeader />
+    <GiftCardListSearchAndFilters />
     <GiftCardsListTable />
   </Container>
 );
