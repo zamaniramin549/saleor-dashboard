@@ -124,7 +124,7 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
   });
 
   const filterStructure = createFilterStructure(intl, filterOpts);
-  console.log(filterStructure);
+  // console.log(filterStructure);
 
   const tabs = getFilterTabs();
   const currentTab = getFiltersCurrentTab(params, tabs);

@@ -59,6 +59,7 @@ const FilterAutocompleteField: React.FC<FilterAutocompleteFieldProps> = ({
 }) => {
   const classes = useStyles({});
 
+  console.info("filterField", filterField.name);
   const fieldDisplayValues = displayValues[filterField.name];
   const initialFieldDisplayValues = initialDisplayValues[filterField.name];
   const availableOptions = filterField.options.filter(option =>
