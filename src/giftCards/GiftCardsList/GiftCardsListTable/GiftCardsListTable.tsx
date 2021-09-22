@@ -21,6 +21,7 @@ import { productUrl } from "@saleor/products/urls";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import GiftCardListSearchAndFilters from "../GiftCardListSearchAndFilters";
 import { giftCardsListTableMessages as messages } from "../messages";
 import useGiftCardListDialogs from "../providers/GiftCardListDialogsProvider/hooks/useGiftCardListDialogs";
 import useGiftCardList from "../providers/GiftCardListProvider/hooks/useGiftCardList";
@@ -37,7 +38,7 @@ const GiftCardsListTable: React.FC = () => {
   const navigate = useNavigator();
 
   const { giftCards, numberOfColumns, loading } = useGiftCardList();
-  const { toggle, isSelected } = useGiftCardListBulkActions();
+  const { toggle, isSelected, reset } = useGiftCardListBulkActions();
   const { openDeleteDialog } = useGiftCardListDialogs();
 
   const redirectToGiftCardUpdate = (id: string) => () =>
@@ -45,6 +46,7 @@ const GiftCardsListTable: React.FC = () => {
 
   return (
     <Card>
+      {!loading && <GiftCardListSearchAndFilters reset={reset} />}
       <ResponsiveTable>
         <GiftCardsListTableHeader />
         <GiftCardsListTableFooter />

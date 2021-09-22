@@ -8,10 +8,12 @@ import useGiftCardTagsSearch from "@saleor/giftCards/components/GiftCardTagInput
 import { giftCardListUrl } from "@saleor/giftCards/urls";
 import { getSearchFetchMoreProps } from "@saleor/hooks/makeTopLevelSearch/utils";
 import useNavigator from "@saleor/hooks/useNavigator";
+import { maybe } from "@saleor/misc";
 import useCustomerSearch from "@saleor/searches/useCustomerSearch";
 import useProductSearch from "@saleor/searches/useProductSearch";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
+import compact from "lodash/compact";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -20,6 +22,7 @@ import useGiftCardList from "../providers/GiftCardListProvider/hooks/useGiftCard
 import useGiftCardListBulkActions from "../providers/hooks/useGiftCardListBulkActions";
 import { GiftCardListActionParamsEnum } from "../types";
 import {
+  createFilterStructure,
   deleteFilterTab,
   getActiveFilters,
   getFilterOpts,
@@ -30,12 +33,13 @@ import {
 } from "./filters";
 import { useGiftCardCurrencySearch } from "./queries";
 
-const GiftCardListSearchAndFilters: React.FC = ({}) => {
+const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
   const navigate = useNavigator();
   const intl = useIntl();
 
   const { params } = useGiftCardList();
-  const { reset } = useGiftCardListBulkActions();
+  // const { reset } = useGiftCardListBulkActions();
+
   const {
     closeDialog,
     openSearchDeleteDialog,
@@ -62,19 +66,19 @@ const GiftCardListSearchAndFilters: React.FC = ({}) => {
     loadMore: fetchMoreCurrencies,
     search: searchCurrencies,
     result: searchCurrenciesResult
-  } = useGiftCardCurrencySearch({});
+  } = useGiftCardCurrencySearch(defaultSearchVariables);
 
   const {
     loadMore: fetchMoreBalanceCurrencies,
     search: searchBalanceCurrencies,
     result: searchBalanceCurrenciesResult
-  } = useGiftCardCurrencySearch({});
+  } = useGiftCardCurrencySearch(defaultSearchVariables);
 
   const {
     loadMore: fetchMoreGiftCardTags,
     search: searchGiftCardTags,
     result: searchGiftCardTagsResult
-  } = useGiftCardTagsSearch({});
+  } = useGiftCardTagsSearch(defaultSearchVariables);
 
   const filterOpts = getFilterOpts({
     params,
@@ -87,7 +91,7 @@ const GiftCardListSearchAndFilters: React.FC = ({}) => {
       ...getSearchFetchMoreProps(searchCurrenciesResult, fetchMoreCurrencies),
       onSearchChange: searchCurrencies
     },
-    currencies: mapEdgesToItems(searchCurrenciesResult?.data?.search).map(
+    currencies: mapEdgesToItems(searchCurrenciesResult?.data?.search)?.map(
       ({ currentBalance }) => currentBalance.currency
     ),
     customerSearchProps: {
@@ -104,7 +108,7 @@ const GiftCardListSearchAndFilters: React.FC = ({}) => {
     },
     balanceCurrencies: mapEdgesToItems(
       searchBalanceCurrenciesResult?.data?.search
-    ).map(({ currentBalance }) => currentBalance.currency),
+    )?.map(({ currentBalance }) => currentBalance.currency),
     tagSearchProps: {
       ...getSearchFetchMoreProps(
         searchGiftCardTagsResult,
@@ -112,10 +116,15 @@ const GiftCardListSearchAndFilters: React.FC = ({}) => {
       ),
       onSearchChange: searchGiftCardTags
     },
-    tags: mapEdgesToItems(searchGiftCardTagsResult?.data?.search).map(
-      ({ tag }) => tag
+    tags: compact(
+      mapEdgesToItems(searchGiftCardTagsResult?.data?.search)?.map(
+        ({ tag }) => tag
+      )
     )
   });
+
+  const filterStructure = createFilterStructure(intl, filterOpts);
+  console.log(filterStructure);
 
   const tabs = getFilterTabs();
   const currentTab = getFiltersCurrentTab(params, tabs);
@@ -163,7 +172,7 @@ const GiftCardListSearchAndFilters: React.FC = ({}) => {
   return (
     <>
       <FilterBar
-        tabs={tabs}
+        tabs={tabs.map(tab => tab.name)}
         currentTab={currentTab}
         filterStructure={filterStructure}
         initialSearch={params?.query || ""}

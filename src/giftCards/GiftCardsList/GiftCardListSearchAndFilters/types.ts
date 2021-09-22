@@ -13,7 +13,19 @@ export enum GiftCardListUrlFiltersEnum {
   balanceAmount = "balanceAmount",
   tags = "tags",
   product = "product",
-  usedBy = "usedBy"
+  usedBy = "usedBy",
+  status = "status"
+}
+
+export enum GiftCardListFilterKeys {
+  currency = "currency",
+  balance = "balance",
+  balanceCurrency = "balanceCurrency",
+  balanceAmount = "balanceAmount",
+  tags = "tags",
+  product = "product",
+  usedBy = "usedBy",
+  status = "status"
 }
 
 export type GiftCardListUrlFilters = Filters<GiftCardListUrlFiltersEnum>;
@@ -24,7 +36,13 @@ export interface GiftCardListFilterOpts {
   product: FilterOpts<string> & AutocompleteFilterOpts;
   usedBy: FilterOpts<string> & AutocompleteFilterOpts;
   balanceCurrency: FilterOpts<string> & AutocompleteFilterOpts;
-  balanceAmount: FilterOpts<number>;
+  balanceAmount: FilterOpts<string>;
+  status: FilterOpts<string>;
 }
 
 export type SearchWithFetchMoreProps = FetchMoreProps & Search & SearchProps;
+
+export enum GiftCardStatusFilterEnum {
+  enabled = "enabled",
+  disabled = "disabled"
+}
