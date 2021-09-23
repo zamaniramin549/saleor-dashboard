@@ -1,5 +1,5 @@
 import { IFilter, IFilterElement } from "@saleor/components/Filter";
-import { getFullName } from "@saleor/misc";
+import { findValueInEnum, getFullName } from "@saleor/misc";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import {
@@ -45,7 +45,7 @@ interface GiftCardFilterOptsProps {
   customerSearchProps: SearchWithFetchMoreProps;
   balanceCurrencies: string[];
   balanceCurrencySearchProps: SearchWithFetchMoreProps;
-  tags: string[];
+  tag: string[];
   tagSearchProps: SearchWithFetchMoreProps;
 }
 
@@ -59,7 +59,7 @@ export const getFilterOpts = ({
   customerSearchProps,
   balanceCurrencies,
   balanceCurrencySearchProps,
-  tags,
+  tag,
   tagSearchProps
 }: GiftCardFilterOptsProps): GiftCardListFilterOpts => ({
   currency: {
@@ -106,11 +106,11 @@ export const getFilterOpts = ({
     onFetchMore: balanceCurrencySearchProps.onFetchMore,
     onSearchChange: balanceCurrencySearchProps.onSearchChange
   },
-  tags: {
-    active: !!params?.tags,
-    value: dedupeFilter(params?.tags || []),
-    choices: mapSingleValueNodeToChoice(tags),
-    displayValues: mapSingleValueNodeToChoice(tags),
+  tag: {
+    active: !!params?.tag,
+    value: dedupeFilter(params?.tag || []),
+    choices: mapSingleValueNodeToChoice(tag),
+    displayValues: mapSingleValueNodeToChoice(tag),
     initialSearch: "",
     hasMore: tagSearchProps.hasMore,
     loading: tagSearchProps.loading,
@@ -146,7 +146,7 @@ export function getFilterQueryParam(
   const {
     balanceAmount,
     balanceCurrency,
-    tags,
+    tag,
     currency,
     usedBy,
     product
@@ -161,8 +161,8 @@ export function getFilterQueryParam(
     case status:
       return getSingleValueQueryParam(filter, name);
 
-    case tags:
-      return getMultipleValueQueryParam(filter, tags);
+    case tag:
+      return getMultipleValueQueryParam(filter, tag);
   }
 }
 
@@ -171,9 +171,9 @@ const messages = defineMessages({
     defaultMessage: "Amount",
     description: "amount filter label"
   },
-  tagsLabel: {
+  tagLabel: {
     defaultMessage: "Tags",
-    description: "tags filter label"
+    description: "tag filter label"
   },
   currencyLabel: {
     defaultMessage: "Currency",
@@ -260,20 +260,20 @@ export function createFilterStructure(
       )
     },
     {
-      active: opts.tags.active,
+      active: opts.tag.active,
       ...createAutocompleteField(
-        GiftCardListFilterKeys.tags,
-        intl.formatMessage(messages.tagsLabel),
-        opts.tags.value,
-        opts.tags.displayValues,
+        GiftCardListFilterKeys.tag,
+        intl.formatMessage(messages.tagLabel),
+        opts.tag.value,
+        opts.tag.displayValues,
         true,
-        opts.tags.choices,
+        opts.tag.choices,
         {
-          hasMore: opts.tags.hasMore,
+          hasMore: opts.tag.hasMore,
           initialSearch: "",
-          loading: opts.tags.loading,
-          onFetchMore: opts.tags.onFetchMore,
-          onSearchChange: opts.tags.onSearchChange
+          loading: opts.tag.loading,
+          onFetchMore: opts.tag.onFetchMore,
+          onSearchChange: opts.tag.onSearchChange
         }
       )
     },
@@ -284,7 +284,7 @@ export function createFilterStructure(
         intl.formatMessage(messages.productLabel),
         [opts.product.value],
         opts.product.displayValues,
-        false,
+        true,
         opts.product.choices,
         {
           hasMore: opts.product.hasMore,
@@ -348,3 +348,31 @@ export const {
 } = createFilterUtils<GiftCardListUrlQueryParams, GiftCardListUrlFilters>(
   GiftCardListUrlFiltersEnum
 );
+
+export interface GiftCardFilterInput {
+  currency: string | null;
+  balanceCurrency: string | null;
+  balanceAmount: string | null;
+  tag: string[] | null;
+  product: string[] | null;
+  customer: string | null;
+  status: string | null;
+  search: string | null;
+}
+
+export function getFilterVariables(
+  params: GiftCardListUrlQueryParams
+): GiftCardFilterInput {
+  return {
+    status: params.status
+      ? findValueInEnum(params.status, GiftCardStatusFilterEnum)
+      : undefined,
+    search: params.query,
+    tag: params.tag,
+    customer: params.usedBy,
+    product: params.product,
+    currency: params.currency,
+    balanceAmount: params.balanceAmount,
+    balanceCurrency: params.balanceCurrency
+  };
+}

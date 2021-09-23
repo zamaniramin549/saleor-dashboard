@@ -14,12 +14,11 @@ import useProductSearch from "@saleor/searches/useProductSearch";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import compact from "lodash/compact";
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 
 import useGiftCardListDialogs from "../providers/GiftCardListDialogsProvider/hooks/useGiftCardListDialogs";
 import useGiftCardList from "../providers/GiftCardListProvider/hooks/useGiftCardList";
-import useGiftCardListBulkActions from "../providers/hooks/useGiftCardListBulkActions";
 import { GiftCardListActionParamsEnum } from "../types";
 import {
   createFilterStructure,
@@ -129,14 +128,6 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
 
   const tabs = getFilterTabs();
   const currentTab = getFiltersCurrentTab(params, tabs);
-
-  // const queryVariables = React.useMemo(
-  //   () => ({
-  //     filter: getFilterVariables(params),
-  //     sort: getSortQueryVariables(params)
-  //   }),
-  //   [params]
-  // );
 
   const [
     changeFilters,

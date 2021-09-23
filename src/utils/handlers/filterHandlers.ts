@@ -37,6 +37,7 @@ function createFilterHandlers<
       })
     );
   };
+  console.log("lol");
 
   const resetFilters = () => {
     if (!!cleanupFn) {
@@ -71,3 +72,15 @@ function createFilterHandlers<
 }
 
 export default createFilterHandlers;
+
+const hasSectionPermissions = () => {
+  if (!permissions) {
+    return false;
+  }
+
+  if (matchAll(matchPermission)) {
+    return hasAllPermissions(permissions, user);
+  }
+
+  return hasAnyPermissions(permissions, user);
+};

@@ -3,6 +3,7 @@ import {
   FetchMoreProps,
   FilterOpts,
   Filters,
+  FiltersWithMultipleValues,
   Search,
   SearchProps
 } from "@saleor/types";
@@ -11,10 +12,13 @@ export enum GiftCardListUrlFiltersEnum {
   currency = "currency",
   balanceCurrency = "balanceCurrency",
   balanceAmount = "balanceAmount",
-  tags = "tags",
-  product = "product",
   usedBy = "usedBy",
   status = "status"
+}
+
+export enum GiftCardListUrlFiltersWithMultipleValuesEnum {
+  tag = "tag",
+  product = "product"
 }
 
 export enum GiftCardListFilterKeys {
@@ -22,16 +26,17 @@ export enum GiftCardListFilterKeys {
   balance = "balance",
   balanceCurrency = "balanceCurrency",
   balanceAmount = "balanceAmount",
-  tags = "tags",
+  tag = "tag",
   product = "product",
   usedBy = "usedBy",
   status = "status"
 }
 
-export type GiftCardListUrlFilters = Filters<GiftCardListUrlFiltersEnum>;
+export type GiftCardListUrlFilters = Filters<GiftCardListUrlFiltersEnum> &
+  FiltersWithMultipleValues<GiftCardListUrlFiltersWithMultipleValuesEnum>;
 
 export interface GiftCardListFilterOpts {
-  tags: FilterOpts<string[]> & AutocompleteFilterOpts;
+  tag: FilterOpts<string[]> & AutocompleteFilterOpts;
   currency: FilterOpts<string> & AutocompleteFilterOpts;
   product: FilterOpts<string> & AutocompleteFilterOpts;
   usedBy: FilterOpts<string> & AutocompleteFilterOpts;
