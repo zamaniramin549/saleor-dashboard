@@ -15,19 +15,6 @@ export const GiftCardListFiltersProvider: React.FC<GiftCardListFiltersProviderPr
 }) => {
   const providerValues: GiftCardListFiltersConsumerProps = {};
 
-  const { updateListSettings, settings } = useListSettings<
-    GiftCardListColummns
-  >(ListViews.GIFT_CARD_LIST);
-
-  const paginationState = createPaginationState(settings.rowNumber, params);
-
-  const queryVariables = React.useMemo<GiftCardListVariables>(
-    () => ({
-      ...paginationState
-    }),
-    [params]
-  );
-
   return (
     <GiftCardListFiltersContext.Provider value={providerValues}>
       {children}

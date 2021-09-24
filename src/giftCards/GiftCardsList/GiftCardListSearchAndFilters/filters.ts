@@ -2,6 +2,7 @@ import { IFilter, IFilterElement } from "@saleor/components/Filter";
 import { findValueInEnum, getFullName } from "@saleor/misc";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
+import { GiftCardFilterInput } from "@saleor/types/globalTypes";
 import {
   createFilterTabUtils,
   createFilterUtils,
@@ -127,19 +128,8 @@ export const getFilterOpts = ({
   }
 });
 
-// export function getFilterVariables(
-//   params: CollectionListUrlFilters
-// ): CollectionFilterInput {
-//   return {
-//     published: params.status
-//       ? findValueInEnum(params.status, CollectionPublished)
-//       : undefined,
-//     search: params.query
-//   };
-// }
-
 export function getFilterQueryParam(
-  filter: IFilterElement<GiftCardListUrlFiltersEnum>
+  filter: IFilterElement<GiftCardListFilterKeys>
 ): GiftCardListUrlFilters {
   const { name } = filter;
 
@@ -149,20 +139,21 @@ export function getFilterQueryParam(
     tag,
     currency,
     usedBy,
-    product
-  } = GiftCardListUrlFiltersEnum;
+    product,
+    status
+  } = GiftCardListFilterKeys;
 
   switch (name) {
     case balanceAmount:
     case balanceCurrency:
     case currency:
-    case usedBy:
-    case product:
     case status:
       return getSingleValueQueryParam(filter, name);
 
     case tag:
-      return getMultipleValueQueryParam(filter, tag);
+    case product:
+    case usedBy:
+      return getMultipleValueQueryParam(filter, name);
   }
 }
 
@@ -349,30 +340,16 @@ export const {
   GiftCardListUrlFiltersEnum
 );
 
-export interface GiftCardFilterInput {
-  currency: string | null;
-  balanceCurrency: string | null;
-  balanceAmount: string | null;
-  tag: string[] | null;
-  product: string[] | null;
-  customer: string | null;
-  status: string | null;
-  search: string | null;
-}
-
 export function getFilterVariables(
   params: GiftCardListUrlQueryParams
 ): GiftCardFilterInput {
   return {
-    status: params.status
-      ? findValueInEnum(params.status, GiftCardStatusFilterEnum)
-      : undefined,
-    search: params.query,
-    tag: params.tag,
-    customer: params.usedBy,
-    product: params.product,
-    currency: params.currency,
-    balanceAmount: params.balanceAmount,
-    balanceCurrency: params.balanceCurrency
+    isActive: params.status === "enabled" ? true : false,
+    tags: params.tag,
+    usedBy: params.usedBy,
+    products: params.product,
+    currency: params.currency
+    // balanceAmount: params.balanceAmount,
+    // balanceCurrency: params.balanceCurrency
   };
 }

@@ -12,13 +12,13 @@ export enum GiftCardListUrlFiltersEnum {
   currency = "currency",
   balanceCurrency = "balanceCurrency",
   balanceAmount = "balanceAmount",
-  usedBy = "usedBy",
   status = "status"
 }
 
 export enum GiftCardListUrlFiltersWithMultipleValuesEnum {
   tag = "tag",
-  product = "product"
+  product = "product",
+  usedBy = "usedBy"
 }
 
 export enum GiftCardListFilterKeys {

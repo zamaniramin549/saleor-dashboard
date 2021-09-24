@@ -59,7 +59,6 @@ const FilterAutocompleteField: React.FC<FilterAutocompleteFieldProps> = ({
 }) => {
   const classes = useStyles({});
 
-  console.info("filterField", filterField.name);
   const fieldDisplayValues = displayValues[filterField.name];
   const initialFieldDisplayValues = initialDisplayValues[filterField.name];
   const availableOptions = filterField.options.filter(option =>
@@ -119,7 +118,7 @@ const FilterAutocompleteField: React.FC<FilterAutocompleteFieldProps> = ({
         }}
         onChange={event => filterField.onSearchChange(event.target.value)}
       />
-      {filteredValuesChecked.map(displayValue => (
+      {/* {filteredValuesChecked.map(displayValue => (
         <div className={classes.option} key={displayValue.value}>
           <FormControlLabel
             control={
@@ -134,7 +133,7 @@ const FilterAutocompleteField: React.FC<FilterAutocompleteFieldProps> = ({
             onChange={() => handleChange(displayValue)}
           />
         </div>
-      ))}
+      ))} */}
       {displayHr && <Hr className={classes.hr} />}
       {displayNoResults && (
         <Typography

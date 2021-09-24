@@ -11,8 +11,20 @@ export const giftCardList = gql`
   ${fragmentUserBase}
   ${fragmentMoney}
   ${giftCardDataFragment}
-  query GiftCardList($first: Int, $after: String, $last: Int, $before: String) {
-    giftCards(first: $first, after: $after, before: $before, last: $last) {
+  query GiftCardList(
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $filter: GiftCardFilterInput
+  ) {
+    giftCards(
+      first: $first
+      after: $after
+      before: $before
+      last: $last
+      filter: $filter
+    ) {
       edges {
         node {
           ...GiftCardData
