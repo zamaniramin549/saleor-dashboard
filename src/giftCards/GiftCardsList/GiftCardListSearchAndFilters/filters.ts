@@ -1,5 +1,5 @@
 import { IFilter, IFilterElement } from "@saleor/components/Filter";
-import { findValueInEnum, getFullName } from "@saleor/misc";
+import { findValueInEnum, getFullName, maybe } from "@saleor/misc";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { GiftCardFilterInput } from "@saleor/types/globalTypes";
@@ -119,8 +119,17 @@ export const getFilterOpts = ({
     onSearchChange: tagSearchProps.onSearchChange
   },
   balanceAmount: {
-    active: !!params?.balanceAmount,
-    value: params?.balanceAmount
+    active: maybe(
+      () =>
+        [params.balanceAmountFrom, params.balanceAmountTo].some(
+          field => field !== undefined
+        ),
+      false
+    ),
+    value: {
+      max: maybe(() => params.balanceAmountTo, ""),
+      min: maybe(() => params.balanceAmountFrom, "")
+    }
   },
   status: {
     active: !!params?.status,
@@ -207,7 +216,7 @@ export function createFilterStructure(
       multipleFields: [
         {
           required: true,
-          ...createTextField(
+          ...createNumberField(
             GiftCardListFilterKeys.balanceAmount,
             intl.formatMessage(messages.balanceAmountLabel),
             opts.balanceAmount.value

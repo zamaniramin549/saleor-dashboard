@@ -4,6 +4,7 @@ import {
   FilterOpts,
   Filters,
   FiltersWithMultipleValues,
+  MinMax,
   Search,
   SearchProps
 } from "@saleor/types";
@@ -11,7 +12,8 @@ import {
 export enum GiftCardListUrlFiltersEnum {
   currency = "currency",
   balanceCurrency = "balanceCurrency",
-  balanceAmount = "balanceAmount",
+  balanceAmountFrom = "balanceAmountFrom",
+  balanceAmountTo = "balanceAmountTo",
   status = "status"
 }
 
@@ -41,7 +43,7 @@ export interface GiftCardListFilterOpts {
   product: FilterOpts<string> & AutocompleteFilterOpts;
   usedBy: FilterOpts<string> & AutocompleteFilterOpts;
   balanceCurrency: FilterOpts<string> & AutocompleteFilterOpts;
-  balanceAmount: FilterOpts<string>;
+  balanceAmount: FilterOpts<MinMax>;
   status: FilterOpts<string>;
 }
 
