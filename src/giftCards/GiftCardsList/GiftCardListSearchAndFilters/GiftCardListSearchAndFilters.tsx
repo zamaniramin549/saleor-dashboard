@@ -46,8 +46,7 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
   } = useGiftCardListDialogs();
 
   const defaultSearchVariables = {
-    variables: DEFAULT_INITIAL_SEARCH_DATA,
-    first: 5
+    variables: { ...DEFAULT_INITIAL_SEARCH_DATA, first: 5 }
   };
 
   const {

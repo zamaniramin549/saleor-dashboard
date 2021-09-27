@@ -7,6 +7,7 @@ import {
   createFilterTabUtils,
   createFilterUtils,
   dedupeFilter,
+  getMinMaxQueryParam,
   getMultipleValueQueryParam,
   getSingleValueQueryParam
 } from "@saleor/utils/filters";
@@ -118,17 +119,30 @@ export const getFilterOpts = ({
     onFetchMore: tagSearchProps.onFetchMore,
     onSearchChange: tagSearchProps.onSearchChange
   },
-  balanceAmount: {
+  initialBalanceAmount: {
     active: maybe(
       () =>
-        [params.balanceAmountFrom, params.balanceAmountTo].some(
+        [params.initialBalanceAmountFrom, params.initialBalanceAmountTo].some(
           field => field !== undefined
         ),
       false
     ),
     value: {
-      max: maybe(() => params.balanceAmountTo, ""),
-      min: maybe(() => params.balanceAmountFrom, "")
+      max: maybe(() => params.initialBalanceAmountTo, ""),
+      min: maybe(() => params.initialBalanceAmountFrom, "")
+    }
+  },
+  currentBalanceAmount: {
+    active: maybe(
+      () =>
+        [params.currentBalanceAmountFrom, params.currentBalanceAmountTo].some(
+          field => field !== undefined
+        ),
+      false
+    ),
+    value: {
+      max: maybe(() => params.currentBalanceAmountTo, ""),
+      min: maybe(() => params.currentBalanceAmountFrom, "")
     }
   },
   status: {
@@ -143,8 +157,10 @@ export function getFilterQueryParam(
   const { name } = filter;
 
   const {
-    balanceAmount,
-    balanceCurrency,
+    initialBalanceAmount,
+    initialBalanceCurrency,
+    currentBalanceAmount,
+    currentBalanceCurrency,
     tag,
     currency,
     usedBy,
@@ -152,10 +168,9 @@ export function getFilterQueryParam(
     status
   } = GiftCardListFilterKeys;
 
-  console.log({ ...filter });
   switch (name) {
-    case balanceAmount:
-    case balanceCurrency:
+    case initialBalanceCurrency:
+    case currentBalanceCurrency:
     case currency:
     case status:
       return getSingleValueQueryParam(filter, name);
@@ -164,6 +179,20 @@ export function getFilterQueryParam(
     case product:
     case usedBy:
       return getMultipleValueQueryParam(filter, name);
+
+    case initialBalanceAmount:
+      return getMinMaxQueryParam(
+        filter,
+        GiftCardListUrlFiltersEnum.initialBalanceAmountFrom,
+        GiftCardListUrlFiltersEnum.initialBalanceAmountTo
+      );
+
+    case currentBalanceAmount:
+      return getMinMaxQueryParam(
+        filter,
+        GiftCardListUrlFiltersEnum.currentBalanceAmountFrom,
+        GiftCardListUrlFiltersEnum.currentBalanceAmountTo
+      );
   }
 }
 
@@ -199,6 +228,14 @@ const messages = defineMessages({
   disabledOptionLabel: {
     defaultMessage: "Disabled",
     description: "disabled status option label"
+  },
+  initialBalanceLabel: {
+    defaultMessage: "Initial balance",
+    description: "initial balance filter label"
+  },
+  currentBalanceLabel: {
+    defaultMessage: "Current balance",
+    description: "current balance filter label"
   }
 });
 
@@ -207,41 +244,78 @@ export function createFilterStructure(
   opts: GiftCardListFilterOpts
 ): IFilter<GiftCardListFilterKeys> {
   return [
-    {
-      active: opts.balanceAmount.active && opts.balanceCurrency.active,
-      name: GiftCardListFilterKeys.balance,
-      label: intl.formatMessage(
-        giftCardsListTableMessages.giftCardsTableColumnBalanceTitle
-      ),
-      multipleFields: [
-        {
-          required: true,
-          ...createNumberField(
-            GiftCardListFilterKeys.balanceAmount,
-            intl.formatMessage(messages.balanceAmountLabel),
-            opts.balanceAmount.value
-          )
-        },
-        {
-          required: true,
-          ...createAutocompleteField(
-            GiftCardListFilterKeys.balanceCurrency,
-            intl.formatMessage(messages.currencyLabel),
-            [opts.balanceCurrency.value],
-            opts.balanceCurrency.displayValues,
-            false,
-            opts.balanceCurrency.choices,
-            {
-              hasMore: opts.balanceCurrency.hasMore,
-              initialSearch: "",
-              loading: opts.balanceCurrency.loading,
-              onFetchMore: opts.balanceCurrency.onFetchMore,
-              onSearchChange: opts.balanceCurrency.onSearchChange
-            }
-          )
-        }
-      ]
-    } as IFilterElement<GiftCardListFilterKeys.balance>,
+    // {
+    //   active:
+    //     opts.initialBalanceAmount.active && opts.initialBalanceCurrency.active,
+    //   name: GiftCardListFilterKeys.initialBalance,
+    //   label: intl.formatMessage(
+    //     giftCardsListTableMessages.giftCardsTableColumnBalanceTitle
+    //   ),
+    //   multipleFields: [
+    //     {
+    //       required: true,
+    //       ...createNumberField(
+    //         GiftCardListFilterKeys.initialBalanceAmount,
+    //         intl.formatMessage(messages.balanceAmountLabel),
+    //         opts.initialBalanceAmount.value
+    //       )
+    //     },
+    //     {
+    //       required: true,
+    //       ...createAutocompleteField(
+    //         GiftCardListFilterKeys.initialBalanceCurrency,
+    //         intl.formatMessage(messages.currencyLabel),
+    //         [opts.initialBalanceCurrency.value],
+    //         opts.initialBalanceCurrency.displayValues,
+    //         false,
+    //         opts.initialBalanceCurrency.choices,
+    //         {
+    //           hasMore: opts.initialBalanceCurrency.hasMore,
+    //           initialSearch: "",
+    //           loading: opts.initialBalanceCurrency.loading,
+    //           onFetchMore: opts.initialBalanceCurrency.onFetchMore,
+    //           onSearchChange: opts.initialBalanceCurrency.onSearchChange
+    //         }
+    //       )
+    //     }
+    //   ]
+    // } as IFilterElement<GiftCardListFilterKeys.initialBalance>,
+    // {
+    //   active:
+    //     opts.currentBalanceAmount.active && opts.currentBalanceCurrency.active,
+    //   name: GiftCardListFilterKeys.currentBalance,
+    //   label: intl.formatMessage(
+    //     giftCardsListTableMessages.giftCardsTableColumnBalanceTitle
+    //   ),
+    //   multipleFields: [
+    //     {
+    //       required: true,
+    //       ...createNumberField(
+    //         GiftCardListFilterKeys.currentBalanceAmount,
+    //         intl.formatMessage(messages.balanceAmountLabel),
+    //         opts.currentBalanceAmount.value
+    //       )
+    //     },
+    //     {
+    //       required: true,
+    //       ...createAutocompleteField(
+    //         GiftCardListFilterKeys.currentBalanceCurrency,
+    //         intl.formatMessage(messages.currencyLabel),
+    //         [opts.currentBalanceCurrency.value],
+    //         opts.currentBalanceCurrency.displayValues,
+    //         false,
+    //         opts.currentBalanceCurrency.choices,
+    //         {
+    //           hasMore: opts.currentBalanceCurrency.hasMore,
+    //           initialSearch: "",
+    //           loading: opts.currentBalanceCurrency.loading,
+    //           onFetchMore: opts.currentBalanceCurrency.onFetchMore,
+    //           onSearchChange: opts.currentBalanceCurrency.onSearchChange
+    //         }
+    //       )
+    //     }
+    //   ]
+    // } as IFilterElement<GiftCardListFilterKeys.currentBalance>,
     {
       active: opts.currency.active,
       ...createAutocompleteField(
