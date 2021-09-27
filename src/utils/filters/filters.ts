@@ -136,8 +136,9 @@ export function getMultipleValueQueryParam<
   TKey extends string,
   TUrlKey extends string
 >(param: IFilterElement<TKey>, key: TUrlKey) {
-  const { active, value } = param;
+  const { active, value, name } = param;
 
+  console.log({ name, active, value });
   if (!active) {
     return {
       [key]: undefined

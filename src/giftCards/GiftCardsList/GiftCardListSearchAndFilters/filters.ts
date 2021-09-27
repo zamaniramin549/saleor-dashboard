@@ -143,6 +143,7 @@ export function getFilterQueryParam(
     status
   } = GiftCardListFilterKeys;
 
+  console.log({ ...filter });
   switch (name) {
     case balanceAmount:
     case balanceCurrency:

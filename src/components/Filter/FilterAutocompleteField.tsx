@@ -118,7 +118,7 @@ const FilterAutocompleteField: React.FC<FilterAutocompleteFieldProps> = ({
         }}
         onChange={event => filterField.onSearchChange(event.target.value)}
       />
-      {/* {filteredValuesChecked.map(displayValue => (
+      {filteredValuesChecked.map(displayValue => (
         <div className={classes.option} key={displayValue.value}>
           <FormControlLabel
             control={
@@ -133,7 +133,7 @@ const FilterAutocompleteField: React.FC<FilterAutocompleteFieldProps> = ({
             onChange={() => handleChange(displayValue)}
           />
         </div>
-      ))} */}
+      ))}
       {displayHr && <Hr className={classes.hr} />}
       {displayNoResults && (
         <Typography
