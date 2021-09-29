@@ -1,5 +1,5 @@
 import { IFilter, IFilterElement } from "@saleor/components/Filter";
-import { findValueInEnum, getFullName, maybe } from "@saleor/misc";
+import { maybe } from "@saleor/misc";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { GiftCardFilterInput } from "@saleor/types/globalTypes";
@@ -14,17 +14,16 @@ import {
 import {
   createAutocompleteField,
   createNumberField,
-  createOptionsField,
-  createTextField
+  createOptionsField
 } from "@saleor/utils/filters/fields";
 import {
   mapNodeToChoice,
   mapPersonNodeToChoice,
   mapSingleValueNodeToChoice
 } from "@saleor/utils/maps";
+import { filter } from "fuzzaldrin";
 import { defineMessages, IntlShape } from "react-intl";
 
-import { giftCardsListTableMessages } from "../messages";
 import { GiftCardListUrlQueryParams } from "../types";
 import {
   GiftCardListFilterKeys,
@@ -40,13 +39,14 @@ export const GIFT_CARD_FILTERS_KEY = "giftCardFilters";
 interface GiftCardFilterOptsProps {
   params: GiftCardListUrlFilters;
   currencies: string[];
-  currencySearchProps: SearchWithFetchMoreProps;
+  loadingCurrencies: boolean;
+  // currencySearchProps: SearchWithFetchMoreProps;
   products: SearchProducts_search_edges_node[];
   productSearchProps: SearchWithFetchMoreProps;
   customers: SearchCustomers_search_edges_node[];
   customerSearchProps: SearchWithFetchMoreProps;
-  balanceCurrencies: string[];
-  balanceCurrencySearchProps: SearchWithFetchMoreProps;
+  // balanceCurrencies: string[];
+  // balanceCurrencySearchProps: SearchWithFetchMoreProps;
   tag: string[];
   tagSearchProps: SearchWithFetchMoreProps;
 }
@@ -54,13 +54,11 @@ interface GiftCardFilterOptsProps {
 export const getFilterOpts = ({
   params,
   currencies,
-  currencySearchProps,
+  loadingCurrencies,
   products,
   productSearchProps,
   customers,
   customerSearchProps,
-  balanceCurrencies,
-  balanceCurrencySearchProps,
   tag,
   tagSearchProps
 }: GiftCardFilterOptsProps): GiftCardListFilterOpts => ({
@@ -70,10 +68,7 @@ export const getFilterOpts = ({
     choices: mapSingleValueNodeToChoice(currencies),
     displayValues: mapSingleValueNodeToChoice(currencies),
     initialSearch: "",
-    hasMore: currencySearchProps.hasMore,
-    loading: currencySearchProps.loading,
-    onFetchMore: currencySearchProps.onFetchMore,
-    onSearchChange: currencySearchProps.onSearchChange
+    loading: loadingCurrencies
   },
   product: {
     active: !!params?.product,
@@ -97,16 +92,21 @@ export const getFilterOpts = ({
     onFetchMore: customerSearchProps.onFetchMore,
     onSearchChange: customerSearchProps.onSearchChange
   },
-  balanceCurrency: {
-    active: !!params?.balanceCurrency,
-    value: params?.balanceCurrency,
-    choices: mapSingleValueNodeToChoice(balanceCurrencies),
-    displayValues: mapSingleValueNodeToChoice(balanceCurrencies),
+  initialBalanceCurrency: {
+    active: !!params?.initialBalanceCurrency,
+    value: params?.initialBalanceCurrency,
+    choices: mapSingleValueNodeToChoice(currencies),
+    displayValues: mapSingleValueNodeToChoice(currencies),
     initialSearch: "",
-    hasMore: balanceCurrencySearchProps.hasMore,
-    loading: balanceCurrencySearchProps.loading,
-    onFetchMore: balanceCurrencySearchProps.onFetchMore,
-    onSearchChange: balanceCurrencySearchProps.onSearchChange
+    loading: loadingCurrencies
+  },
+  currentBalanceCurrency: {
+    active: !!params?.currentBalanceCurrency,
+    value: params?.currentBalanceCurrency,
+    choices: mapSingleValueNodeToChoice(currencies),
+    displayValues: mapSingleValueNodeToChoice(currencies),
+    initialSearch: "",
+    loading: loadingCurrencies
   },
   tag: {
     active: !!params?.tag,
@@ -244,78 +244,74 @@ export function createFilterStructure(
   opts: GiftCardListFilterOpts
 ): IFilter<GiftCardListFilterKeys> {
   return [
-    // {
-    //   active:
-    //     opts.initialBalanceAmount.active && opts.initialBalanceCurrency.active,
-    //   name: GiftCardListFilterKeys.initialBalance,
-    //   label: intl.formatMessage(
-    //     giftCardsListTableMessages.giftCardsTableColumnBalanceTitle
-    //   ),
-    //   multipleFields: [
-    //     {
-    //       required: true,
-    //       ...createNumberField(
-    //         GiftCardListFilterKeys.initialBalanceAmount,
-    //         intl.formatMessage(messages.balanceAmountLabel),
-    //         opts.initialBalanceAmount.value
-    //       )
-    //     },
-    //     {
-    //       required: true,
-    //       ...createAutocompleteField(
-    //         GiftCardListFilterKeys.initialBalanceCurrency,
-    //         intl.formatMessage(messages.currencyLabel),
-    //         [opts.initialBalanceCurrency.value],
-    //         opts.initialBalanceCurrency.displayValues,
-    //         false,
-    //         opts.initialBalanceCurrency.choices,
-    //         {
-    //           hasMore: opts.initialBalanceCurrency.hasMore,
-    //           initialSearch: "",
-    //           loading: opts.initialBalanceCurrency.loading,
-    //           onFetchMore: opts.initialBalanceCurrency.onFetchMore,
-    //           onSearchChange: opts.initialBalanceCurrency.onSearchChange
-    //         }
-    //       )
-    //     }
-    //   ]
-    // } as IFilterElement<GiftCardListFilterKeys.initialBalance>,
-    // {
-    //   active:
-    //     opts.currentBalanceAmount.active && opts.currentBalanceCurrency.active,
-    //   name: GiftCardListFilterKeys.currentBalance,
-    //   label: intl.formatMessage(
-    //     giftCardsListTableMessages.giftCardsTableColumnBalanceTitle
-    //   ),
-    //   multipleFields: [
-    //     {
-    //       required: true,
-    //       ...createNumberField(
-    //         GiftCardListFilterKeys.currentBalanceAmount,
-    //         intl.formatMessage(messages.balanceAmountLabel),
-    //         opts.currentBalanceAmount.value
-    //       )
-    //     },
-    //     {
-    //       required: true,
-    //       ...createAutocompleteField(
-    //         GiftCardListFilterKeys.currentBalanceCurrency,
-    //         intl.formatMessage(messages.currencyLabel),
-    //         [opts.currentBalanceCurrency.value],
-    //         opts.currentBalanceCurrency.displayValues,
-    //         false,
-    //         opts.currentBalanceCurrency.choices,
-    //         {
-    //           hasMore: opts.currentBalanceCurrency.hasMore,
-    //           initialSearch: "",
-    //           loading: opts.currentBalanceCurrency.loading,
-    //           onFetchMore: opts.currentBalanceCurrency.onFetchMore,
-    //           onSearchChange: opts.currentBalanceCurrency.onSearchChange
-    //         }
-    //       )
-    //     }
-    //   ]
-    // } as IFilterElement<GiftCardListFilterKeys.currentBalance>,
+    {
+      active:
+        opts.initialBalanceAmount.active && opts.initialBalanceCurrency.active,
+      name: GiftCardListFilterKeys.initialBalance,
+      label: intl.formatMessage(messages.initialBalanceLabel),
+      multipleFields: [
+        {
+          required: true,
+          ...createNumberField(
+            GiftCardListFilterKeys.initialBalanceAmount,
+            intl.formatMessage(messages.balanceAmountLabel),
+            opts.initialBalanceAmount.value
+          )
+        },
+        {
+          required: true,
+          ...createAutocompleteField(
+            GiftCardListFilterKeys.initialBalanceCurrency,
+            intl.formatMessage(messages.currencyLabel),
+            [opts.initialBalanceCurrency.value],
+            opts.initialBalanceCurrency.displayValues,
+            false,
+            opts.initialBalanceCurrency.choices,
+            {
+              hasMore: opts.initialBalanceCurrency.hasMore,
+              initialSearch: "",
+              loading: opts.initialBalanceCurrency.loading,
+              onFetchMore: opts.initialBalanceCurrency.onFetchMore,
+              onSearchChange: opts.initialBalanceCurrency.onSearchChange
+            }
+          )
+        }
+      ]
+    } as IFilterElement<GiftCardListFilterKeys.initialBalance>,
+    {
+      active:
+        opts.currentBalanceAmount.active && opts.currentBalanceCurrency.active,
+      name: GiftCardListFilterKeys.currentBalance,
+      label: intl.formatMessage(messages.currentBalanceLabel),
+      multipleFields: [
+        {
+          required: true,
+          ...createNumberField(
+            GiftCardListFilterKeys.currentBalanceAmount,
+            intl.formatMessage(messages.balanceAmountLabel),
+            opts.currentBalanceAmount.value
+          )
+        },
+        {
+          required: true,
+          ...createAutocompleteField(
+            GiftCardListFilterKeys.currentBalanceCurrency,
+            intl.formatMessage(messages.currencyLabel),
+            [opts.currentBalanceCurrency.value],
+            opts.currentBalanceCurrency.displayValues,
+            false,
+            opts.currentBalanceCurrency.choices,
+            {
+              hasMore: opts.currentBalanceCurrency.hasMore,
+              initialSearch: "",
+              loading: opts.currentBalanceCurrency.loading,
+              onFetchMore: opts.currentBalanceCurrency.onFetchMore,
+              onSearchChange: opts.currentBalanceCurrency.onSearchChange
+            }
+          )
+        }
+      ]
+    } as IFilterElement<GiftCardListFilterKeys.currentBalance>,
     {
       active: opts.currency.active,
       ...createAutocompleteField(
@@ -433,7 +429,5 @@ export function getFilterVariables(
     usedBy: params.usedBy,
     products: params.product,
     currency: params.currency
-    // balanceAmount: params.balanceAmount,
-    // balanceCurrency: params.balanceCurrency
   };
 }

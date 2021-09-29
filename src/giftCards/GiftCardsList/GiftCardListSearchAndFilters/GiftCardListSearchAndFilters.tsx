@@ -30,7 +30,8 @@ import {
   getFilterTabs,
   saveFilterTab
 } from "./filters";
-import { useGiftCardCurrencySearch } from "./queries";
+import { giftCardListFilterErrorMessages as errorMessages } from "./messages";
+import { useGiftCardCurrenciesQuery } from "./queries";
 
 const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
   const navigate = useNavigator();
@@ -62,22 +63,15 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
   } = useProductSearch(defaultSearchVariables);
 
   const {
-    loadMore: fetchMoreCurrencies,
-    search: searchCurrencies,
-    result: searchCurrenciesResult
-  } = useGiftCardCurrencySearch(defaultSearchVariables);
-
-  const {
-    loadMore: fetchMoreBalanceCurrencies,
-    search: searchBalanceCurrencies,
-    result: searchBalanceCurrenciesResult
-  } = useGiftCardCurrencySearch(defaultSearchVariables);
-
-  const {
     loadMore: fetchMoreGiftCardTags,
     search: searchGiftCardTags,
     result: searchGiftCardTagsResult
   } = useGiftCardTagsSearch(defaultSearchVariables);
+
+  const {
+    data: giftCardCurrenciesData,
+    loading: loadingGiftCardCurrencies
+  } = useGiftCardCurrenciesQuery();
 
   const filterOpts = getFilterOpts({
     params,
@@ -86,28 +80,13 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
       onSearchChange: searchProducts
     },
     products: mapEdgesToItems(searchProductsResult?.data?.search),
-    currencySearchProps: {
-      ...getSearchFetchMoreProps(searchCurrenciesResult, fetchMoreCurrencies),
-      onSearchChange: searchCurrencies
-    },
-    currencies: mapEdgesToItems(searchCurrenciesResult?.data?.search)?.map(
-      ({ currentBalance }) => currentBalance.currency
-    ),
+    currencies: giftCardCurrenciesData?.giftCardCurrencies,
+    loadingCurrencies: loadingGiftCardCurrencies,
     customerSearchProps: {
       ...getSearchFetchMoreProps(searchCustomersResult, fetchMoreCustomers),
       onSearchChange: searchCustomers
     },
     customers: mapEdgesToItems(searchCustomersResult?.data?.search),
-    balanceCurrencySearchProps: {
-      ...getSearchFetchMoreProps(
-        searchBalanceCurrenciesResult,
-        fetchMoreBalanceCurrencies
-      ),
-      onSearchChange: searchBalanceCurrencies
-    },
-    balanceCurrencies: mapEdgesToItems(
-      searchBalanceCurrenciesResult?.data?.search
-    )?.map(({ currentBalance }) => currentBalance.currency),
     tagSearchProps: {
       ...getSearchFetchMoreProps(
         searchGiftCardTagsResult,
@@ -115,7 +94,7 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
       ),
       onSearchChange: searchGiftCardTags
     },
-    tags: compact(
+    tag: compact(
       mapEdgesToItems(searchGiftCardTagsResult?.data?.search)?.map(
         ({ tag }) => tag
       )
@@ -163,6 +142,12 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
   return (
     <>
       <FilterBar
+        errorMessages={{
+          initialBalanceAmount: errorMessages.balanceAmount,
+          initialBalanceCurrency: errorMessages.balanceCurrency,
+          currentBalanceAmount: errorMessages.balanceAmount,
+          currentBalanceCurrency: errorMessages.balanceCurrency
+        }}
         tabs={tabs.map(tab => tab.name)}
         currentTab={currentTab}
         filterStructure={filterStructure}

@@ -106,18 +106,20 @@ const FilterAutocompleteField: React.FC<FilterAutocompleteFieldProps> = ({
 
   return (
     <div {...rest}>
-      <TextField
-        data-test="filterFieldAutocompleteInput"
-        className={classes.inputContainer}
-        fullWidth
-        name={filterField.name + "_autocomplete"}
-        InputProps={{
-          classes: {
-            input: classes.input
-          }
-        }}
-        onChange={event => filterField.onSearchChange(event.target.value)}
-      />
+      {filterField?.onSearchChange && (
+        <TextField
+          data-test="filterFieldAutocompleteInput"
+          className={classes.inputContainer}
+          fullWidth
+          name={filterField.name + "_autocomplete"}
+          InputProps={{
+            classes: {
+              input: classes.input
+            }
+          }}
+          onChange={event => filterField.onSearchChange(event.target.value)}
+        />
+      )}
       {filteredValuesChecked.map(displayValue => (
         <div className={classes.option} key={displayValue.value}>
           <FormControlLabel

@@ -11,9 +11,10 @@ import {
 
 export enum GiftCardListUrlFiltersEnum {
   currency = "currency",
-  initialBalanceCurrency = "balanceCurrency",
+  initialBalanceCurrency = "initialBalanceCurrency",
   initialBalanceAmountFrom = "initialBalanceAmountFrom",
   initialBalanceAmountTo = "initialBalanceAmountTo",
+  currentBalanceCurrency = "currentBalanceCurrency",
   currentBalanceAmountFrom = "currentBalanceAmountFrom",
   currentBalanceAmountTo = "currentBalanceAmountTo",
   status = "status"
