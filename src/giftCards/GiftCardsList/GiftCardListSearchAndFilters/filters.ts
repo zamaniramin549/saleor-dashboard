@@ -21,7 +21,6 @@ import {
   mapPersonNodeToChoice,
   mapSingleValueNodeToChoice
 } from "@saleor/utils/maps";
-import { filter } from "fuzzaldrin";
 import { defineMessages, IntlShape } from "react-intl";
 
 import { GiftCardListUrlQueryParams } from "../types";
@@ -40,13 +39,10 @@ interface GiftCardFilterOptsProps {
   params: GiftCardListUrlFilters;
   currencies: string[];
   loadingCurrencies: boolean;
-  // currencySearchProps: SearchWithFetchMoreProps;
   products: SearchProducts_search_edges_node[];
   productSearchProps: SearchWithFetchMoreProps;
   customers: SearchCustomers_search_edges_node[];
   customerSearchProps: SearchWithFetchMoreProps;
-  // balanceCurrencies: string[];
-  // balanceCurrencySearchProps: SearchWithFetchMoreProps;
   tag: string[];
   tagSearchProps: SearchWithFetchMoreProps;
 }
@@ -91,22 +87,6 @@ export const getFilterOpts = ({
     loading: customerSearchProps.loading,
     onFetchMore: customerSearchProps.onFetchMore,
     onSearchChange: customerSearchProps.onSearchChange
-  },
-  initialBalanceCurrency: {
-    active: !!params?.initialBalanceCurrency,
-    value: params?.initialBalanceCurrency,
-    choices: mapSingleValueNodeToChoice(currencies),
-    displayValues: mapSingleValueNodeToChoice(currencies),
-    initialSearch: "",
-    loading: loadingCurrencies
-  },
-  currentBalanceCurrency: {
-    active: !!params?.currentBalanceCurrency,
-    value: params?.currentBalanceCurrency,
-    choices: mapSingleValueNodeToChoice(currencies),
-    displayValues: mapSingleValueNodeToChoice(currencies),
-    initialSearch: "",
-    loading: loadingCurrencies
   },
   tag: {
     active: !!params?.tag,
@@ -158,9 +138,7 @@ export function getFilterQueryParam(
 
   const {
     initialBalanceAmount,
-    initialBalanceCurrency,
     currentBalanceAmount,
-    currentBalanceCurrency,
     tag,
     currency,
     usedBy,
@@ -169,8 +147,6 @@ export function getFilterQueryParam(
   } = GiftCardListFilterKeys;
 
   switch (name) {
-    case initialBalanceCurrency:
-    case currentBalanceCurrency:
     case currency:
     case status:
       return getSingleValueQueryParam(filter, name);
@@ -245,73 +221,23 @@ export function createFilterStructure(
 ): IFilter<GiftCardListFilterKeys> {
   return [
     {
-      active:
-        opts.initialBalanceAmount.active && opts.initialBalanceCurrency.active,
-      name: GiftCardListFilterKeys.initialBalance,
-      label: intl.formatMessage(messages.initialBalanceLabel),
-      multipleFields: [
-        {
-          required: true,
-          ...createNumberField(
-            GiftCardListFilterKeys.initialBalanceAmount,
-            intl.formatMessage(messages.balanceAmountLabel),
-            opts.initialBalanceAmount.value
-          )
-        },
-        {
-          required: true,
-          ...createAutocompleteField(
-            GiftCardListFilterKeys.initialBalanceCurrency,
-            intl.formatMessage(messages.currencyLabel),
-            [opts.initialBalanceCurrency.value],
-            opts.initialBalanceCurrency.displayValues,
-            false,
-            opts.initialBalanceCurrency.choices,
-            {
-              hasMore: opts.initialBalanceCurrency.hasMore,
-              initialSearch: "",
-              loading: opts.initialBalanceCurrency.loading,
-              onFetchMore: opts.initialBalanceCurrency.onFetchMore,
-              onSearchChange: opts.initialBalanceCurrency.onSearchChange
-            }
-          )
-        }
-      ]
-    } as IFilterElement<GiftCardListFilterKeys.initialBalance>,
+      active: opts.initialBalanceAmount.active,
+      ...createNumberField(
+        GiftCardListFilterKeys.initialBalanceAmount,
+        intl.formatMessage(messages.balanceAmountLabel),
+        opts.initialBalanceAmount.value
+      )
+    },
+
     {
-      active:
-        opts.currentBalanceAmount.active && opts.currentBalanceCurrency.active,
-      name: GiftCardListFilterKeys.currentBalance,
-      label: intl.formatMessage(messages.currentBalanceLabel),
-      multipleFields: [
-        {
-          required: true,
-          ...createNumberField(
-            GiftCardListFilterKeys.currentBalanceAmount,
-            intl.formatMessage(messages.balanceAmountLabel),
-            opts.currentBalanceAmount.value
-          )
-        },
-        {
-          required: true,
-          ...createAutocompleteField(
-            GiftCardListFilterKeys.currentBalanceCurrency,
-            intl.formatMessage(messages.currencyLabel),
-            [opts.currentBalanceCurrency.value],
-            opts.currentBalanceCurrency.displayValues,
-            false,
-            opts.currentBalanceCurrency.choices,
-            {
-              hasMore: opts.currentBalanceCurrency.hasMore,
-              initialSearch: "",
-              loading: opts.currentBalanceCurrency.loading,
-              onFetchMore: opts.currentBalanceCurrency.onFetchMore,
-              onSearchChange: opts.currentBalanceCurrency.onSearchChange
-            }
-          )
-        }
-      ]
-    } as IFilterElement<GiftCardListFilterKeys.currentBalance>,
+      active: opts.currentBalanceAmount.active,
+      required: true,
+      ...createNumberField(
+        GiftCardListFilterKeys.currentBalanceAmount,
+        intl.formatMessage(messages.balanceAmountLabel),
+        opts.currentBalanceAmount.value
+      )
+    },
     {
       active: opts.currency.active,
       ...createAutocompleteField(
@@ -420,14 +346,36 @@ export const {
   GiftCardListUrlFiltersEnum
 );
 
-export function getFilterVariables(
-  params: GiftCardListUrlQueryParams
-): GiftCardFilterInput {
+export function getFilterVariables({
+  status,
+  tag,
+  usedBy,
+  product,
+  currency,
+  currentBalanceAmountTo,
+  currentBalanceAmountFrom,
+  initialBalanceAmountTo,
+  initialBalanceAmountFrom
+}: GiftCardListUrlQueryParams): GiftCardFilterInput {
   return {
-    isActive: params.status === "enabled" ? true : false,
-    tags: params.tag,
-    usedBy: params.usedBy,
-    products: params.product,
-    currency: params.currency
+    isActive: status === "enabled" ? true : false,
+    tags: tag,
+    usedBy,
+    products: product,
+    currency,
+    currentBalance:
+      currentBalanceAmountFrom && currentBalanceAmountTo
+        ? {
+            gte: parseFloat(currentBalanceAmountFrom),
+            lte: parseFloat(currentBalanceAmountTo)
+          }
+        : undefined,
+    initialBalance:
+      initialBalanceAmountFrom && initialBalanceAmountTo
+        ? {
+            gte: parseFloat(initialBalanceAmountFrom),
+            lte: parseFloat(initialBalanceAmountTo)
+          }
+        : undefined
   };
 }

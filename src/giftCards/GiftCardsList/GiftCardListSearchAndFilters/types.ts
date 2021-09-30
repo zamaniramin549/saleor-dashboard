@@ -11,10 +11,8 @@ import {
 
 export enum GiftCardListUrlFiltersEnum {
   currency = "currency",
-  initialBalanceCurrency = "initialBalanceCurrency",
   initialBalanceAmountFrom = "initialBalanceAmountFrom",
   initialBalanceAmountTo = "initialBalanceAmountTo",
-  currentBalanceCurrency = "currentBalanceCurrency",
   currentBalanceAmountFrom = "currentBalanceAmountFrom",
   currentBalanceAmountTo = "currentBalanceAmountTo",
   status = "status"
@@ -31,9 +29,7 @@ export enum GiftCardListFilterKeys {
   balance = "balance",
   initialBalance = "initialBalance",
   currentBalance = "currentBalance",
-  initialBalanceCurrency = "initialBalanceCurrency",
   initialBalanceAmount = "initialBalanceAmount",
-  currentBalanceCurrency = "currentBalanceCurrency",
   currentBalanceAmount = "currentBalanceAmount",
   tag = "tag",
   product = "product",
@@ -49,9 +45,7 @@ export interface GiftCardListFilterOpts {
   currency: FilterOpts<string> & AutocompleteFilterOpts;
   product: FilterOpts<string> & AutocompleteFilterOpts;
   usedBy: FilterOpts<string> & AutocompleteFilterOpts;
-  initialBalanceCurrency: FilterOpts<string> & AutocompleteFilterOpts;
   initialBalanceAmount: FilterOpts<MinMax>;
-  currentBalanceCurrency: FilterOpts<string> & AutocompleteFilterOpts;
   currentBalanceAmount: FilterOpts<MinMax>;
   status: FilterOpts<string>;
 }

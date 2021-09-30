@@ -85,7 +85,9 @@ const CardMenu: React.FC<CardMenuProps> = props => {
 
   const handleMenuClick = (index: number) => {
     menuItems[index].onSelect();
-    setOpen(false);
+    if (!withLoading) {
+      setOpen(false);
+    }
   };
 
   return (
@@ -129,7 +131,7 @@ const CardMenu: React.FC<CardMenuProps> = props => {
                     <MenuItem
                       data-test-id={menuItem.testId}
                       disabled={menuItem.disabled}
-                      onClick={() => handleMenuClick(menuItemIndex)}
+                      onClick={() => handleMenuClick(menuItem, menuItemIndex)}
                       key={menuItem.label}
                       data-test={menuItem.testId}
                     >
