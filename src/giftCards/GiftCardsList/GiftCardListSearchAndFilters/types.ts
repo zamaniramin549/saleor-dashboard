@@ -43,8 +43,8 @@ export type GiftCardListUrlFilters = Filters<GiftCardListUrlFiltersEnum> &
 export interface GiftCardListFilterOpts {
   tag: FilterOpts<string[]> & AutocompleteFilterOpts;
   currency: FilterOpts<string> & AutocompleteFilterOpts;
-  product: FilterOpts<string> & AutocompleteFilterOpts;
-  usedBy: FilterOpts<string> & AutocompleteFilterOpts;
+  product: FilterOpts<string[]> & AutocompleteFilterOpts;
+  usedBy: FilterOpts<string[]> & AutocompleteFilterOpts;
   initialBalanceAmount: FilterOpts<MinMax>;
   currentBalanceAmount: FilterOpts<MinMax>;
   status: FilterOpts<string>;

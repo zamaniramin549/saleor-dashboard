@@ -1,4 +1,5 @@
 import PageTitleWithStatusChip from "@saleor/components/PageTitleWithStatusChip";
+import StatusChip from "@saleor/components/StatusChip";
 import { transformOrderStatus } from "@saleor/misc";
 import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import React from "react";
@@ -8,7 +9,7 @@ interface TitleProps {
   order?: OrderDetails_order;
 }
 
-const Title: React.FC<TitleProps> = ({ order }) => {
+const OrderStatusChip: React.FC<TitleProps> = ({ order }) => {
   const intl = useIntl();
 
   if (!order) {
@@ -18,7 +19,7 @@ const Title: React.FC<TitleProps> = ({ order }) => {
   const { localized, status } = transformOrderStatus(order.status, intl);
 
   return (
-    <PageTitleWithStatusChip
+    <StatusChip
       title={order?.number}
       statusLabel={localized}
       statusType={status}
@@ -26,4 +27,16 @@ const Title: React.FC<TitleProps> = ({ order }) => {
   );
 };
 
-export default Title;
+export default OrderStatusChip;
+
+const CustomerGiftCardList: React.FC<CustomerGiftCardList> = ({
+  giftCards,
+  loading
+}) => (
+  <Skeleton>
+    {!loading &&
+      giftCards.map(giftCard => (
+        <CustomerGiftCardListItem giftCard={getExtendedGiftCard(giftCard)} />
+      ))}
+  </Skeleton>
+);

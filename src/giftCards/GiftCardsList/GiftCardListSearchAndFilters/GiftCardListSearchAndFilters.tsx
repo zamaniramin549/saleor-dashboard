@@ -14,11 +14,12 @@ import useProductSearch from "@saleor/searches/useProductSearch";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import compact from "lodash/compact";
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 
 import useGiftCardListDialogs from "../providers/GiftCardListDialogsProvider/hooks/useGiftCardListDialogs";
 import useGiftCardList from "../providers/GiftCardListProvider/hooks/useGiftCardList";
+import useGiftCardListBulkActions from "../providers/GiftCardListProvider/hooks/useGiftCardListBulkActions";
 import { GiftCardListActionParamsEnum } from "../types";
 import {
   createFilterStructure,
@@ -33,12 +34,12 @@ import {
 import { giftCardListFilterErrorMessages as errorMessages } from "./messages";
 import { useGiftCardCurrenciesQuery } from "./queries";
 
-const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
+const GiftCardListSearchAndFilters: React.FC = () => {
   const navigate = useNavigator();
   const intl = useIntl();
 
   const { params } = useGiftCardList();
-  // const { reset } = useGiftCardListBulkActions();
+  const { reset } = useGiftCardListBulkActions();
 
   const {
     closeDialog,
@@ -158,11 +159,14 @@ const GiftCardListSearchAndFilters: React.FC = ({ reset }) => {
         onTabChange={handleTabChange}
         onTabDelete={openSearchDeleteDialog}
         onTabSave={openSearchSaveDialog}
-        searchPlaceholder={intl.formatMessage({
-          defaultMessage: "Search Collections"
-        })}
+        searchPlaceholder={intl.formatMessage(
+          {
+            defaultMessage: "Search Gift Cards, e.g {exampleGiftCardCode}"
+          },
+          { exampleGiftCardCode: "21F1-39DY-V4U2" }
+        )}
         allTabLabel={intl.formatMessage({
-          defaultMessage: "All Collections",
+          defaultMessage: "All Gift Cards",
           description: "tab name"
         })}
       />

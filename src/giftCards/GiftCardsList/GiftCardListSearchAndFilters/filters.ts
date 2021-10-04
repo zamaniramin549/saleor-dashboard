@@ -221,25 +221,23 @@ export function createFilterStructure(
 ): IFilter<GiftCardListFilterKeys> {
   return [
     {
-      active: opts.initialBalanceAmount.active,
       ...createNumberField(
         GiftCardListFilterKeys.initialBalanceAmount,
-        intl.formatMessage(messages.balanceAmountLabel),
+        intl.formatMessage(messages.initialBalanceLabel),
         opts.initialBalanceAmount.value
-      )
+      ),
+      active: opts.initialBalanceAmount.active
     },
 
     {
-      active: opts.currentBalanceAmount.active,
-      required: true,
       ...createNumberField(
         GiftCardListFilterKeys.currentBalanceAmount,
-        intl.formatMessage(messages.balanceAmountLabel),
+        intl.formatMessage(messages.currentBalanceLabel),
         opts.currentBalanceAmount.value
-      )
+      ),
+      active: opts.currentBalanceAmount.active
     },
     {
-      active: opts.currency.active,
       ...createAutocompleteField(
         GiftCardListFilterKeys.currency,
         intl.formatMessage(messages.currencyLabel),
@@ -254,10 +252,10 @@ export function createFilterStructure(
           onFetchMore: opts.currency.onFetchMore,
           onSearchChange: opts.currency.onSearchChange
         }
-      )
+      ),
+      active: opts.currency.active
     },
     {
-      active: opts.tag.active,
       ...createAutocompleteField(
         GiftCardListFilterKeys.tag,
         intl.formatMessage(messages.tagLabel),
@@ -272,14 +270,14 @@ export function createFilterStructure(
           onFetchMore: opts.tag.onFetchMore,
           onSearchChange: opts.tag.onSearchChange
         }
-      )
+      ),
+      active: opts.tag.active
     },
     {
-      active: opts.product.active,
       ...createAutocompleteField(
         GiftCardListFilterKeys.product,
         intl.formatMessage(messages.productLabel),
-        [opts.product.value],
+        opts.product.value,
         opts.product.displayValues,
         true,
         opts.product.choices,
@@ -290,16 +288,16 @@ export function createFilterStructure(
           onFetchMore: opts.product.onFetchMore,
           onSearchChange: opts.product.onSearchChange
         }
-      )
+      ),
+      active: opts.product.active
     },
     {
-      active: opts.usedBy.active,
       ...createAutocompleteField(
         GiftCardListFilterKeys.usedBy,
         intl.formatMessage(messages.usedByLabel),
-        [opts.usedBy.value],
+        opts.usedBy.value,
         opts.usedBy.displayValues,
-        false,
+        true,
         opts.usedBy.choices,
         {
           hasMore: opts.usedBy.hasMore,
@@ -308,7 +306,8 @@ export function createFilterStructure(
           onFetchMore: opts.usedBy.onFetchMore,
           onSearchChange: opts.usedBy.onSearchChange
         }
-      )
+      ),
+      active: opts.usedBy.active
     },
     {
       ...createOptionsField(
@@ -355,10 +354,12 @@ export function getFilterVariables({
   currentBalanceAmountTo,
   currentBalanceAmountFrom,
   initialBalanceAmountTo,
-  initialBalanceAmountFrom
+  initialBalanceAmountFrom,
+  query
 }: GiftCardListUrlQueryParams): GiftCardFilterInput {
   return {
-    isActive: status === "enabled" ? true : false,
+    search: query,
+    isActive: !!status ? status === "enabled" : undefined,
     tags: tag,
     usedBy,
     products: product,
