@@ -87,9 +87,9 @@ enum AccountErrorCode {
 input AccountInput {
   firstName: String
   lastName: String
+  languageCode: LanguageCodeEnum
   defaultBillingAddress: AddressInput
   defaultShippingAddress: AddressInput
-  languageCode: LanguageCodeEnum
 }
 
 type AccountRegister {
@@ -103,10 +103,12 @@ type AccountRegister {
 }
 
 input AccountRegisterInput {
+  firstName: String
+  lastName: String
+  languageCode: LanguageCodeEnum
   email: String!
   password: String!
   redirectUrl: String
-  languageCode: LanguageCodeEnum
   metadata: [MetadataInput!]
   channel: String
 }
@@ -686,6 +688,7 @@ enum AttributeInputTypeEnum {
   REFERENCE
   NUMERIC
   RICH_TEXT
+  SWATCH
   BOOLEAN
   DATE
   DATE_TIME
@@ -761,7 +764,7 @@ input AttributeUpdateInput {
   slug: String
   unit: MeasurementUnitsEnum
   removeValues: [ID]
-  addValues: [AttributeValueCreateInput]
+  addValues: [AttributeValueUpdateInput]
   valueRequired: Boolean
   isVariantOnly: Boolean
   visibleInStorefront: Boolean
@@ -817,9 +820,11 @@ type AttributeValueCreate {
 }
 
 input AttributeValueCreateInput {
-  name: String!
   value: String
   richText: JSONString
+  fileUrl: String
+  contentType: String
+  name: String!
 }
 
 type AttributeValueDelete {
@@ -890,6 +895,14 @@ type AttributeValueUpdate {
   attributeValue: AttributeValue
 }
 
+input AttributeValueUpdateInput {
+  value: String
+  richText: JSONString
+  fileUrl: String
+  contentType: String
+  name: String
+}
+
 input BulkAttributeValueInput {
   id: ID
   values: [String!]
@@ -920,6 +933,7 @@ input CatalogueInput {
   products: [ID]
   categories: [ID]
   collections: [ID]
+  variants: [ID]
 }
 
 type Category implements Node & ObjectWithMetadata {
@@ -1445,18 +1459,9 @@ type Collection implements Node & ObjectWithMetadata {
   slug: String!
   privateMetadata: [MetadataItem]!
   metadata: [MetadataItem]!
-  descriptionJson: JSONString
-    @deprecated(
-      reason: "This field will be removed in Saleor 4.0. Use the `description` field instead."
-    )
-  products(
-    filter: ProductFilterInput
-    sortBy: ProductOrder
-    before: String
-    after: String
-    first: Int
-    last: Int
-  ): ProductCountableConnection
+  channel: String
+  descriptionJson: JSONString @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `description` field instead.")
+  products(filter: ProductFilterInput, sortBy: ProductOrder, before: String, after: String, first: Int, last: Int): ProductCountableConnection
   backgroundImage(size: Int): Image
   translation(languageCode: LanguageCodeEnum!): CollectionTranslation
   channelListings: [CollectionChannelListing!]
@@ -2797,6 +2802,7 @@ enum GiftCardEventsEnum {
   DEACTIVATED
   BALANCE_RESET
   EXPIRY_DATE_UPDATED
+  TAG_UPDATED
   SENT_TO_CUSTOMER
   RESENT
   NOTE_ADDED
@@ -4316,40 +4322,15 @@ type Mutation {
     variants: [ProductVariantBulkCreateInput]!
   ): ProductVariantBulkCreate
   productVariantBulkDelete(ids: [ID]!): ProductVariantBulkDelete
-  productVariantStocksCreate(
-    stocks: [StockInput!]!
-    variantId: ID!
-  ): ProductVariantStocksCreate
-  productVariantStocksDelete(
-    variantId: ID!
-    warehouseIds: [ID!]
-  ): ProductVariantStocksDelete
-  productVariantStocksUpdate(
-    stocks: [StockInput!]!
-    variantId: ID!
-  ): ProductVariantStocksUpdate
-  productVariantUpdate(
-    id: ID!
-    input: ProductVariantInput!
-  ): ProductVariantUpdate
-  productVariantSetDefault(
-    productId: ID!
-    variantId: ID!
-  ): ProductVariantSetDefault
-  productVariantTranslate(
-    id: ID!
-    input: NameTranslationInput!
-    languageCode: LanguageCodeEnum!
-  ): ProductVariantTranslate
-  productVariantChannelListingUpdate(
-    id: ID!
-    input: [ProductVariantChannelListingAddInput!]!
-  ): ProductVariantChannelListingUpdate
-  productVariantReorderAttributeValues(
-    attributeId: ID!
-    moves: [ReorderInput]!
-    variantId: ID!
-  ): ProductVariantReorderAttributeValues
+  productVariantStocksCreate(stocks: [StockInput!]!, variantId: ID!): ProductVariantStocksCreate
+  productVariantStocksDelete(variantId: ID!, warehouseIds: [ID!]): ProductVariantStocksDelete
+  productVariantStocksUpdate(stocks: [StockInput!]!, variantId: ID!): ProductVariantStocksUpdate
+  productVariantUpdate(id: ID!, input: ProductVariantInput!): ProductVariantUpdate
+  productVariantSetDefault(productId: ID!, variantId: ID!): ProductVariantSetDefault
+  productVariantTranslate(id: ID!, input: NameTranslationInput!, languageCode: LanguageCodeEnum!): ProductVariantTranslate
+  productVariantChannelListingUpdate(id: ID!, input: [ProductVariantChannelListingAddInput!]!): ProductVariantChannelListingUpdate
+  productVariantReorderAttributeValues(attributeId: ID!, moves: [ReorderInput]!, variantId: ID!): ProductVariantReorderAttributeValues
+  productVariantPreorderDeactivate(id: ID!): ProductVariantPreorderDeactivate
   variantMediaAssign(mediaId: ID!, variantId: ID!): VariantMediaAssign
   variantMediaUnassign(mediaId: ID!, variantId: ID!): VariantMediaUnassign
   paymentCapture(amount: PositiveDecimal, paymentId: ID!): PaymentCapture
@@ -4403,23 +4384,11 @@ type Mutation {
   orderCapture(amount: PositiveDecimal!, id: ID!): OrderCapture
   orderConfirm(id: ID!): OrderConfirm
   orderFulfill(input: OrderFulfillInput!, order: ID): OrderFulfill
-  orderFulfillmentCancel(
-    id: ID!
-    input: FulfillmentCancelInput
-  ): FulfillmentCancel
-  orderFulfillmentApprove(id: ID!, notifyCustomer: Boolean!): FulfillmentApprove
-  orderFulfillmentUpdateTracking(
-    id: ID!
-    input: FulfillmentUpdateTrackingInput!
-  ): FulfillmentUpdateTracking
-  orderFulfillmentRefundProducts(
-    input: OrderRefundProductsInput!
-    order: ID!
-  ): FulfillmentRefundProducts
-  orderFulfillmentReturnProducts(
-    input: OrderReturnProductsInput!
-    order: ID!
-  ): FulfillmentReturnProducts
+  orderFulfillmentCancel(id: ID!, input: FulfillmentCancelInput): FulfillmentCancel
+  orderFulfillmentApprove(allowStockToBeExceeded: Boolean = false, id: ID!, notifyCustomer: Boolean!): FulfillmentApprove
+  orderFulfillmentUpdateTracking(id: ID!, input: FulfillmentUpdateTrackingInput!): FulfillmentUpdateTracking
+  orderFulfillmentRefundProducts(input: OrderRefundProductsInput!, order: ID!): FulfillmentRefundProducts
+  orderFulfillmentReturnProducts(input: OrderReturnProductsInput!, order: ID!): FulfillmentReturnProducts
   orderLinesCreate(id: ID!, input: [OrderLineCreateInput]!): OrderLinesCreate
   orderLineDelete(id: ID!): OrderLineDelete
   orderLineUpdate(id: ID!, input: OrderLineInput!): OrderLineUpdate
@@ -4621,19 +4590,9 @@ type Mutation {
     input: AttributeValueCreateInput!
   ): AttributeValueCreate
   attributeValueDelete(id: ID!): AttributeValueDelete
-  attributeValueUpdate(
-    id: ID!
-    input: AttributeValueCreateInput!
-  ): AttributeValueUpdate
-  attributeValueTranslate(
-    id: ID!
-    input: AttributeValueTranslationInput!
-    languageCode: LanguageCodeEnum!
-  ): AttributeValueTranslate
-  attributeReorderValues(
-    attributeId: ID!
-    moves: [ReorderInput]!
-  ): AttributeReorderValues
+  attributeValueUpdate(id: ID!, input: AttributeValueUpdateInput!): AttributeValueUpdate
+  attributeValueTranslate(id: ID!, input: AttributeValueTranslationInput!, languageCode: LanguageCodeEnum!): AttributeValueTranslate
+  attributeReorderValues(attributeId: ID!, moves: [ReorderInput]!): AttributeReorderValues
   appCreate(input: AppInput!): AppCreate
   appUpdate(id: ID!, input: AppInput!): AppUpdate
   appDelete(id: ID!): AppDelete
@@ -4964,6 +4923,7 @@ enum OrderErrorCode {
   CANNOT_REFUND
   CANNOT_FULFILL_UNPAID_ORDER
   CAPTURE_INACTIVE_PAYMENT
+  GIFT_CARD_LINE
   NOT_EDITABLE
   FULFILL_ORDER_LINE
   GRAPHQL_ERROR
@@ -5122,6 +5082,7 @@ type OrderFulfill {
 input OrderFulfillInput {
   lines: [OrderFulfillLineInput!]!
   notifyCustomer: Boolean
+  allowStockToBeExceeded: Boolean = false
 }
 
 input OrderFulfillLineInput {
@@ -5138,7 +5099,8 @@ type OrderLine implements Node {
   id: ID!
   productName: String!
   variantName: String!
-  productSku: String!
+  productSku: String
+  productVariantId: String
   isShippingRequired: Boolean!
   quantity: Int!
   quantityFulfilled: Int!
@@ -5705,7 +5667,7 @@ type PasswordChange {
   errors: [AccountError!]!
 }
 
-type Payment implements Node {
+type Payment implements Node & ObjectWithMetadata {
   id: ID!
   gateway: String!
   isActive: Boolean!
@@ -5716,6 +5678,8 @@ type Payment implements Node {
   order: Order
   paymentMethodType: String!
   customerIpAddress: String
+  privateMetadata: [MetadataItem]!
+  metadata: [MetadataItem]!
   chargeStatus: PaymentChargeStatusEnum!
   actions: [OrderAction]!
   total: Money
@@ -5810,6 +5774,8 @@ input PaymentInput {
   token: String
   amount: PositiveDecimal
   returnUrl: String
+  storePaymentMethod: StorePaymentMethodEnum = none
+  metadata: [MetadataInput!]
 }
 
 type PaymentRefund {
@@ -5825,6 +5791,7 @@ type PaymentSource {
   gateway: String!
   paymentMethodId: String
   creditCardInfo: CreditCard
+  metadata: [MetadataItem]!
 }
 
 type PaymentVoid {
@@ -6023,6 +5990,22 @@ enum PostalCodeRuleInclusionTypeEnum {
   EXCLUDE
 }
 
+type PreorderData {
+  globalThreshold: Int
+  globalSoldUnits: Int!
+  endDate: DateTime
+}
+
+input PreorderSettingsInput {
+  globalThreshold: Int
+  endDate: DateTime
+}
+
+type PreorderThreshold {
+  quantity: Int
+  soldUnits: Int!
+}
+
 input PriceInput {
   currency: String!
   amount: PositiveDecimal!
@@ -6049,10 +6032,8 @@ type Product implements Node & ObjectWithMetadata {
   rating: Float
   privateMetadata: [MetadataItem]!
   metadata: [MetadataItem]!
-  descriptionJson: JSONString
-    @deprecated(
-      reason: "This field will be removed in Saleor 4.0. Use the `description` field instead."
-    )
+  channel: String
+  descriptionJson: JSONString @deprecated(reason: "This field will be removed in Saleor 4.0. Use the `description` field instead.")
   thumbnail(size: Int): Image
   pricing(address: AddressInput): ProductPricingInfo
   isAvailable(address: AddressInput): Boolean
@@ -6232,6 +6213,7 @@ enum ProductErrorCode {
   CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT
   PRODUCT_NOT_ASSIGNED_TO_CHANNEL
   UNSUPPORTED_MEDIA_PROVIDER
+  PREORDER_VARIANT_CANNOT_BE_DEACTIVATED
 }
 
 enum ProductFieldEnum {
@@ -6243,6 +6225,7 @@ enum ProductFieldEnum {
   COLLECTIONS
   CHARGE_TAXES
   PRODUCT_MEDIA
+  VARIANT_ID
   VARIANT_SKU
   VARIANT_WEIGHT
   VARIANT_MEDIA
@@ -6263,6 +6246,7 @@ input ProductFilterInput {
   productTypes: [ID]
   giftCard: Boolean
   ids: [ID]
+  hasPreorderedVariants: Boolean
   channel: String
 }
 
@@ -6593,12 +6577,13 @@ type ProductUpdate {
 type ProductVariant implements Node & ObjectWithMetadata {
   id: ID!
   name: String!
-  sku: String!
+  sku: String
   product: Product!
   trackInventory: Boolean!
   weight: Weight
   privateMetadata: [MetadataItem]!
   metadata: [MetadataItem]!
+  channel: String
   channelListings: [ProductVariantChannelListing!]
   pricing(address: AddressInput): VariantPricingInfo
   attributes(variantSelection: VariantAttributeScope): [SelectedAttribute!]!
@@ -6614,6 +6599,7 @@ type ProductVariant implements Node & ObjectWithMetadata {
   digitalContent: DigitalContent
   stocks(address: AddressInput, countryCode: CountryCode): [Stock]
   quantityAvailable(address: AddressInput, countryCode: CountryCode): Int!
+  preorder: PreorderData
 }
 
 type ProductVariantBulkCreate {
@@ -6628,9 +6614,10 @@ type ProductVariantBulkCreate {
 
 input ProductVariantBulkCreateInput {
   attributes: [BulkAttributeValueInput!]!
-  sku: String!
+  sku: String
   trackInventory: Boolean
   weight: WeightScalar
+  preorder: PreorderSettingsInput
   stocks: [StockInput!]
   channelListings: [ProductVariantChannelListingAddInput!]
 }
@@ -6650,12 +6637,14 @@ type ProductVariantChannelListing implements Node {
   price: Money
   costPrice: Money
   margin: Int
+  preorderThreshold: PreorderThreshold
 }
 
 input ProductVariantChannelListingAddInput {
   channelId: ID!
   price: PositiveDecimal!
   costPrice: PositiveDecimal
+  preorderThreshold: Int
 }
 
 type ProductVariantChannelListingUpdate {
@@ -6692,6 +6681,7 @@ input ProductVariantCreateInput {
   sku: String
   trackInventory: Boolean
   weight: WeightScalar
+  preorder: PreorderSettingsInput
   product: ID!
   stocks: [StockInput!]
 }
@@ -6709,6 +6699,7 @@ input ProductVariantFilterInput {
   search: String
   sku: [String]
   metadata: [MetadataFilter]
+  isPreorder: Boolean
 }
 
 input ProductVariantInput {
@@ -6716,6 +6707,12 @@ input ProductVariantInput {
   sku: String
   trackInventory: Boolean
   weight: WeightScalar
+  preorder: PreorderSettingsInput
+}
+
+type ProductVariantPreorderDeactivate {
+  productVariant: ProductVariant
+  errors: [ProductError!]!
 }
 
 type ProductVariantReorder {
@@ -7173,24 +7170,10 @@ type Sale implements Node & ObjectWithMetadata {
   endDate: DateTime
   privateMetadata: [MetadataItem]!
   metadata: [MetadataItem]!
-  categories(
-    before: String
-    after: String
-    first: Int
-    last: Int
-  ): CategoryCountableConnection
-  collections(
-    before: String
-    after: String
-    first: Int
-    last: Int
-  ): CollectionCountableConnection
-  products(
-    before: String
-    after: String
-    first: Int
-    last: Int
-  ): ProductCountableConnection
+  categories(before: String, after: String, first: Int, last: Int): CategoryCountableConnection
+  collections(before: String, after: String, first: Int, last: Int): CollectionCountableConnection
+  products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
+  variants(before: String, after: String, first: Int, last: Int): ProductVariantCountableConnection
   translation(languageCode: LanguageCodeEnum!): SaleTranslation
   channelListings: [SaleChannelListing!]
   discountValue: Float
@@ -7283,6 +7266,7 @@ input SaleInput {
   type: DiscountValueTypeEnum
   value: PositiveDecimal
   products: [ID]
+  variants: [ID]
   categories: [ID]
   collections: [ID]
   startDate: DateTime
@@ -7955,6 +7939,12 @@ input StockFilterInput {
 input StockInput {
   warehouse: ID!
   quantity: Int!
+}
+
+enum StorePaymentMethodEnum {
+  ON_SESSION
+  OFF_SESSION
+  NONE
 }
 
 type TaxType {
@@ -8699,6 +8689,12 @@ enum WebhookEventTypeEnum {
   ORDER_UPDATED
   ORDER_CANCELLED
   ORDER_FULFILLED
+  DRAFT_ORDER_CREATED
+  DRAFT_ORDER_UPDATED
+  DRAFT_ORDER_DELETED
+  SALE_CREATED
+  SALE_UPDATED
+  SALE_DELETED
   INVOICE_REQUESTED
   INVOICE_DELETED
   INVOICE_SENT
@@ -8738,6 +8734,12 @@ enum WebhookSampleEventTypeEnum {
   ORDER_UPDATED
   ORDER_CANCELLED
   ORDER_FULFILLED
+  DRAFT_ORDER_CREATED
+  DRAFT_ORDER_UPDATED
+  DRAFT_ORDER_DELETED
+  SALE_CREATED
+  SALE_UPDATED
+  SALE_DELETED
   INVOICE_REQUESTED
   INVOICE_DELETED
   INVOICE_SENT

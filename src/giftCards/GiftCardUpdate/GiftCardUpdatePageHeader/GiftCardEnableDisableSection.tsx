@@ -20,8 +20,12 @@ const GiftCardEnableDisableSection: React.FC = () => {
   const intl = useIntl();
 
   const {
-    giftCard: { id, isActive }
+    giftCard: { id, isActive, isExpired }
   } = useGiftCardDetails();
+
+  if (isExpired) {
+    return null;
+  }
 
   const onActivateCompleted = (data: GiftCardActivate) => {
     const errors = data?.giftCardActivate?.errors;
@@ -82,6 +86,7 @@ const GiftCardEnableDisableSection: React.FC = () => {
 
   return (
     <ConfirmButton
+      data-test-id="enable-button"
       onClick={handleClick}
       transitionState={currentOpts?.status}
       labels={{

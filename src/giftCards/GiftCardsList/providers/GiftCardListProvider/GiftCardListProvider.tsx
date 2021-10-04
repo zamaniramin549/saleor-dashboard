@@ -1,3 +1,5 @@
+import { ExtendedGiftCard } from "@saleor/giftCards/GiftCardUpdate/providers/GiftCardDetailsProvider/types";
+import { getExtendedGiftCard } from "@saleor/giftCards/GiftCardUpdate/providers/GiftCardDetailsProvider/utils";
 import useBulkActions, {
   UseBulkActionsProps
 } from "@saleor/hooks/useBulkActions";
@@ -29,7 +31,7 @@ interface GiftCardsListProviderProps {
 }
 
 export interface GiftCardListDataProps {
-  giftCards: GiftCardList_giftCards_edges_node[];
+  giftCards: Array<ExtendedGiftCard<GiftCardList_giftCards_edges_node>>;
   pageInfo: PageInfo;
   loading: boolean;
   params: GiftCardListUrlQueryParams;
@@ -75,8 +77,11 @@ export const GiftCardsListProvider: React.FC<GiftCardsListProviderProps> = ({
     variables: queryVariables
   });
 
+  const giftCards =
+    mapEdgesToItems(data?.giftCards)?.map(getExtendedGiftCard) || [];
+
   const providerValues: GiftCardsListConsumerProps = {
-    giftCards: mapEdgesToItems(data?.giftCards) || [],
+    giftCards,
     loading,
     isSelected,
     listElements,
