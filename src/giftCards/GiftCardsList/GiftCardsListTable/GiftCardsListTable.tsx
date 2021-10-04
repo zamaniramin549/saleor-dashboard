@@ -37,8 +37,8 @@ const GiftCardsListTable: React.FC = () => {
   const classes = useStyles({});
   const navigate = useNavigator();
 
-  const { giftCards, numberOfColumns, loading } = useGiftCardList();
-  const { toggle, isSelected, reset } = useGiftCardListBulkActions();
+  const { loading, giftCards, numberOfColumns } = useGiftCardList();
+  const { toggle, isSelected } = useGiftCardListBulkActions();
   const { openDeleteDialog } = useGiftCardListDialogs();
 
   const redirectToGiftCardUpdate = (id: string) => () =>
@@ -78,7 +78,7 @@ const GiftCardsListTable: React.FC = () => {
 
   return (
     <Card>
-      {!loading && <GiftCardListSearchAndFilters reset={reset} />}
+      <GiftCardListSearchAndFilters />
       <ResponsiveTable>
         <GiftCardsListTableHeader />
         <GiftCardsListTableFooter />

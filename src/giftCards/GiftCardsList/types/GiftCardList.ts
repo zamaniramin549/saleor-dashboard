@@ -3,8 +3,6 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { GiftCardFilterInput } from "./../../../types/globalTypes";
-
 // ====================================================
 // GraphQL query operation: GiftCardList
 // ====================================================
@@ -69,5 +67,4 @@ export interface GiftCardListVariables {
   after?: string | null;
   last?: number | null;
   before?: string | null;
-  filter?: GiftCardFilterInput | null;
 }

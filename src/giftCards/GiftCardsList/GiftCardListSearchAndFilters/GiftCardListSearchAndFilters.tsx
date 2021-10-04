@@ -95,7 +95,7 @@ const GiftCardListSearchAndFilters: React.FC = () => {
       ),
       onSearchChange: searchGiftCardTags
     },
-    tag: compact(
+    tags: compact(
       mapEdgesToItems(searchGiftCardTagsResult?.data?.search)?.map(
         ({ tag }) => tag
       )

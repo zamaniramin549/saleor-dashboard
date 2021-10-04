@@ -43,7 +43,7 @@ interface GiftCardFilterOptsProps {
   productSearchProps: SearchWithFetchMoreProps;
   customers: SearchCustomers_search_edges_node[];
   customerSearchProps: SearchWithFetchMoreProps;
-  tag: string[];
+  tags: string[];
   tagSearchProps: SearchWithFetchMoreProps;
 }
 
@@ -55,7 +55,7 @@ export const getFilterOpts = ({
   productSearchProps,
   customers,
   customerSearchProps,
-  tag,
+  tags,
   tagSearchProps
 }: GiftCardFilterOptsProps): GiftCardListFilterOpts => ({
   currency: {
@@ -91,8 +91,8 @@ export const getFilterOpts = ({
   tag: {
     active: !!params?.tag,
     value: dedupeFilter(params?.tag || []),
-    choices: mapSingleValueNodeToChoice(tag),
-    displayValues: mapSingleValueNodeToChoice(tag),
+    choices: mapSingleValueNodeToChoice(tags),
+    displayValues: mapSingleValueNodeToChoice(tags),
     initialSearch: "",
     hasMore: tagSearchProps.hasMore,
     loading: tagSearchProps.loading,
