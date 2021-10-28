@@ -21,8 +21,7 @@ import {
   TypedSaleCataloguesAdd,
   TypedSaleCataloguesRemove,
   TypedSaleDelete,
-  TypedSaleUpdate,
-  useSaleChannelListingUpdate
+  TypedSaleUpdate
 } from "@saleor/discounts/mutations";
 import { useSaleDetails } from "@saleor/discounts/queries";
 import { SaleCataloguesAdd } from "@saleor/discounts/types/SaleCataloguesAdd";
@@ -127,9 +126,7 @@ export const SaleDetails: React.FC<SaleDetailsProps> = ({ id, params }) => {
     data?.sale,
     availableChannels
   );
-  const saleChannelsChoices: ChannelSaleData[] = createSortedChannelsDataFromSale(
-    data?.sale
-  );
+  const saleChannelsChoices = createSortedChannelsDataFromSale(data?.sale);
 
   const {
     channelListElements,
@@ -146,8 +143,6 @@ export const SaleDetails: React.FC<SaleDetailsProps> = ({ id, params }) => {
     closeModal,
     openModal
   });
-
-  const [updateChannels, updateChannelsOpts] = useSaleChannelListingUpdate({});
 
   const [selectedChannel] = useLocalStorage("salesListChannel", "");
 
@@ -263,8 +258,7 @@ export const SaleDetails: React.FC<SaleDetailsProps> = ({ id, params }) => {
                       const handleUpdate = createUpdateHandler(
                         data?.sale,
                         saleChannelsChoices,
-                        variables => saleUpdate({ variables }),
-                        updateChannels
+                        variables => saleUpdate({ variables })
                       );
                       const handleSubmit = createMetadataUpdateHandler(
                         data?.sale,
@@ -287,15 +281,11 @@ export const SaleDetails: React.FC<SaleDetailsProps> = ({ id, params }) => {
                               currentChannels?.length
                             }
                             disabled={
-                              loading ||
-                              saleCataloguesRemoveOpts.loading ||
-                              updateChannelsOpts.loading
+                              loading || saleCataloguesRemoveOpts.loading
                             }
-                            errors={[
-                              ...(saleUpdateOpts.data?.saleUpdate.errors || []),
-                              ...(updateChannelsOpts.data
-                                ?.saleChannelListingUpdate.errors || [])
-                            ]}
+                            errors={
+                              saleUpdateOpts.data?.saleUpdate.errors || []
+                            }
                             selectedChannelId={selectedChannel}
                             pageInfo={pageInfo}
                             openChannelsModal={handleChannelsModalOpen}
