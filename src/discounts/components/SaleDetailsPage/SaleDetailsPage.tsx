@@ -1,4 +1,4 @@
-import { Channel, ChannelSaleData } from "@saleor/channels/utils";
+import { ChannelSaleData, validateSalePrice } from "@saleor/channels/utils";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
@@ -13,7 +13,6 @@ import { createSaleChannelsChangeHandler } from "@saleor/discounts/handlers";
 import { DiscountErrorFragment } from "@saleor/fragments/types/DiscountErrorFragment";
 import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
-import { validatePrice } from "@saleor/products/utils/validation";
 import { mapMetadataItemToInput } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import React from "react";
@@ -160,11 +159,7 @@ const SaleDetailsPage: React.FC<SaleDetailsPageProps> = ({
           data.type
         );
         const formDisabled = data.channelListings?.some(channel =>
-          validatePrice(
-            data.type === SaleTypeEnum.PERCENTAGE
-              ? channel.percentageValue
-              : channel.fixedValue
-          )
+          validateSalePrice(data, channel)
         );
         const changeMetadata = makeMetadataChangeHandler(change);
 
